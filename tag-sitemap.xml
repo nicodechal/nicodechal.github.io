@@ -2,28 +2,28 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>http://nicodechal.github.io/tags/Markdown-test/</loc>
+        <loc>https://nicodechal.github.io/tags/Markdown-test/</loc>
         <lastmod>2018-03-06T10:27:37.957Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://nicodechal.github.io/tags/test/</loc>
+        <loc>https://nicodechal.github.io/tags/test/</loc>
         <lastmod>2018-03-06T12:50:51.146Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://nicodechal.github.io/tags/Hexo/</loc>
+        <loc>https://nicodechal.github.io/tags/Hexo/</loc>
         <lastmod>2018-03-06T14:33:00.866Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://nicodechal.github.io/tags/Blog/</loc>
+        <loc>https://nicodechal.github.io/tags/Blog/</loc>
         <lastmod>2018-03-06T14:33:00.866Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
