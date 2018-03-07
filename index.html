@@ -8,8 +8,8 @@
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="keyword" content="">
-    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <meta name="keyword" content="Web">
+    <link rel="shortcut icon" href="/img/title.png">
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
@@ -67,7 +67,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/home-bg-2-dark.png') 
+            background-image: url('/img/header_img/cover.jpg') 
             /*config*/
         
     }
@@ -130,7 +130,14 @@
 
                         
                         <li>
-                            <a href="/about/">Self</a>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -145,13 +152,6 @@
                         
                         <li>
                             <a href="/archive/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -214,24 +214,28 @@
 
 <div class="post-preview">
 
-    <a href="/2018/03/06/hello-world/">
+    <a href="/2018/03/07/spark-note-fpgrowth-1/">
         <h2 class="post-title">
-            Hello World
+            [Spark源码阅读笔记]FP-Growth算法在Spark中的实现(一)
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Q......
+            ###FP-Growth&#x7B97;&#x6CD5;&#x4ECB;&#x7ECD;
+FP-growth (Frequent-Pattern Growth)&#x662F;&#x6570;&#x636E;&#x6316;&#x6398;&#x4E2D;&#x7528;&#x4E8E;&#x6316;&#x6398;&#x9891;&#x7E41;&#x9879;&#x96C6;&#x76......
         </div>
     </a>
     
         <p class="post-meta" style="margin: 10px 0;">
             Posted by Nicodechal on
-            2018-03-06
+            2018-03-07
         </p>
         <div class="tags">
+            
+              <a href="/tags/#Spark" title="Spark">Spark</a>
+            
+              <a href="/tags/#Big-Data" title="Big-Data">Big-Data</a>
             
         </div>
     
@@ -250,12 +254,17 @@ Q......
         </h3>
         <div class="post-content-preview">
             
-
-
-
-H=&#x2212;&#x2211;i=1N(&#x3C3;ix&#x3C3;i+1x+g&#x3C3;iz)\displaystyle 
+$$
 H=-\sum_{i=1}^N (\sigma_{i}^x \sigma_{i+1}^x+g \sigma_{i}^z)
-H=&#x2212;&#x200B;i=1&#x200B;&#x2211;&#x200B;N&#x200B;&#......
+$$
+$$
+f(n) = \begin{cases}
+\frac{n}{2},
+&amp; \text{if } n\text{ is even}
+\ 3n+1, &amp; \text{if } n\text{ is odd}
+\end{cases}
+$$
+$F......
         </div>
     </a>
     
@@ -284,7 +293,7 @@ H=&#x2212;&#x200B;i=1&#x200B;&#x2211;&#x200B;N&#x200B;&#......
         </h3>
         <div class="post-content-preview">
             &#x7B2C;&#x4E00;&#x6B21;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528; Markdown &#x8FDB;&#x884C;&#x77E5;&#x8BC6;&#x603B;&#x7ED3;&#xFF0C;&#x4E0B;&#x9762;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528; Markdown.
-&#x8BED;&#x6CD5......
+&#x8BED;&#x6CD5;......
         </div>
     </a>
     
@@ -294,7 +303,9 @@ H=&#x2212;&#x200B;i=1&#x200B;&#x2211;&#x200B;N&#x200B;&#......
         </p>
         <div class="tags">
             
-              <a href="/tags/#Markdown test" title="Markdown test">Markdown test</a>
+              <a href="/tags/#Markdown" title="Markdown">Markdown</a>
+            
+              <a href="/tags/#test" title="test">test</a>
             
         </div>
     
@@ -316,12 +327,12 @@ H=&#x2212;&#x200B;i=1&#x200B;&#x2211;&#x200B;N&#x200B;&#......
 Ported Theme of Hux Blog, Thank Huxpro for designing such a flawless theme.
 This BeanTech theme created by YuHsuan modified from the original Porter Kaijun
 
-# 
 
 
-BeanTech Desktop
 
-# Usage......
+Usage
+
+I publish the whole project f......
         </div>
     </a>
     
@@ -365,33 +376,13 @@ BeanTech Desktop
     sidebar-container
 ">
     
-        <!-- Featured Tags -->
-
-<section>
-    <!-- no hr -->
-    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-    <div class="tags">
-        
-            
-        
-            
-        
-            
-        
-            
-        
-    </div>
-</section>
-
-        <hr>
-    
         <!-- Short About -->
 <section class="visible-md visible-lg">
     <h5><a href="/about/">ABOUT ME</a></h5>
     <div class="short-about">
 
         
-            <img id = "avatar_pic" src="/img/ironman-draw.png" />
+            <img id = "avatar_pic" src="/img/head.jpg" />
         
 
         
@@ -402,8 +393,35 @@ BeanTech Desktop
         <ul class="list-inline">
             
             
+                <li>
+                    <a target="_blank" href="https://twitter.com/N">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+            
+                <li>
+                    <a target="_blank" href="https://www.zhihu.com/people/N">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa  fa-stack-1x fa-inverse">知</i>
+                        </span>
+                    </a>
+                </li>
             
 
+            
+                <li>
+                    <a target="_blank" href="http://weibo.com/N">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
             
 
             
@@ -432,7 +450,7 @@ BeanTech Desktop
     <ul>
       
         <li>
-          <a href="/2018/03/06/hello-world/">Hello World</a>
+          <a href="/2018/03/07/spark-note-fpgrowth-1/">[Spark源码阅读笔记]FP-Growth算法在Spark中的实现(一)</a>
         </li>
       
         <li>
@@ -460,11 +478,9 @@ BeanTech Desktop
     
         <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
     
-        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+        <li><a href="https://www.w3.org/" target="_blank">W3C</a></li>
     
         <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
-    
-        <li><a href="#" target="_blank">It Helps SEO</a></li>
     
 </ul>
 
@@ -486,8 +502,35 @@ BeanTech Desktop
                 <ul class="list-inline text-center">
                 
                 
+                    <li>
+                        <a target="_blank" href="https://twitter.com/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
                 
 
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
                 
 
                 

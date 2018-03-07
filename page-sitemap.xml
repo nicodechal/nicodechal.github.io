@@ -7,15 +7,22 @@
     </url>
     
     <url>
-        <loc>https://nicodechal.github.io/tags/</loc>
-        <lastmod>2018-03-06T14:33:00.955Z</lastmod>
+        <loc>https://nicodechal.github.io/archive/</loc>
+        <lastmod>2018-03-07T05:57:35.594Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://nicodechal.github.io/archive/</loc>
-        <lastmod>2018-03-06T14:33:00.886Z</lastmod>
+        <loc>https://nicodechal.github.io/tags/</loc>
+        <lastmod>2018-03-07T05:55:41.315Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://nicodechal.github.io/about/</loc>
+        <lastmod>2018-03-07T05:53:48.266Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -30,13 +37,6 @@
     <url>
         <loc>https://nicodechal.github.io/links/</loc>
         <lastmod>2017-09-05T05:11:38.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>https://nicodechal.github.io/about/</loc>
-        <lastmod>2017-09-05T05:09:10.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
