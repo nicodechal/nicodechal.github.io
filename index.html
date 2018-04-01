@@ -137,7 +137,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
@@ -151,7 +151,7 @@
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -214,6 +214,39 @@
 
 <div class="post-preview">
 
+    <a href="/2018/04/01/vue-sfc-compile-without-webpack/">
+        <h2 class="post-title">
+            如何不依赖Webpack编译Vue单文件组件
+        </h2>
+        <h3 class="post-subtitle">
+            vueify体验记录
+        </h3>
+        <div class="post-content-preview">
+            &#x8D77;&#x56E0;
+&#x901A;&#x5E38;&#x7F16;&#x8BD1; Vue &#x7684;&#x5355;&#x6587;&#x4EF6;&#x7EC4;&#x4EF6;&#x65F6;&#x90FD;&#x4F1A;&#x4F7F;&#x7528; vue-loader &#xFF0C;&#x800C;&#x8981;&#x4F7F;&#x7528; vu......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-04-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
+            
+              <a href="/tags/#Vue.js" title="Vue.js">Vue.js</a>
+            
+              <a href="/tags/#vueify" title="vueify">vueify</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2018/03/07/spark-note-fpgrowth-1/">
         <h2 class="post-title">
             [Spark源码阅读笔记]FP-Growth算法在Spark中的实现(一)
@@ -223,7 +256,7 @@
         </h3>
         <div class="post-content-preview">
             
-FP-growth (Frequent-Pattern Growth)&#x662F;&#x6570;&#x636E;&#x6316;&#x6398;&#x4E2D;&#x7528;&#x4E8E;&#x6316;&#x6398;&#x9891;&#x7E41;&#x9879;&#x96C6;&#x7684;&#x7ECF;&#x5178;&#x7B97;&#x6CD5;&#x4E4B;......
+FP-growth (Frequent-Pattern Growth)&#x662F;&#x6570;&#x636E;&#x6316;&#x6398;&#x4E2D;&#x7528;&#x4E8E;&#x6316;&#x6398;&#x9891;&#x7E41;&#x9879;&#x96C6;&#x7684;&#x7ECF;&#x5178;&#x7B97;&#x6CD5;&#x4E4B;&......
         </div>
     </a>
     
@@ -254,12 +287,17 @@ FP-growth (Frequent-Pattern Growth)&#x662F;&#x6570;&#x636E;&#x6316;&#x6398;&#x4E
         </h3>
         <div class="post-content-preview">
             
-
-
-
-H=&#x2212;&#x2211;i=1N(&#x3C3;ix&#x3C3;i+1x+g&#x3C3;iz)\displaystyle 
+$$
 H=-\sum_{i=1}^N (\sigma_{i}^x \sigma_{i+1}^x+g \sigma_{i}^z)
-H=&#x2212;&#x200B;i=1&#x200B;&#x2211;&#x200B;N&#x200B;&#......
+$$
+$$
+f(n) = \begin{cases}
+\frac{n}{2},
+&amp; \text{if } n\text{ is even}
+\ 3n+1, &amp; \text{if } n\text{ is odd}
+\end{cases}
+$$
+$F......
         </div>
     </a>
     
@@ -288,7 +326,7 @@ H=&#x2212;&#x200B;i=1&#x200B;&#x2211;&#x200B;N&#x200B;&#......
         </h3>
         <div class="post-content-preview">
             &#x7B2C;&#x4E00;&#x6B21;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528; Markdown &#x8FDB;&#x884C;&#x77E5;&#x8BC6;&#x603B;&#x7ED3;&#xFF0C;&#x4E0B;&#x9762;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528; Markdown.
-&#x8BED;&#x6CD5......
+&#x8BED;&#x6CD5;......
         </div>
     </a>
     
@@ -322,12 +360,12 @@ H=&#x2212;&#x200B;i=1&#x200B;&#x2211;&#x200B;N&#x200B;&#......
 Ported Theme of Hux Blog, Thank Huxpro for designing such a flawless theme.
 This BeanTech theme created by YuHsuan modified from the original Porter Kaijun
 
-# 
 
 
-BeanTech Desktop
 
-# Usage......
+Usage
+
+I publish the whole project f......
         </div>
     </a>
     
@@ -443,6 +481,10 @@ BeanTech Desktop
   <h5>RECENT POSTS</h3>
   <div class="widget">
     <ul>
+      
+        <li>
+          <a href="/2018/04/01/vue-sfc-compile-without-webpack/">如何不依赖Webpack编译Vue单文件组件</a>
+        </li>
       
         <li>
           <a href="/2018/03/07/spark-note-fpgrowth-1/">[Spark源码阅读笔记]FP-Growth算法在Spark中的实现(一)</a>
