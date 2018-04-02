@@ -16,20 +16,6 @@
     </url>
 
     <url>
-        <loc>https://nicodechal.github.io/tags/Spark/</loc>
-        <lastmod>2018-03-11T13:37:25.809Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/tags/Big-Data/</loc>
-        <lastmod>2018-03-11T13:37:25.809Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://nicodechal.github.io/tags/Front-End/</loc>
         <lastmod>2018-04-01T15:29:59.870Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -46,6 +32,20 @@
     <url>
         <loc>https://nicodechal.github.io/tags/vueify/</loc>
         <lastmod>2018-04-01T15:29:59.870Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/tags/Spark/</loc>
+        <lastmod>2018-04-02T03:23:32.617Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/tags/Big-Data/</loc>
+        <lastmod>2018-04-02T03:23:32.617Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
