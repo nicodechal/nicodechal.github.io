@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://nicodechal.github.io/2018/04/15/using-of-vuegister-module/</loc>
+        <lastmod>2018-04-15T15:05:43.175Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://nicodechal.github.io/2018/04/01/vue-sfc-compile-without-webpack/</loc>
         <lastmod>2018-04-02T03:25:10.841Z</lastmod>
         <changefreq>weekly</changefreq>

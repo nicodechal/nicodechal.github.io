@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-            如何不依赖 Webpack 编译 Vue 单文件组件 - Nicodechal
+            类似 babel-register 的 Vue 单文件组件编译模块 Vuegister 插件的使用 - Nicodechal
                 
     </title>
 
-    <link rel="canonical" href="https://nicodechal.github.io/2018/04/01/vue-sfc-compile-without-webpack/">
+    <link rel="canonical" href="https://nicodechal.github.io/2018/04/15/using-of-vuegister-module/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,14 @@
                             
                               <a class="tag" href="/tags/#Vue.js" title="Vue.js">Vue.js</a>
                             
-                              <a class="tag" href="/tags/#vueify" title="vueify">vueify</a>
+                              <a class="tag" href="/tags/#Vuegister" title="Vuegister">Vuegister</a>
                             
                         </div>
-                        <h1>如何不依赖 Webpack 编译 Vue 单文件组件</h1>
-                        <h2 class="subheading">vueify 体验记录</h2>
+                        <h1>类似 babel-register 的 Vue 单文件组件编译模块 Vuegister 插件的使用</h1>
+                        <h2 class="subheading">Parcel Vue 项目测试实践</h2>
                         <span class="meta">
                             Posted by Nicodechal on
-                            2018-04-01
+                            2018-04-15
                         </span>
                     </div>
                 
@@ -219,34 +219,25 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="x8d77x56e0">&#x8D77;&#x56E0;</span></h2>
-<p>&#x901A;&#x5E38;&#x7F16;&#x8BD1; Vue &#x7684;&#x5355;&#x6587;&#x4EF6;&#x7EC4;&#x4EF6;&#x65F6;&#x90FD;&#x4F1A;&#x4F7F;&#x7528; vue-loader &#xFF0C;&#x800C;&#x8981;&#x4F7F;&#x7528; vue-loader &#x5C31;&#x9700;&#x8981;&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x5F15;&#x5165; webpack &#x3002;<br>
-&#x4E5F;&#x8BB8;&#x4F60;&#x4E0D;&#x9700;&#x8981;&#x6216;&#x4E0D;&#x60F3;&#x4F7F;&#x7528; webpack &#xFF0C;&#x4F46;&#x9047;&#x5230;&#x4E86;&#x9700;&#x8981;&#x5C06; Vue &#x7684;&#x5355;&#x6587;&#x4EF6;&#x7EC4;&#x4EF6; (*.vue &#x6587;&#x4EF6;) &#x8F6C;&#x6362;&#x4E3A;&#x666E;&#x901A; js &#x6A21;&#x5757; (*.js &#x6587;&#x4EF6;) &#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x6B64;&#x65F6;&#x53EF;&#x4EE5;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528; <a href="https://github.com/vuejs/vueify" target="_blank" rel="noopener">vueify</a>&#x3002;</p>
-<h2><span id="x4f7fx7528-vueify-x7f16x8bd1">&#x4F7F;&#x7528; vueify &#x7F16;&#x8BD1;</span></h2>
-<p>vueify &#x662F;&#x4E00;&#x4E2A;&#x63D0;&#x4F9B;&#x7ED9; <a href="http://browserify.org/" target="_blank" rel="noopener">Browserify</a> &#x7684;&#x8F6C;&#x6362;&#x5668;&#xFF0C;&#x53EF;&#x4EE5;&#x5BF9; Vue &#x7EC4;&#x4EF6;&#x8FDB;&#x884C;&#x8F6C;&#x6362;&#xFF0C;&#x540C;&#x65F6;&#x63D0;&#x4F9B;&#x4E86;&#x7F16;&#x8BD1;&#x63A5;&#x53E3;&#x53EF;&#x4EE5;&#x5BF9; Vue &#x7684;&#x5355;&#x6587;&#x4EF6;&#x7EC4;&#x4EF6;&#x76F4;&#x63A5;&#x8FDB;&#x884C;&#x7F16;&#x8BD1; (&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x8FD9;&#x5957;&#x7F16;&#x8BD1;&#x63A5;&#x53E3;&#x672C;&#x6765;&#x5C5E;&#x4E8E; vue-component-compiler &#x8FD9;&#x4E2A;&#x5E93;&#xFF0C;&#x4F46;&#x662F;&#x88AB;&#x6574;&#x5408;&#x5230;&#x4E86;&#x8FD9;&#x91CC;&#xFF0C;&#x540C;&#x65F6;&#x73B0;&#x5728; vue-component-compiler &#x5DF2;&#x7ECF;&#x5E9F;&#x5F03;)</p>
-<h3><span id="x5b89x88c5-vueify">&#x5B89;&#x88C5; vueify</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yarn add vueify #&#x4F7F;&#x7528;yarn</span><br><span class="line">npm install vueify --save-dev #&#x4F7F;&#x7528;npm</span><br></pre></td></tr></table></figure>
-<h3><span id="vueify-x7528x6cd5">vueify &#x7528;&#x6CD5;</span></h3>
-<p>&#x9996;&#x5148;&#x9700;&#x8981;&#x4ECE; vueify &#x4E2D;&#x53D6;&#x51FA;&#x7F16;&#x8BD1;&#x5668;&#xFF1A;</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> compiler = <span class="built_in">require</span>(<span class="string">&apos;vueify&apos;</span>).compiler</span><br></pre></td></tr></table></figure>
-<p>&#x4E4B;&#x540E;&#x8C03;&#x7528; compiler &#x7684; compile &#x65B9;&#x6CD5;&#x5373;&#x53EF;&#x8FDB;&#x884C;&#x7F16;&#x8BD1;</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">compiler.compile(fileContent, filePath, <span class="function"><span class="keyword">function</span> (<span class="params">err, result</span>) </span>{</span><br><span class="line">  <span class="comment">// result is a common js module string</span></span><br><span class="line">})</span><br></pre></td></tr></table></figure>
-<p>&#x8BE5;&#x65B9;&#x6CD5;&#x6709;&#x4E09;&#x4E2A;&#x53C2;&#x6570;&#xFF1A;</p>
-<ol>
-<li><code>fileContent</code>: &#x9700;&#x8981;&#x7F16;&#x8BD1;&#x7684;&#x5185;&#x5BB9;&#x7684;&#x5B57;&#x7B26;&#x4E32;</li>
-<li><code>filePath</code>&#xFF1A;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;&#x5F53;&#x524D;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x9700;&#x8981;&#x5199;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;</li>
-<li><code>callback</code>&#x51FD;&#x6570;&#xFF1A;&#x5728;&#x7F16;&#x8BD1;&#x5B8C;&#x6210;&#x540E;&#x6267;&#x884C;&#xFF0C;result&#x662F;&#x7F16;&#x8BD1;&#x7ED3;&#x679C;&#x7684;&#x5B57;&#x7B26;&#x4E32;</li>
-</ol>
-<h3><span id="x4f7fx7528-vueify-x5b9ex4f8b">&#x4F7F;&#x7528; vueify &#x5B9E;&#x4F8B;</span></h3>
-<p>&#x5BF9;&#x4E8E;&#x6587;&#x4EF6; counter.vue &#xFF1A;</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        {{ count }}</span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;increment&quot;</span>&gt;</span>&#x81EA;&#x589E;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">lang</span>=<span class="string">&quot;babel&quot;</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> {</span></span><br><span class="line"><span class="undefined">    data () {</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> {</span></span><br><span class="line"><span class="undefined">            count: 0</span></span><br><span class="line"><span class="undefined">        }</span></span><br><span class="line"><span class="undefined">    },</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    methods: {</span></span><br><span class="line"><span class="undefined">        increment () {</span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.count++</span></span><br><span class="line"><span class="undefined">        }</span></span><br><span class="line"><span class="undefined">    }</span></span><br><span class="line"><span class="undefined">}</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>&#x4F7F;&#x7528;&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#x8F6C;&#x6362;&#x4E3A; counter.js &#xFF1A;</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> compiler = <span class="built_in">require</span>(<span class="string">&apos;vueify&apos;</span>).compiler <span class="comment">//&#x901A;&#x8FC7; vueify &#x7684; compiler &#x53D6;&#x51FA;&#x7F16;&#x8BD1;&#x5668;</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&apos;fs&apos;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> content = fs.readFileSync(<span class="string">&apos;counter.vue&apos;</span>).toString() <span class="comment">//&#x4F7F;&#x7528;&#x67D0;&#x79CD;&#x65B9;&#x6CD5;&#x8BFB;&#x51FA;&#x5185;&#x5BB9;&#x8BFB;&#x51FA;&#x6587;&#x4EF6;&#x5185;&#x5BB9;</span></span><br><span class="line"></span><br><span class="line">compiler.compile(content, <span class="string">&apos;/path/..&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, res</span>) </span>{</span><br><span class="line">    fs.writeFileSync(<span class="string">&apos;counter.js&apos;</span>, res) <span class="comment">//&#x7528;&#x67D0;&#x79CD;&#x65B9;&#x6CD5;&#x5199;&#x51FA;</span></span><br><span class="line">})</span><br></pre></td></tr></table></figure>
-<p>&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x4F7F;&#x7528;&#xFF1A;</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Counter <span class="keyword">from</span> <span class="string">&apos;./counter.js&apos;</span></span><br></pre></td></tr></table></figure>
+                <h2><span id="x4e3ax4ec0x4e48x4f7fx7528-vuegister">&#x4E3A;&#x4EC0;&#x4E48;&#x4F7F;&#x7528; Vuegister</span></h2>
+<p>&#x6700;&#x8FD1;&#xFF0C;<img src="https://github.com/parcel-bundler/parcel/blob/master/changelog.md#added" alt="Parcel"> &#x9ED8;&#x8BA4;&#x652F;&#x6301;&#x4E86; Vue &#x5355;&#x6587;&#x4EF6;&#x7EC4;&#x4EF6;&#x7684;&#x6253;&#x5305;&#xFF0C;&#x4E8E;&#x662F;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528; Parcel &#x642D;&#x5EFA;&#x4E86; Vue.js &#x5355;&#x6587;&#x4EF6;&#x7EC4;&#x4EF6;&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x3002;&#x4F7F;&#x7528;&#x65F6;&#x53EF;&#x4EE5;&#x5F00;&#x7BB1;&#x5373;&#x7528;&#x7684;&#x5F00;&#x59CB; Vue.js &#x9879;&#x76EE;&#xFF0C;&#x975E;&#x5E38;&#x65B9;&#x4FBF;&#x3002;&#x4F46;&#x662F;&#x5F53;&#x6211;&#x60F3;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528; Mocha + Chai &#x5B9E;&#x73B0;&#x7EC4;&#x4EF6;&#x6D4B;&#x8BD5;&#x65F6;&#x5374;&#x53D1;&#x73B0;&#x5355;&#x6587;&#x4EF6;&#x7EC4;&#x4EF6;&#x5E76;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x88AB;&#x6D4B;&#x8BD5;&#xFF1A;Parcel &#x76F4;&#x63A5;&#x5C06;&#x7F16;&#x8BD1;&#x7684;&#x7ED3;&#x679C;&#x8FDB;&#x884C;&#x4E86;&#x6253;&#x5305;&#xFF0C;&#x6CA1;&#x6709;&#x72EC;&#x7ACB;&#x7684; Vue &#x7EC4;&#x4EF6;&#x7F16;&#x8BD1;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;&#x4E4B;&#x524D;<img src="https://nicodechal.github.io/2018/04/01/vue-sfc-compile-without-webpack/" alt="&#x5C1D;&#x8BD5;&#x4F7F;&#x7528;&#x4E86; Vueify"> &#xFF0C;&#x56E0;&#x4E3A;&#x60F3;&#x8981;&#x901A;&#x8FC7; <code>&#x7F16;&#x8BD1; -&gt; &#x6D4B;&#x8BD5;&#x6587;&#x4EF6;&#x5F15;&#x5165;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x6587;&#x4EF6; -&gt; &#x6D4B;&#x8BD5;</code> &#x7684;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;&#x7EC4;&#x4EF6;&#x6D4B;&#x8BD5;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x7684;&#x81EA;&#x52A8;&#x5316;&#xFF0C;&#x8003;&#x8651;&#x5229;&#x7528; Mocha &#x7684; <code>--require</code> <img src="https://mochajs.org/#-r---require-module-name" alt="&#x9009;&#x9879;"> &#x5728;&#x542F;&#x52A8;&#x6D4B;&#x8BD5;&#x524D;&#x4F7F;&#x7528; Vueify &#x8FDB;&#x884C;&#x7F16;&#x8BD1;&#xFF0C;&#x6682;&#x65F6;&#x60F3;&#x5230;&#x4F7F;&#x7528; node.js &#x7684; <img src="https://www.npmjs.com/package/pirates" alt="pirates"> &#x6A21;&#x5757;&#xFF0C;&#x52AB;&#x6301; require &#x6A21;&#x5757;&#x5BF9; Vue-SFC &#x63D0;&#x524D;&#x7F16;&#x8BD1;&#xFF0C;&#x6574;&#x4E2A;&#x601D;&#x8DEF;&#x5927;&#x6982;&#x662F;&#xFF1A;&#x5148;&#x52AB;&#x6301; *.vue &#x6587;&#x4EF6;&#x7684; require &#x8FC7;&#x7A0B;&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528; Vueify &#x8FDB;&#x884C;&#x7F16;&#x8BD1;&#xFF0C;&#x4E4B;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x6D4B;&#x8BD5; Vue-SFC&#x4E86;&#x3002;&#x4F46;&#x662F;&#xFF0C;Vueify &#x7684;&#x7F16;&#x8BD1;&#x8FC7;&#x7A0B;&#x662F;&#x5F02;&#x6B65;&#x7684;&#xFF0C;&#x5BFC;&#x81F4; require &#x65F6;&#x5E76;&#x4E0D;&#x80FD;&#x8FD4;&#x56DE;&#x76F8;&#x5173;&#x6A21;&#x5757;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x7ED3;&#x679C;&#x3002;&#x867D;&#x7136;&#x8FD8;&#x5728;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528;&#x4E00;&#x4E9B;&#x540C;&#x6B65;&#x6A21;&#x5757;&#x6765;&#x4F7F;&#x8FD9;&#x4E2A;&#x5F02;&#x6B65;&#x8FC7;&#x7A0B;&#x540C;&#x6B65;&#x5316;&#xFF0C;&#x4F46;&#x5076;&#x7136;&#x7684;&#xFF0C;&#x5F53;&#x6211;&#x5C1D;&#x8BD5;&#x5728; npm &#x5B98;&#x7F51; &#x8F93;&#x5165; Vue-register &#x65F6;&#xFF0C;&#x627E;&#x5230;&#x4E86; <img src="https://www.npmjs.com/package/vuegister" alt="Vuegister">&#x3002;</p>
+<p>Vuegister &#x662F;&#x4E00;&#x4E2A;&#x7C7B;&#x4F3C;&#x4E8E; babel-register &#x7684;&#x6A21;&#x5757;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x901A;&#x8FC7; require &#x6765;&#x52A0;&#x8F7D; Vue-SFC &#x6587;&#x4EF6;&#xFF0C;&#x7528;&#x6CD5;&#x4E5F;&#x7C7B;&#x4F3C;&#x4E8E; babel-register &#xFF0C;&#x53EA;&#x8981;&#x5728;&#x9879;&#x76EE;&#x5165;&#x53E3;&#x524D; require &#x8BE5;&#x6CE8;&#x518C;&#x5668;&#x5373;&#x53EF;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x6A21;&#x5757;&#x53EF;&#x4EE5;&#x8BF4;&#x662F;&#x5B8C;&#x5168;&#x7B26;&#x5408;&#x4E86;&#x6211;&#x7684;&#x8981;&#x6C42;&#xFF0C;&#x7528;&#x6CD5;&#x4E5F;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5728; Mocha &#x4E2D;&#x4F7F;&#x7528;&#x65F6;&#x53EA;&#x8981;&#x50CF; babel-register &#x4E00;&#x6837;&#xFF0C;&#x5728; Mocha &#x542F;&#x52A8;&#x65F6;&#x5C06; Vuegister &#x7684;&#x6CE8;&#x518C;&#x5668;&#x4F5C;&#x4E3A; <code>--require</code> &#x7684;&#x53C2;&#x6570;&#x5373;&#x53EF;&#x3002;</p>
+<h2><span id="vuegister-x7684x4f7fx7528">Vuegister &#x7684;&#x4F7F;&#x7528;</span></h2>
+<h3><span id="x5b89x88c5">&#x5B89;&#x88C5;</span></h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install vuegister -D //&#x4F7F;&#x7528; npm</span><br><span class="line">yarn add Vuegister -D //&#x4F7F;&#x7528; yarn</span><br></pre></td></tr></table></figure>
+<h3><span id="x4f7fx7528x65b9x5f0f">&#x4F7F;&#x7528;&#x65B9;&#x5F0F;</span></h3>
+<p>&#x5728;&#x7A0B;&#x5E8F;&#x5165;&#x53E3;&#x5904;&#x8C03;&#x7528;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">&apos;vuegister&apos;</span>).register()</span><br></pre></td></tr></table></figure>
+<p>&#x5373;&#x53EF;&#x3002;</p>
+<p>&#x4F7F;&#x7528; Mocha &#x65F6;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mocha --require vuegister/register</span><br></pre></td></tr></table></figure>
+<p>&#x5177;&#x4F53;&#x53EF;&#x4EE5;&#x53C2;&#x8003;<img src="https://github.com/iatsiuk/vuegister/blob/HEAD/api.md" alt="&#x5B98;&#x65B9;&#x6587;&#x6863;"></p>
 <h2><span id="x9700x8981x6ce8x610fx7684">&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;</span></h2>
-<p>&#x4F7F;&#x7528; vueify &#x65F6;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x7F16;&#x8BD1; es6 &#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x9700;&#x8981;&#x4F7F;&#x7528; babel &#xFF0C;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x4F7F;&#x7528;&#x4E86; <code>&lt;script lang=&quot;babel&quot;&gt;</code> &#x8FD9;&#x6837;&#x7684;&#x5199;&#x6CD5;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x9700;&#x8981;&#x786E;&#x4FDD;&#x81EA;&#x5DF1;&#x7684;&#x9879;&#x76EE;&#x4E2D;&#x6B63;&#x786E;&#x914D;&#x7F6E;&#x4E86; babel &#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x62A5;&#x9519;&#x3002;</p>
-<p>&#x53E6;&#x5916;&#xFF0C;vueify &#x8F6C;&#x6362;&#x7684;&#x5355;&#x6587;&#x4EF6;&#x7EC4;&#x4EF6;&#x4E2D;&#x7684; <code>&lt;style&gt;</code> &#x4E2D;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x662F;&#x901A;&#x8FC7; <code>require(&apos;vueify/lib/insert-css&apos;).insert(&apos;..style content here..&apos;)</code> &#x5F15;&#x5165;js&#x6587;&#x4EF6;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x8981;&#x8FD0;&#x884C;&#x8F6C;&#x6362;&#x8FC7;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x9700;&#x8981;&#x786E;&#x4FDD;&#x9879;&#x76EE;&#x4E2D;&#x5DF2;&#x7ECF;&#x5B89;&#x88C5;&#x4E86; vueify (&#x901A;&#x5E38;&#x90FD;&#x5E94;&#x8BE5;&#x5DF2;&#x7ECF;&#x5B89;&#x88C5;&#x4E86;&#xFF0C;&#x6BD5;&#x7ADF;&#x521A;&#x7528;&#x4E86;&#x5B83;&#x7F16;&#x8BD1;) &#x3002;</p>
+<p>&#x5728; Parcel &#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x65F6;&#xFF0C;Vuegister &#x5BF9;&#x4E8E; SFC &#x4E2D;&#x7684; <code>script</code> &#x90E8;&#x5206;&#xFF0C;&#x9700;&#x8981;&#x6DFB;&#x52A0; <code>lang</code> &#x5C5E;&#x6027;&#x4E3A; <code>babel</code>&#xFF0C;&#x4F46;&#x662F;&#x4E00;&#x65E6;&#x6DFB;&#x52A0; Parcel &#x62A5;&#x9519;&#xFF0C;&#x89E3;&#x51B3;&#x65B9;&#x5F0F;&#x662F;&#xFF0C;&#x8BBE;&#x7F6E; Vuegister script &#x7684;&#x9ED8;&#x8BA4;&#x8BED;&#x8A00;(&#x5373;&#x9ED8;&#x8BA4; <code>lang</code> &#x503C;)&#xFF1A;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">&apos;vuegister&apos;</span>).register({</span><br><span class="line">  lang: {</span><br><span class="line">    script: <span class="string">&apos;babel&apos;</span></span><br><span class="line">  }</span><br><span class="line">})</span><br></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x6837;&#x5C31;&#x4E0D;&#x9700;&#x8981;&#x5728; SFC &#x4E2D;&#x6DFB;&#x52A0;&#x5C5E;&#x6027;&#xFF0C;&#x907F;&#x514D;&#x4E86;&#x51B2;&#x7A81;&#x3002;</p>
 
                 
 
@@ -254,13 +245,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/04/15/using-of-vuegister-module/" data-toggle="tooltip" data-placement="top" title="类似 babel-register 的 Vue 单文件组件编译模块 Vuegister 插件的使用">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2018/03/07/spark-note-fpgrowth-1/" data-toggle="tooltip" data-placement="top" title="[Spark 源码阅读笔记] FP-Growth 算法在 Spark 中的实现(一)">Next Post &rarr;</a>
+                            <a href="/2018/04/01/vue-sfc-compile-without-webpack/" data-toggle="tooltip" data-placement="top" title="如何不依赖 Webpack 编译 Vue 单文件组件">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -290,7 +277,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">起因</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">使用 vueify 编译</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">安装 vueify</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">vueify 用法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">使用 vueify 实例</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">需要注意的</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">为什么使用 Vuegister</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Vuegister 的使用</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">使用方式</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">需要注意的</span></a></li></ol>
         
         </div>
       </aside>
@@ -314,7 +301,7 @@
                         
                           <a class="tag" href="/tags/#Vue.js" title="Vue.js">Vue.js</a>
                         
-                          <a class="tag" href="/tags/#vueify" title="vueify">vueify</a>
+                          <a class="tag" href="/tags/#Vuegister" title="Vuegister">Vuegister</a>
                         
                     </div>
                 </section>
@@ -349,8 +336,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "nicodechal";
-    var disqus_identifier = "https://nicodechal.github.io/2018/04/01/vue-sfc-compile-without-webpack/";
-    var disqus_url = "https://nicodechal.github.io/2018/04/01/vue-sfc-compile-without-webpack/";
+    var disqus_identifier = "https://nicodechal.github.io/2018/04/15/using-of-vuegister-module/";
+    var disqus_url = "https://nicodechal.github.io/2018/04/15/using-of-vuegister-module/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

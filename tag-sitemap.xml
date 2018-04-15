@@ -30,22 +30,29 @@
     </url>
 
     <url>
-        <loc>https://nicodechal.github.io/tags/Front-End/</loc>
+        <loc>https://nicodechal.github.io/tags/vueify/</loc>
         <lastmod>2018-04-02T03:25:10.841Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/tags/Front-End/</loc>
+        <lastmod>2018-04-15T15:05:43.175Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://nicodechal.github.io/tags/Vue-js/</loc>
-        <lastmod>2018-04-02T03:25:10.841Z</lastmod>
+        <lastmod>2018-04-15T15:05:43.175Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://nicodechal.github.io/tags/vueify/</loc>
-        <lastmod>2018-04-02T03:25:10.841Z</lastmod>
+        <loc>https://nicodechal.github.io/tags/Vuegister/</loc>
+        <lastmod>2018-04-15T15:05:43.175Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
