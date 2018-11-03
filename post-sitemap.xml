@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://nicodechal.github.io/2017/09/05/My-first-markdown-test/</loc>
+        <lastmod>2018-11-03T14:10:22.755Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://nicodechal.github.io/2018/03/06/static-test/</loc>
         <lastmod>2018-11-03T13:54:35.124Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -49,14 +57,6 @@
     <url>
         <loc>https://nicodechal.github.io/2018/03/07/spark-note-fpgrowth-1/</loc>
         <lastmod>2018-04-02T03:23:34.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/2017/09/05/My-first-markdown-test/</loc>
-        <lastmod>2018-03-07T06:18:30.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
