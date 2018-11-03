@@ -219,21 +219,24 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="为什么使用-vuegister">为什么使用 Vuegister</span></h2>
+                <h2><span id="为什么使用-vuegister"> 为什么使用 Vuegister</span></h2>
 <p>最近，<a href="https://github.com/parcel-bundler/parcel/blob/master/changelog.md#added" target="_blank" rel="noopener">Parcel</a> 默认支持了 Vue 单文件组件的打包，于是尝试使用 Parcel 搭建了 Vue.js 单文件组件开发环境。使用时可以开箱即用的开始 Vue.js 项目，非常方便。但是当我想尝试使用 Mocha + Chai 实现组件测试时却发现单文件组件并不能直接被测试：Parcel 直接将编译的结果进行了打包，没有独立的 Vue 组件编译，这也是为什么之前<a href="https://nicodechal.github.io/2018/04/01/vue-sfc-compile-without-webpack/">尝试使用了 Vueify</a> ，因为想要通过 <code>编译 -&gt; 测试文件引入编译后的文件 -&gt; 测试</code> 的方式实现组件测试。</p>
 <p>为了实现这个过程的自动化，考虑利用 Mocha 的 <code>--require</code> <a href="https://mochajs.org/#-r---require-module-name" target="_blank" rel="noopener">选项</a> 在启动测试前使用 Vueify 进行编译，暂时想到使用 node.js 的 <a href="https://www.npmjs.com/package/pirates" target="_blank" rel="noopener">pirates</a> 模块，劫持 require 模块对 Vue-SFC 提前编译，整个思路大概是：先劫持 *.vue 文件的 require 过程，然后调用 Vueify 进行编译，之后就可以直接测试 Vue-SFC了。但是，Vueify 的编译过程是异步的，导致 require 时并不能返回相关模块编译后的结果。虽然还在尝试使用一些同步模块来使这个异步过程同步化，但偶然的，当我尝试在 npm 官网 输入 Vue-register 时，找到了 <a href="https://www.npmjs.com/package/vuegister" target="_blank" rel="noopener">Vuegister</a>。</p>
 <p>Vuegister 是一个类似于 babel-register 的模块，可以实现通过 require 来加载 Vue-SFC 文件，用法也类似于 babel-register ，只要在项目入口前 require 该注册器即可。</p>
 <p>这个模块可以说是完全符合了我的要求，用法也很简单，在 Mocha 中使用时只要像 babel-register 一样，在 Mocha 启动时将 Vuegister 的注册器作为 <code>--require</code> 的参数即可。</p>
-<h2><span id="vuegister-的使用">Vuegister 的使用</span></h2>
-<h3><span id="安装">安装</span></h3>
+<h2><span id="vuegister-的使用"> Vuegister 的使用</span></h2>
+<h3><span id="安装"> 安装</span></h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install vuegister -D //使用 npm</span><br><span class="line">yarn add Vuegister -D //使用 yarn</span><br></pre></td></tr></table></figure>
-<h3><span id="使用方式">使用方式</span></h3>
-<p>在程序入口处调用 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'vuegister'</span>).register()</span><br></pre></td></tr></table></figure></p>
+<h3><span id="使用方式"> 使用方式</span></h3>
+<p>在程序入口处调用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'vuegister'</span>).register()</span><br></pre></td></tr></table></figure>
 <p>即可。</p>
-<p>使用 Mocha 时 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mocha --require vuegister/register</span><br></pre></td></tr></table></figure></p>
+<p>使用 Mocha 时</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mocha --require vuegister/register</span><br></pre></td></tr></table></figure>
 <p>具体可以参考<a href="https://github.com/iatsiuk/vuegister/blob/HEAD/api.md" target="_blank" rel="noopener">官方文档</a></p>
-<h2><span id="需要注意的">需要注意的</span></h2>
-<p>在 Parcel 项目中使用时，Vuegister 对于 SFC 中的 <code>script</code> 部分，需要添加 <code>lang</code> 属性为 <code>babel</code>，但是一旦添加 Parcel 报错，解决方式是，设置 Vuegister script 的默认语言(即默认 <code>lang</code> 值)： <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'vuegister'</span>).register(&#123;</span><br><span class="line">  lang: &#123;</span><br><span class="line">    script: <span class="string">'babel'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2><span id="需要注意的"> 需要注意的</span></h2>
+<p>在 Parcel 项目中使用时，Vuegister 对于 SFC 中的 <code>script</code> 部分，需要添加 <code>lang</code> 属性为 <code>babel</code>，但是一旦添加 Parcel 报错，解决方式是，设置 Vuegister script 的默认语言(即默认 <code>lang</code> 值)：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'vuegister'</span>).register(&#123;</span><br><span class="line">  lang: &#123;</span><br><span class="line">    script: <span class="string">'babel'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>这样就不需要在 SFC 中添加属性，避免了冲突。</p>
 
                 
@@ -278,7 +281,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">为什么使用 Vuegister</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Vuegister 的使用</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">使用方式</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">需要注意的</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 为什么使用 Vuegister</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> Vuegister 的使用</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"> 安装</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"> 使用方式</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 需要注意的</span></a></li></ol>
         
         </div>
       </aside>
