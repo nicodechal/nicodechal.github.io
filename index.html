@@ -41,7 +41,7 @@
                                     <!-- Hux change font-awesome CDN to qiniu -->
                                     <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-
+                                    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
                                     <!-- Hux Delete, sad but pending in China
     <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
@@ -223,9 +223,11 @@
         </h3>
         <div class="post-content-preview">
             Components and Props
-&#x51FD;&#x6570;&#x5F0F;&#x7EC4;&#x4EF6;&#x548C;&#x7C7B;&#x7EC4;&#x4EF6;
-&#x51FD;&#x6570;&#x5F0F;&#x7EC4;&#x4EF6;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;
-123function Welcome(props) {  ......
+函数式组件和类组件
+函数式组件的例子：
+123function Welcome(props) &#123;  return &lt;h1&gt;Hello, &#123;props.name&#125;&lt;/h1&gt;;&#125;
+类组件使用 ES6 的 class 语法创建 React 组件：
+12345class Welcome exte......
         </div>
     </a>
     
@@ -256,9 +258,12 @@
         </h3>
         <div class="post-content-preview">
             Hello World
-&#x4E00;&#x4E2A;&#x6700;&#x5C0F;&#x7684; React &#x793A;&#x4F8B;&#xFF1A;
-1ReactDOM.render(&lt;h1&gt;Hello World&lt;/h1&gt;, document.getElementById(&quot;root&quot;));
-&#x8FD9;&#x4E2A;&#......
+一个最小的 React 示例：
+1ReactDOM.render(&lt;h1&gt;Hello World&lt;/h1&gt;, document.getElementById("root"));
+这个例子会在页面上渲染出 Hello World 。
+Introducing JSX
+jsx 的语法允许下面这样的变量定义：·
+1const element = &lt......
         </div>
     </a>
     
@@ -288,8 +293,8 @@
             Parcel Vue 项目测试实践
         </h3>
         <div class="post-content-preview">
-            &#x4E3A;&#x4EC0;&#x4E48;&#x4F7F;&#x7528; Vuegister
-&#x6700;&#x8FD1;&#xFF0C;Parcel &#x9ED8;&#x8BA4;&#x652F;&#x6301;&#x4E86; Vue &#x5355;&#x6587;&#x4EF6;&#x7EC4;&#x4EF6;&#x7684;&#x6253;&#x5305;&#xFF0......
+            为什么使用 Vuegister
+最近，Parcel 默认支持了 Vue 单文件组件的打包，于是尝试使用 Parcel 搭建了 Vue.js 单文件组件开发环境。使用时可以开箱即用的开始 Vue.js 项目，非常方便。但是当我想尝试使用 Mocha + Chai 实现组件测试时却发现单文件组件并不能直接被测试：Parcel 直接将编译的结果进行了打包，没有独立的 Vue 组件编译，这也是为什么......
         </div>
     </a>
     
@@ -321,8 +326,10 @@
             vueify 体验记录
         </h3>
         <div class="post-content-preview">
-            &#x8D77;&#x56E0;
-&#x901A;&#x5E38;&#x7F16;&#x8BD1; Vue &#x7684;&#x5355;&#x6587;&#x4EF6;&#x7EC4;&#x4EF6;&#x65F6;&#x90FD;&#x4F1A;&#x4F7F;&#x7528; vue-loader &#xFF0C;&#x800C;&#x8981;&#x4F7F;&#x7528; vu......
+            起因
+通常编译 Vue 的单文件组件时都会使用 vue-loader ，而要使用 vue-loader 就需要在项目中引入 webpack 。 也许你不需要或不想使用 webpack ，但遇到了需要将 Vue 的单文件组件 (*.vue 文件) 转换为普通 js 模块 (*.js 文件) 的情况，此时可以尝试使用 vueify。
+使用 vueify 编译
+vueify 是一个提供给 Brow......
         </div>
     </a>
     
@@ -424,8 +431,24 @@ f(n) = \begin{cases}
             
         </h3>
         <div class="post-content-preview">
-            &#x7B2C;&#x4E00;&#x6B21;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528; Markdown &#x8FDB;&#x884C;&#x77E5;&#x8BC6;&#x603B;&#x7ED3;&#xFF0C;&#x4E0B;&#x9762;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528; Markdown.
-&#x8BED;&#x6CD5;......
+            第一次尝试使用 Markdown 进行知识总结，下面尝试使用 Markdown.
+语法尝试
+输入代码
+123function main (name: String, age: Number) : void &#123;    console.log(name, age);&#125;
+行内代码 #include&lt;stdio.h&gt;
+输入表格
+
+
+
+学生
+姓名
+分数
+
+
+
+
+小明
+男......
         </div>
     </a>
     
