@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-            About Me - Nicodechal
+            gitlab-ci 使用初探 - Nicodechal
                 
     </title>
 
-    <link rel="canonical" href="https://nicodechal.github.io/about/">
+    <link rel="canonical" href="https://nicodechal.github.io/2018/11/03/gitlab-ci-usage/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -67,8 +67,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/self.jpg')
-            /*page*/
+            background-image: url('undefined')
+            /*post*/
         
     }
     
@@ -81,10 +81,20 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>About Me</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">Welcome to Nicodechal&#39;s Blog</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#gitlab" title="gitlab">gitlab</a>
+                            
+                              <a class="tag" href="/tags/#CI/CD" title="CI/CD">CI/CD</a>
+                            
+                        </div>
+                        <h1>gitlab-ci 使用初探</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Nicodechal on
+                            2018-11-03
+                        </span>
                     </div>
                 
 
@@ -194,192 +204,185 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
+    <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <p>My interest is web development especially front-end development.</p>
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
+                <h3><span id="gitlab-ci-介绍"> Gitlab-CI 介绍</span></h3>
+<p>Gitlab-CI 是 Gitlab 提供的一个服务，该服务为项目开发提供了自动化构建、测试和部署的能力。Gitlab-CI 可以在项目每次提交后触发配置好的自动化工作流程，例如在每次提交代码后对代码进行测试同时打包代码发布(持续集成)。Gitlan-CI 方便了提交代码后的代码测试、构建和部署，提高了代码交付的效率。</p>
+<h3><span id="gitlab-ci-的使用"> Gitlab-CI 的使用</span></h3>
+<p>从 Gitlab 8.0 版本开始 Gitlab-CI 已经被集成在 Gitlab 中，所以可以直接使用。在 Gitlab 上的项目使用 Gitlab-CI，只需要做两件事：</p>
+<ol>
+<li>在项目的根目录下添加 <code>.gitlab-ci.yml</code> 文件</li>
+<li>配置 gitlab-runner</li>
+</ol>
+<p>之后只要推送代码，就可以在 Gitlab 的 CI/CD 菜单中看到 Gitlab-CI 的运行情况。</p>
+<h4><span id="创建-gitlab-ciyml-文件"> 创建 .gitlab-ci.yml 文件</span></h4>
+<p>.gitlab-ci.yml 文件描述了需要 gitlab-ci 执行的自动化操作，每当提交代码之后，gitlab-ci 就会检查该文件然后根据该文件内容在 <em>Runners</em> 中执行相关操作。该文件是一个 YAML 文件。下面是一个 .gitlab-ci.yml 文件的实例：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">before_script:</span> <span class="comment"># 每个脚本执行前都要执行</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">apt-get</span> <span class="string">update</span> <span class="bullet">-qq</span> <span class="string">&amp;&amp;</span> <span class="string">apt-get</span> <span class="string">install</span> <span class="bullet">-y</span> <span class="bullet">-qq</span> <span class="string">sqlite3</span> <span class="string">libsqlite3-dev</span> <span class="string">nodejs</span> <span class="comment">#一些需要自动执行的命令</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">ruby</span> <span class="bullet">-v</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">which</span> <span class="string">ruby</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">gem</span> <span class="string">install</span> <span class="string">bundler</span> <span class="bullet">--no-ri</span> <span class="bullet">--no-rdoc</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">bundle</span> <span class="string">install</span> <span class="bullet">--jobs</span> <span class="string">$(nproc)</span>  <span class="string">"$&#123;FLAGS[@]&#125;"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rspec:</span> <span class="comment"># 一个job 名为 rspec</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">bundle</span> <span class="string">exec</span> <span class="string">rspec</span> <span class="comment"># 该 job 需要执行的脚本</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rubocop:</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">bundle</span> <span class="string">exec</span> <span class="string">rubocop</span></span><br></pre></td></tr></table></figure>
+<p>创建完成后，将该文件添加到项目的根目录并上传到 gitlab 上：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .gitlab-ci.yml</span><br><span class="line">git commit -m "Add .gitlab-ci.yml"</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<p>此时可以在 gitlab 的 WEB 页面看到刚才提交触发的构建，但是目前还没有配置 Runner 所以该构建处于 pending 状态(在 WEB 界面会看到一个暂停的小标记)，接下来需要配置Runner。</p>
+<h4><span id="配置-gitlab-runner"> 配置 gitlab-runner</span></h4>
+<p>Gitlab-CI 使用 gitlab-runner 执行 .gitlab-ci.yml 配置的脚本，是脚本的执行器。使用时首先需要安装 gitlab-runner ，然后在 Gitlab 的 WEB 界面对 Runner 进行配置和分配。</p>
+<p>本文使用 Docker 安装 gitlab-Runner，首先使用下面命令拉取 gitlab-runner 的镜像：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull gitlab/gitlab-runner</span><br></pre></td></tr></table></figure>
+<p>然后添加 gitlab-runner 的容器：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name gitlab-runner --restart always \</span><br><span class="line">  -v /srv/gitlab-runner/config:/etc/gitlab-runner \</span><br><span class="line">  -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">  gitlab/gitlab-runner:latest</span><br></pre></td></tr></table></figure>
+<p>注册 Runner</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it gitlab-runner gitlab-ci-multi-runner register</span><br></pre></td></tr></table></figure>
+<p>注册过程参考 <a href="https://docs.gitlab.com/runner/register/index.html#docker" target="_blank" rel="noopener">gitlab-runner 注册</a></p>
+<p>最后运行下面命令启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it gitlab-runner gitlab-ci-multi-runner install</span><br><span class="line">sudo docker exec -it gitlab-runner gitlab-ci-multi-runner start</span><br></pre></td></tr></table></figure>
+<p>此时在 gitlab WEB 界面可以看到 Runner正常运行 (Runner 旁边有绿色的灯亮起)</p>
+<p><img src="https://img-blog.csdn.net/20170515161632358?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYWl4aWFveWFuZzE2OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>完成上述步骤后，只要进行代码提交， gitlab 就会运行 runner 执行 .gitlab-ci.yml 中设置的 jobs。</p>
+<h3><span id="参考资料"> 参考资料</span></h3>
+<p><a href="https://docs.gitlab.com/ee/ci/quick_start/README.html" target="_blank" rel="noopener">Getting started with GitLab CI/CD</a></p>
+<p><a href="https://blog.csdn.net/aixiaoyang168/article/details/72168834" target="_blank" rel="noopener">Docker搭建自己的Gitlab CI Runner</a></p>
+<p><a href="https://about.gitlab.com/2016/08/05/continuous-integration-delivery-and-deployment-with-gitlab/" target="_blank" rel="noopener">Continuous Integration, Delivery, and Deployment with GitLab</a></p>
 
-                <!-- 如果开启评论功能 -->
                 
-                    <hr>
 
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
                     
+                    
+                        <li class="next">
+                            <a href="/2018/06/27/react-main-concepts-summary-2/" data-toggle="tooltip" data-placement="top" title="React 基本概念总结(二)">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
 
-                    
-                    <!-- disqus 评论框 start -->
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
                     <div class="comment">
                         <div id="disqus_thread" class="disqus-thread"></div>
                     </div>
-                    <!-- disqus 评论框 end -->
-                    
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
 
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
 
-                    
-
-                    
-                    <!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-                    <script type="text/javascript">
-                        /* * * CONFIGURATION VARIABLES * * */
-                        var disqus_shortname = "nicodechal";
-                        var disqus_identifier = "https://nicodechal.github.io/about/index.html";
-                        var disqus_url = "https://nicodechal.github.io/about/index.html";
-
-                        (function() {
-                            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                        })();
-
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#gitlab" title="gitlab">gitlab</a>
                         
-                    </script>
-                    <!-- disqus 公共JS代码 end -->
+                          <a class="tag" href="/tags/#CI/CD" title="CI/CD">CI/CD</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
                     
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="https://www.w3.org/" target="_blank">W3C</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="https://vuejs.org" target="_blank">Vue.js</a></li>
+                    
+                </ul>
                 
             </div>
-
-          <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">ABOUT ME</a></h5>
-    <div class="short-about">
-
-        
-            <img id = "avatar_pic" src="/img/head.jpg" />
-        
-
-        
-            <p>Hi, i&#39;m Nicodechal</p>
-        
-
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
-            
-                <li>
-                    <a target="_blank" href="https://twitter.com/N">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-                <li>
-                    <a target="_blank" href="https://www.zhihu.com/people/N">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                        </span>
-                    </a>
-                </li>
-            
-
-            
-                <li>
-                    <a target="_blank" href="http://weibo.com/N">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-
-            
-
-            
-                <li>
-                    <a target="_blank"  href="https://github.com/Nicodechal">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-            
-            
-        </ul>
+        </div>
     </div>
-</section>
-        <hr>
-    
-        
-  <h5>RECENT POSTS</h3>
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/2018/11/03/gitlab-ci-usage/">gitlab-ci 使用初探</a>
-        </li>
-      
-        <li>
-          <a href="/2018/06/27/react-main-concepts-summary-2/">React 基本概念总结(二)</a>
-        </li>
-      
-        <li>
-          <a href="/2018/06/26/react-main-concepts-summary-1/">React 基本概念总结(一)</a>
-        </li>
-      
-        <li>
-          <a href="/2018/04/15/using-of-vuegister-module/">类似 babel-register 的 Vue 单文件组件编译模块 Vuegister 插件的使用</a>
-        </li>
-      
-        <li>
-          <a href="/2018/04/01/vue-sfc-compile-without-webpack/">如何不依赖 Webpack 编译 Vue 单文件组件</a>
-        </li>
-      
-    </ul>
-  </div>
+</article>
 
-        <hr>
-    
-        <!-- Friends Blog -->
 
-<h5>FRIENDS</h5>
-<ul class="list-inline">
 
-    
-        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
-    
-        <li><a href="https://www.w3.org/" target="_blank">W3C</a></li>
-    
-        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
-    
-        <li><a href="https://vuejs.org" target="_blank">Vue.js</a></li>
-    
-</ul>
 
-        <hr>
-    
-</div>
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "nicodechal";
+    var disqus_identifier = "https://nicodechal.github.io/2018/11/03/gitlab-ci-usage/";
+    var disqus_url = "https://nicodechal.github.io/2018/11/03/gitlab-ci-usage/";
 
-        
-    </div>
-</div>
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
