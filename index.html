@@ -355,7 +355,9 @@
         </h3>
         <div class="post-content-preview">
             
-FP-growth (Frequent-Pattern Growth)&#x662F;&#x6570;&#x636E;&#x6316;&#x6398;&#x4E2D;&#x7528;&#x4E8E;&#x6316;&#x6398;&#x9891;&#x7E41;&#x9879;&#x96C6;&#x7684;&#x7ECF;&#x5178;&#x7B97;&#x6CD5;&#x4E4B;&......
+FP-growth (Frequent-Pattern Growth)是数据挖掘中用于挖掘频繁项集的经典算法之一。相较于 Apriori 算法，该算法消除了候选项集，并减少了对数据库扫描的次数，因而效率更高。具体算法思路可以参考数据挖掘教材 data mining concepts and techniques 第六章的内容。
+
+本文主要介绍 FPTree 的实现，FPTree 结构是 S......
         </div>
     </a>
     
@@ -386,17 +388,15 @@ FP-growth (Frequent-Pattern Growth)&#x662F;&#x6570;&#x636E;&#x6316;&#x6398;&#x4E
         </h3>
         <div class="post-content-preview">
             
-$$
+\[
 H=-\sum_{i=1}^N (\sigma_{i}^x \sigma_{i+1}^x+g \sigma_{i}^z)
-$$
-$$
+\] \[
 f(n) = \begin{cases}
-\frac{n}{2},
-&amp; \text{if } n\text{ is even}
-\ 3n+1, &amp; \text{if } n\text{ is odd}
-\end{cases}
-$$
-$F......
+ \frac{n}{2},
+ &amp; \text{if } n\text{ is even}
+ \\ 3n+1, &amp; \text{if } n\text{ is odd}
+ \end{cases}
+......
         </div>
     </a>
     
