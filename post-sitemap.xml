@@ -7,8 +7,16 @@
     </url>
 
     <url>
+        <loc>https://nicodechal.github.io/2018/12/20/ethereum-rlp/</loc>
+        <lastmod>2018-12-21T05:47:36.024Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://nicodechal.github.io/2018/11/17/data-mining-basic/</loc>
-        <lastmod>2018-11-17T12:04:45.275Z</lastmod>
+        <lastmod>2018-12-20T15:11:52.863Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
