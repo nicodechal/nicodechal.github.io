@@ -230,14 +230,14 @@
 </ol>
 <p>具体的操作流程如下：</p>
 <ol>
-<li>如果第一个字节的值在 [0x00, 0x7f] 之间，则该字节解码值为其本身。</li>
-<li>如果第一个字节的值在 [0x80, 0xb7] 之间，则数据类型为字符串，其长度 <code>str_len</code> 为 <code>该字节的值 - 0x80</code>，取接下来的 <code>str_len</code> 个字节进行编码。</li>
-<li>如果第一个字节的值在 [0xb8, 0xbf] 之间，则数据类型为字符串，其<strong>长度值</strong>的字节数 <code>len_of_str_len</code> 为 <code>该字节的值 - 0xb7</code>，接下来的 <code>len_of_str_len</code> 个字节的值为字符串的长度 <code>str_len</code>，同时取接下来的 <code>str_len</code> 个字节进行编码。</li>
-<li>如果第一个字节的值在 [0xc0, 0xf7] 之间，则数据类型为列表，其长度 <code>list_len</code> 为 <code>该字节的值 - 0xc0</code>，取接下来的 <code>list_len</code> 个字节进行编码。</li>
-<li>如果第一个字节的值在 [0xf8, 0xff] 之间，则数据类型为字符串，其<strong>长度值</strong>的字节数 <code>len_of_list_len</code> 为 <code>该字节的值 - 0xf7</code>，接下来的 <code>len_of_list_len</code> 个字节的值为字符串的长度 <code>list_len</code>，同时取接下来的 <code>list_len</code> 个字节进行编码。</li>
+<li>如果第一个字节的值在 <code>[0x00, 0x7f]</code> 之间，则该字节解码值为其本身。</li>
+<li>如果第一个字节的值在 <code>[0x80, 0xb7]</code> 之间，则数据类型为字符串，其长度 <code>str_len</code> 为 <code>该字节的值 - 0x80</code>，取接下来的 <code>str_len</code> 个字节进行编码。</li>
+<li>如果第一个字节的值在 <code>[0xb8, 0xbf]</code> 之间，则数据类型为字符串，其<strong>长度值</strong>的字节数 <code>len_of_str_len</code> 为 <code>该字节的值 - 0xb7</code>，接下来的 <code>len_of_str_len</code> 个字节的值为字符串的长度 <code>str_len</code>，同时取接下来的 <code>str_len</code> 个字节进行编码。</li>
+<li>如果第一个字节的值在 <code>[0xc0, 0xf7]</code> 之间，则数据类型为列表，其长度 <code>list_len</code> 为 <code>该字节的值 - 0xc0</code>，取接下来的 <code>list_len</code> 个字节进行编码。</li>
+<li>如果第一个字节的值在 <code>[0xf8, 0xff]</code> 之间，则数据类型为字符串，其<strong>长度值</strong>的字节数 <code>len_of_list_len</code> 为 <code>该字节的值 - 0xf7</code>，接下来的 <code>len_of_list_len</code> 个字节的值为字符串的长度 <code>list_len</code>，同时取接下来的 <code>list_len</code> 个字节进行编码。</li>
 </ol>
 <h3><span id="总结"> 总结</span></h3>
-<p>RLP 算法解码过程通过理解 RLP 算法的编码过程可以很容易的得到，RLP 算法解码主要通过数据前缀实现，利用前缀数据的取值范围不同来判断数据类型和数据长度。对于一个字节的数据 ( 取值范围 [0x00, 0xff] )，首先划分为 [0x00, 0xbf]、[0xc0, 0xff]，分别表示列表数据和字符串数据。再分别根据数据长度进行划分，首先，对于 ASCII 范围内的数据直接进行解码，然后，1. 对于较短的数据，可以直接从第一字节的前缀中解析得到数据长度，2. 对于较长的数据，则先解析出<strong>数据长度值</strong>的字节数，并在第一字节后取该字节数的数据作为数据长度。得到数据长度后，在前缀 ( 此处包括数据长度，如果有 ) 后取相应长度的数据进行编码。整体过程是递归进行的。</p>
+<p>RLP 算法解码过程通过理解 RLP 算法的编码过程可以很容易的得到，RLP 算法解码主要通过数据前缀实现，利用前缀数据的取值范围不同来判断数据类型和数据长度。对于一个字节的数据 ( 取值范围 <code>[0x00, 0xff]</code> )，首先划分为 <code>[0x00, 0xbf]</code>、<code>[0xc0, 0xff]</code>，分别表示列表数据和字符串数据。再分别根据数据长度进行划分，首先，对于 ASCII 范围内的数据直接进行解码，然后，1. 对于较短的数据，可以直接从第一字节的前缀中解析得到数据长度，2. 对于较长的数据，则先解析出<strong>数据长度值</strong>的字节数，并在第一字节后取该字节数的数据作为数据长度。得到数据长度后，在前缀 ( 此处包括数据长度，如果有 ) 后取相应长度的数据进行编码。整体过程是递归进行的。</p>
 <p>总的来说，RLP 算法能够实现结构化的数据和字节序列之间的转换，可以方便的传输和存储结构化的数据，因而在以太坊中得到了广泛应用。</p>
 <h3><span id="参考资料"> 参考资料</span></h3>
 <p><a href="https://github.com/ethereum/wiki/wiki/RLP" target="_blank" rel="noopener">RLP · ethereum/wiki Wiki</a></p>
