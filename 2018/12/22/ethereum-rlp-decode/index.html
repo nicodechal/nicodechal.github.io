@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-            About Me - Nicodechal
+            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码 - Nicodechal
                 
     </title>
 
-    <link rel="canonical" href="https://nicodechal.github.io/about/">
+    <link rel="canonical" href="https://nicodechal.github.io/2018/12/22/ethereum-rlp-decode/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -67,8 +67,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/self.jpg')
-            /*page*/
+            background-image: url('null')
+            /*post*/
         
     }
     
@@ -81,10 +81,20 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>About Me</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">Welcome to Nicodechal&#39;s Blog</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
+                            
+                              <a class="tag" href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+                            
+                        </div>
+                        <h1>Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码</h1>
+                        <h2 class="subheading">Ethereum 学习笔记</h2>
+                        <span class="meta">
+                            Posted by Nicodechal on
+                            2018-12-22
+                        </span>
                     </div>
                 
 
@@ -194,192 +204,187 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
+    <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <p>My interest is web development especially front-end development.</p>
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
+                <h3><span id="概述"> 概述</span></h3>
+<p>RLP 算法能够将任意嵌套字节数组编码为字节序列，也能够将其还原为字节数组，这个过程相对于<a href="/2018/12/20/ethereum-rlp-encode">编码</a>过程的逆过程，称为 RLP 算法的解码。下面是一个具体示例。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt; <span class="number">0xc7</span>, <span class="number">0xc0</span>, <span class="number">0xc1</span>, <span class="number">0xc0</span>, <span class="number">0xc3</span>, <span class="number">0xc0</span>, <span class="number">0xc1</span>, <span class="number">0xc0</span> &gt; = [ [], <span class="string">[[]]</span>, [ [], <span class="string">[[]]</span> ] ]</span><br></pre></td></tr></table></figure>
+<p>本文对于 RLP 算法解码过程进行说明。</p>
+<h3><span id="算法流程"> 算法流程</span></h3>
+<p>相对于编码过程，解码过程分为以下几个主要的步骤：</p>
+<ol>
+<li>根据第一个字节，解码出数据类型 ( 列表或字符串 ) 和数据长度信息及偏移 ( 即原始数据开头的在字节序列中的位置 )。</li>
+<li>根据数据类型和偏移，解码数据。</li>
+<li>解码剩余的数据。</li>
+</ol>
+<p>具体的操作流程如下：</p>
+<ol>
+<li>如果第一个字节的值在 [0x00, 0x7f] 之间，则该字节解码值为其本身。</li>
+<li>如果第一个字节的值在 [0x80, 0xb7] 之间，则数据类型为字符串，其长度 <code>str_len</code> 为 <code>该字节的值 - 0x80</code>，取接下来的 <code>str_len</code> 个字节进行编码。</li>
+<li>如果第一个字节的值在 [0xb8, 0xbf] 之间，则数据类型为字符串，其<strong>长度值</strong>的字节数 <code>len_of_str_len</code> 为 <code>该字节的值 - 0xb7</code>，接下来的 <code>len_of_str_len</code> 个字节的值为字符串的长度 <code>str_len</code>，同时取接下来的 <code>str_len</code> 个字节进行编码。</li>
+<li>如果第一个字节的值在 [0xc0, 0xf7] 之间，则数据类型为列表，其长度 <code>list_len</code> 为 <code>该字节的值 - 0xc0</code>，取接下来的 <code>list_len</code> 个字节进行编码。</li>
+<li>如果第一个字节的值在 [0xf8, 0xff] 之间，则数据类型为字符串，其<strong>长度值</strong>的字节数 <code>len_of_list_len</code> 为 <code>该字节的值 - 0xf7</code>，接下来的 <code>len_of_list_len</code> 个字节的值为字符串的长度 <code>list_len</code>，同时取接下来的 <code>list_len</code> 个字节进行编码。</li>
+</ol>
+<h3><span id="总结"> 总结</span></h3>
+<p>RLP 算法解码过程通过理解 RLP 算法的编码过程可以很容易的得到，RLP 算法解码主要通过数据前缀实现，利用前缀数据的取值范围不同来判断数据类型和数据长度。对于一个字节的数据 ( 取值范围 [0x00, 0xff] )，首先划分为 [0x00, 0xbf]、[0xc0, 0xff]，分别表示列表数据和字符串数据。再分别根据数据长度进行划分，首先，对于 ASCII 范围内的数据直接进行解码，然后，1. 对于较短的数据，可以直接从第一字节的前缀中解析得到数据长度，2. 对于较长的数据，则先解析出<strong>数据长度值</strong>的字节数，并在第一字节后取该字节数的数据作为数据长度。得到数据长度后，在前缀 ( 此处包括数据长度，如果有 ) 后取相应长度的数据进行编码。整体过程是递归进行的。</p>
+<p>总的来说，RLP 算法能够实现结构化的数据和字节序列之间的转换，可以方便的传输和存储结构化的数据，因而在以太坊中得到了广泛应用。</p>
+<h3><span id="参考资料"> 参考资料</span></h3>
+<p><a href="https://github.com/ethereum/wiki/wiki/RLP" target="_blank" rel="noopener">RLP · ethereum/wiki Wiki</a></p>
 
-                <!-- 如果开启评论功能 -->
                 
-                    <hr>
 
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
                     
+                    
+                        <li class="next">
+                            <a href="/2018/12/20/ethereum-rlp-encode/" data-toggle="tooltip" data-placement="top" title="Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
 
-                    
-                    <!-- disqus 评论框 start -->
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
                     <div class="comment">
                         <div id="disqus_thread" class="disqus-thread"></div>
                     </div>
-                    <!-- disqus 评论框 end -->
-                    
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
 
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 概述</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 算法流程</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 总结</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 参考资料</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
 
-                    
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
 
-                    
-                    <!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-                    <script type="text/javascript">
-                        /* * * CONFIGURATION VARIABLES * * */
-                        var disqus_shortname = "nicodechal";
-                        var disqus_identifier = "https://nicodechal.github.io/about/index.html";
-                        var disqus_url = "https://nicodechal.github.io/about/index.html";
-
-                        (function() {
-                            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                        })();
-
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
                         
-                    </script>
-                    <!-- disqus 公共JS代码 end -->
+                          <a class="tag" href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
                     
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="https://www.w3.org/" target="_blank">W3C</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="https://vuejs.org" target="_blank">Vue.js</a></li>
+                    
+                </ul>
                 
             </div>
-
-          <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">ABOUT ME</a></h5>
-    <div class="short-about">
-
-        
-            <img id="avatar_pic" src="/img/head.jpg">
-        
-
-        
-            <p>Hi, i&#39;m Nicodechal</p>
-        
-
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
-            
-                <li>
-                    <a target="_blank" href="https://twitter.com/N">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-                <li>
-                    <a target="_blank" href="https://www.zhihu.com/people/N">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                        </span>
-                    </a>
-                </li>
-            
-
-            
-                <li>
-                    <a target="_blank" href="http://weibo.com/N">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-
-            
-
-            
-                <li>
-                    <a target="_blank" href="https://github.com/Nicodechal">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-            
-            
-        </ul>
+        </div>
     </div>
-</section>
-        <hr>
-    
-        
-  <h5>RECENT POSTS
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/2018/12/22/ethereum-rlp-decode/">Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码</a>
-        </li>
-      
-        <li>
-          <a href="/2018/12/20/ethereum-rlp-encode/">Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码</a>
-        </li>
-      
-        <li>
-          <a href="/2018/11/17/data-mining-basic/">数据挖掘基础知识</a>
-        </li>
-      
-        <li>
-          <a href="/2018/11/03/gitlab-ci-usage/">Gitlab-CI 使用初探</a>
-        </li>
-      
-        <li>
-          <a href="/2018/06/27/react-main-concepts-summary-2/">React 基本概念总结(二)</a>
-        </li>
-      
-    </ul>
-  </div>
-</h5>
-        <hr>
-    
-        <!-- Friends Blog -->
+</article>
 
-<h5>FRIENDS</h5>
-<ul class="list-inline">
 
-    
-        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
-    
-        <li><a href="https://www.w3.org/" target="_blank">W3C</a></li>
-    
-        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
-    
-        <li><a href="https://vuejs.org" target="_blank">Vue.js</a></li>
-    
-</ul>
 
-        <hr>
-    
-</div>
 
-        
-    </div>
-</div>
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "nicodechal";
+    var disqus_identifier = "https://nicodechal.github.io/2018/12/22/ethereum-rlp-decode/";
+    var disqus_url = "https://nicodechal.github.io/2018/12/22/ethereum-rlp-decode/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->

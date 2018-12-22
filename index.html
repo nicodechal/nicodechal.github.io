@@ -214,7 +214,42 @@
 
 <div class="post-preview">
 
-    <a href="/2018/12/20/ethereum-rlp/">
+    <a href="/2018/12/22/ethereum-rlp-decode/">
+        <h2 class="post-title">
+            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码
+        </h2>
+        <h3 class="post-subtitle">
+            Ethereum 学习笔记
+        </h3>
+        <div class="post-content-preview">
+             概述
+RLP 算法能够将任意嵌套字节数组编码为字节序列，也能够将其还原为字节数组，这个过程相对于编码过程的逆过程，称为 RLP 算法的解码。下面是一个具体示例。
+1&lt; 0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0 &gt; = [ [], [[]], [ [], [[]] ] ]
+本文对于 RLP 算法解码过程进行说明。
+ 算法流程
+相......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-12-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
+            
+              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/12/20/ethereum-rlp-encode/">
         <h2 class="post-title">
             Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码
         </h2>
@@ -223,9 +258,9 @@
         </h3>
         <div class="post-content-preview">
              概述
-在 Ethereum 中，用于序列化对象的 RLP 算法被用于编码任意嵌套的字节数组，下面是一个任意嵌套字节数组的例子：
+在 Ethereum 中，RLP 算法被用于编码任意嵌套的字节数组，下面是一个任意嵌套字节数组的例子：
 1["cat",["puppy","cow"],"horse",[[]],"pig",[""],"sheep"]
-RLP 算法用来编码 ( 序列化 ) 其结构，使其变为字节序列。下面是一个简单的转化例子 ( 使用 &lt; 和 &gt; 表示序列和数组区分 ) ：......
+RLP 算法用来编码 ( 序列化 ) 其结构，使其变为字节序列 ( 二进制串 ) 。下面是一个简单的转化例子 ( 使用 &lt; 和 &gt; 表示序列和数组区分 ) ......
         </div>
     </a>
     
@@ -529,58 +564,16 @@ f(n)={n2,if n is even3n+1,if n is oddf(n) = \begin{cases}
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/09/05/My-first-markdown-test/">
-        <h2 class="post-title">
-            My first markdown test
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            第一次尝试使用 Markdown 进行知识总结，下面尝试使用 Markdown.
- 语法尝试
- 输入代码
-123function main (name: String, age: Number) : void &#123;    console.log(name, age);&#125;
-行内代码 #include&lt;stdio.h&gt;
- 输入表格
-
-
-
-学生
-姓名
-分数
-
-
-
-
-小......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2017-09-05
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Markdown" title="Markdown">Markdown</a>
-            
-              <a href="/tags/#test" title="test">test</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
 
 <ul class="pager">
     
+    
+        <li class="next">
+            <a href="/archives/2/">Older Posts &rarr;</a>
+        </li>
     
 </ul>
 
@@ -673,7 +666,11 @@ f(n)={n2,if n is even3n+1,if n is oddf(n) = \begin{cases}
     <ul>
       
         <li>
-          <a href="/2018/12/20/ethereum-rlp/">Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码</a>
+          <a href="/2018/12/22/ethereum-rlp-decode/">Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码</a>
+        </li>
+      
+        <li>
+          <a href="/2018/12/20/ethereum-rlp-encode/">Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码</a>
         </li>
       
         <li>
@@ -686,10 +683,6 @@ f(n)={n2,if n is even3n+1,if n is oddf(n) = \begin{cases}
       
         <li>
           <a href="/2018/06/27/react-main-concepts-summary-2/">React 基本概念总结(二)</a>
-        </li>
-      
-        <li>
-          <a href="/2018/06/26/react-main-concepts-summary-1/">React 基本概念总结(一)</a>
         </li>
       
     </ul>
