@@ -7,8 +7,40 @@
     </url>
 
     <url>
+        <loc>https://nicodechal.github.io/2018/11/03/gitlab-ci-usage/</loc>
+        <lastmod>2018-12-26T16:15:02.296Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://nicodechal.github.io/2018/12/22/ethereum-rlp-decode/</loc>
-        <lastmod>2018-12-22T16:31:58.882Z</lastmod>
+        <lastmod>2018-12-26T16:14:32.344Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/2018/06/26/react-main-concepts-summary-1/</loc>
+        <lastmod>2018-12-26T16:13:07.807Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/2018/12/26/mlp/</loc>
+        <lastmod>2018-12-26T16:12:17.107Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/2018/12/23/ethereum-mpt/</loc>
+        <lastmod>2018-12-24T06:09:57.958Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -16,7 +48,7 @@
 
     <url>
         <loc>https://nicodechal.github.io/2018/12/20/ethereum-rlp-encode/</loc>
-        <lastmod>2018-12-22T15:50:00.131Z</lastmod>
+        <lastmod>2018-12-23T08:14:31.423Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -31,40 +63,8 @@
     </url>
 
     <url>
-        <loc>https://nicodechal.github.io/2018/11/03/gitlab-ci-usage/</loc>
-        <lastmod>2018-11-03T14:16:17.523Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/2017/09/05/My-first-markdown-test/</loc>
-        <lastmod>2018-11-03T14:10:22.755Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/2018/03/06/static-test/</loc>
-        <lastmod>2018-11-03T13:54:35.124Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://nicodechal.github.io/2018/06/27/react-main-concepts-summary-2/</loc>
         <lastmod>2018-06-27T14:47:16.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/2018/06/26/react-main-concepts-summary-1/</loc>
-        <lastmod>2018-06-26T13:37:30.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

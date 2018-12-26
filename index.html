@@ -137,14 +137,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -211,6 +211,77 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2018/12/26/mlp/">
+        <h2 class="post-title">
+            多层感知器
+        </h2>
+        <h3 class="post-subtitle">
+            机器学习学习笔记
+        </h3>
+        <div class="post-content-preview">
+            
+本文为整理笔记。
+
+ 简介
+多层感知器(Multilayer Perceptron)是前馈人工神经网络的一种，一个多层感知器至少包含三层节点：输入层，隐藏层，输出层，除了输入节点，每个节点都是一个包含非线性激活函数(nonlinear activation function)的神经元。多层感知器使用反向传播算法训练。
+
+“多层感知器” 一词不是指一个有很多层的感知器。而是包含了许多组织成层......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-12-26
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Deep-Learning" title="Deep-Learning">Deep-Learning</a>
+            
+              <a href="/tags/#Reproduction" title="Reproduction">Reproduction</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/12/23/ethereum-mpt/">
+        <h2 class="post-title">
+            Ethereum 中的 MPT ( Merkle Patricia Tree )（一）
+        </h2>
+        <h3 class="post-subtitle">
+            Ethereum 学习笔记
+        </h3>
+        <div class="post-content-preview">
+             概述
+本系列文章分为两部分，第一部分介绍介绍以太坊中使用到的 MPT ( Merkle Patricia Tree ) 的相关背景知识，基本的前缀树，及其改进基数树，以及哈希树。第二部分介绍以太坊中的 Merkle Patricia Tree。
+ 前缀树 (Tire / Prefix Tree)
+先给出一个前缀树的例子：
+
+前缀树一种树结构，可以用于存储 (key, value) 对集合。......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-12-23
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
+            
+              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -499,71 +570,6 @@ vueify 是一个提供给 Br......
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/03/07/spark-note-fpgrowth-1/">
-        <h2 class="post-title">
-            [Spark 源码阅读笔记] FP-Growth 算法在 Spark 中的实现(一)
-        </h2>
-        <h3 class="post-subtitle">
-            FPTree 的实现
-        </h3>
-        <div class="post-content-preview">
-            
-FP-growth (Frequent-Pattern Growth)是数据挖掘中用于挖掘频繁项集的经典算法之一。相较于 Apriori 算法，该算法消除了候选项集，并减少了对数据库扫描的次数，因而效率更高。具体算法思路可以参考数据挖掘教材 data mining concepts and techniques 第六章的内容。
-
-本文主要介绍 FPTree 的实现，FPTree 结构是 S......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-03-07
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Spark" title="Spark">Spark</a>
-            
-              <a href="/tags/#Big-Data" title="Big-Data">Big-Data</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/06/static-test/">
-        <h2 class="post-title">
-            测试静态资源的使用
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-H=−∑i=1N(σixσi+1x+gσiz)H=-\sum_{i=1}^N (\sigma_{i}^x \sigma_{i+1}^x+g \sigma_{i}^z)
-H=−​i=1​∑​N​​(σ​i​x​​σ​i+1​x​​+gσ​i​z​​)
-f(n)={n2,if n is even3n+1,if n is oddf(n) = \begin{cases}
- \frac{n}{2},......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-03-06
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#test" title="test">test</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -666,6 +672,14 @@ f(n)={n2,if n is even3n+1,if n is oddf(n) = \begin{cases}
     <ul>
       
         <li>
+          <a href="/2018/12/26/mlp/">多层感知器</a>
+        </li>
+      
+        <li>
+          <a href="/2018/12/23/ethereum-mpt/">Ethereum 中的 MPT ( Merkle Patricia Tree )（一）</a>
+        </li>
+      
+        <li>
           <a href="/2018/12/22/ethereum-rlp-decode/">Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码</a>
         </li>
       
@@ -675,14 +689,6 @@ f(n)={n2,if n is even3n+1,if n is oddf(n) = \begin{cases}
       
         <li>
           <a href="/2018/11/17/data-mining-basic/">数据挖掘基础知识</a>
-        </li>
-      
-        <li>
-          <a href="/2018/11/03/gitlab-ci-usage/">Gitlab-CI 使用初探</a>
-        </li>
-      
-        <li>
-          <a href="/2018/06/27/react-main-concepts-summary-2/">React 基本概念总结(二)</a>
         </li>
       
     </ul>

@@ -147,14 +147,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -217,22 +217,22 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3><span id="gitlab-ci-介绍"> Gitlab-CI 介绍</span></h3>
+                <h2><span id="gitlab-ci-介绍"> Gitlab-CI 介绍</span></h2>
 <p>Gitlab-CI 是 Gitlab 提供的一个服务，该服务为项目开发提供了自动化构建、测试和部署的能力。Gitlab-CI 可以在项目每次提交后触发配置好的自动化工作流程，例如在每次提交代码后对代码进行测试同时打包代码发布(持续集成)。Gitlan-CI 方便了提交代码后的代码测试、构建和部署，提高了代码交付的效率。</p>
-<h3><span id="gitlab-ci-的使用"> Gitlab-CI 的使用</span></h3>
+<h2><span id="gitlab-ci-的使用"> Gitlab-CI 的使用</span></h2>
 <p>从 Gitlab 8.0 版本开始 Gitlab-CI 已经被集成在 Gitlab 中，所以可以直接使用。在 Gitlab 上的项目使用 Gitlab-CI，只需要做两件事：</p>
 <ol>
 <li>在项目的根目录下添加 <code>.gitlab-ci.yml</code> 文件</li>
 <li>配置 gitlab-runner</li>
 </ol>
 <p>之后只要推送代码，就可以在 Gitlab 的 CI/CD 菜单中看到 Gitlab-CI 的运行情况。</p>
-<h4><span id="创建-gitlab-ciyml-文件"> 创建 .gitlab-ci.yml 文件</span></h4>
+<h3><span id="创建-gitlab-ciyml-文件"> 创建 .gitlab-ci.yml 文件</span></h3>
 <p>.gitlab-ci.yml 文件描述了需要 gitlab-ci 执行的自动化操作，每当提交代码之后，gitlab-ci 就会检查该文件然后根据该文件内容在 <em>Runners</em> 中执行相关操作。该文件是一个 YAML 文件。下面是一个 .gitlab-ci.yml 文件的实例：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">before_script:</span> <span class="comment"># 每个脚本执行前都要执行</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">apt-get</span> <span class="string">update</span> <span class="bullet">-qq</span> <span class="string">&amp;&amp;</span> <span class="string">apt-get</span> <span class="string">install</span> <span class="bullet">-y</span> <span class="bullet">-qq</span> <span class="string">sqlite3</span> <span class="string">libsqlite3-dev</span> <span class="string">nodejs</span> <span class="comment">#一些需要自动执行的命令</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">ruby</span> <span class="bullet">-v</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">which</span> <span class="string">ruby</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">gem</span> <span class="string">install</span> <span class="string">bundler</span> <span class="bullet">--no-ri</span> <span class="bullet">--no-rdoc</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">bundle</span> <span class="string">install</span> <span class="bullet">--jobs</span> <span class="string">$(nproc)</span>  <span class="string">"$&#123;FLAGS[@]&#125;"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rspec:</span> <span class="comment"># 一个job 名为 rspec</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">bundle</span> <span class="string">exec</span> <span class="string">rspec</span> <span class="comment"># 该 job 需要执行的脚本</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rubocop:</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">bundle</span> <span class="string">exec</span> <span class="string">rubocop</span></span><br></pre></td></tr></table></figure>
 <p>创建完成后，将该文件添加到项目的根目录并上传到 gitlab 上：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .gitlab-ci.yml</span><br><span class="line">git commit -m "Add .gitlab-ci.yml"</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
 <p>此时可以在 gitlab 的 WEB 页面看到刚才提交触发的构建，但是目前还没有配置 Runner 所以该构建处于 pending 状态(在 WEB 界面会看到一个暂停的小标记)，接下来需要配置Runner。</p>
-<h4><span id="配置-gitlab-runner"> 配置 gitlab-runner</span></h4>
+<h3><span id="配置-gitlab-runner"> 配置 gitlab-runner</span></h3>
 <p>Gitlab-CI 使用 gitlab-runner 执行 .gitlab-ci.yml 配置的脚本，是脚本的执行器。使用时首先需要安装 gitlab-runner ，然后在 Gitlab 的 WEB 界面对 Runner 进行配置和分配。</p>
 <p>本文使用 Docker 安装 gitlab-Runner，首先使用下面命令拉取 gitlab-runner 的镜像：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull gitlab/gitlab-runner</span><br></pre></td></tr></table></figure>
@@ -246,10 +246,12 @@
 <p>此时在 gitlab WEB 界面可以看到 Runner正常运行 (Runner 旁边有绿色的灯亮起)</p>
 <p><img src="https://img-blog.csdn.net/20170515161632358?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYWl4aWFveWFuZzE2OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
 <p>完成上述步骤后，只要进行代码提交， gitlab 就会运行 runner 执行 .gitlab-ci.yml 中设置的 jobs。</p>
-<h3><span id="参考资料"> 参考资料</span></h3>
-<p><a href="https://docs.gitlab.com/ee/ci/quick_start/README.html" target="_blank" rel="noopener">Getting started with GitLab CI/CD</a></p>
-<p><a href="https://blog.csdn.net/aixiaoyang168/article/details/72168834" target="_blank" rel="noopener">Docker搭建自己的Gitlab CI Runner</a></p>
-<p><a href="https://about.gitlab.com/2016/08/05/continuous-integration-delivery-and-deployment-with-gitlab/" target="_blank" rel="noopener">Continuous Integration, Delivery, and Deployment with GitLab</a></p>
+<h2><span id="参考资料"> 参考资料</span></h2>
+<ul>
+<li><a href="https://docs.gitlab.com/ee/ci/quick_start/README.html" target="_blank" rel="noopener">Getting started with GitLab CI/CD</a></li>
+<li><a href="https://blog.csdn.net/aixiaoyang168/article/details/72168834" target="_blank" rel="noopener">Docker搭建自己的Gitlab CI Runner</a></li>
+<li><a href="https://about.gitlab.com/2016/08/05/continuous-integration-delivery-and-deployment-with-gitlab/" target="_blank" rel="noopener">Continuous Integration, Delivery, and Deployment with GitLab</a></li>
+</ul>
 
                 
 

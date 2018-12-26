@@ -147,14 +147,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -217,14 +217,14 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3><span id="概述"> 概述</span></h3>
+                <h2><span id="概述"> 概述</span></h2>
 <p>在 Ethereum 中，RLP 算法被用于编码任意嵌套的字节数组，下面是一个任意嵌套字节数组的例子：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"cat"</span>,[<span class="string">"puppy"</span>,<span class="string">"cow"</span>],<span class="string">"horse"</span>,[[]],<span class="string">"pig"</span>,[<span class="string">""</span>],<span class="string">"sheep"</span>]</span><br></pre></td></tr></table></figure>
 <p>RLP 算法用来编码 ( 序列化 ) 其结构，使其变为字节序列 ( 二进制串 ) 。下面是一个简单的转化例子 ( 使用 <code>&lt;</code> 和 <code>&gt;</code> 表示序列和数组区分 ) ：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ [], <span class="string">[[]]</span>, [ [], <span class="string">[[]]</span> ] ] = &lt; <span class="number">0xc7</span>, <span class="number">0xc0</span>, <span class="number">0xc1</span>, <span class="number">0xc0</span>, <span class="number">0xc3</span>, <span class="number">0xc0</span>, <span class="number">0xc1</span>, <span class="number">0xc0</span> &gt;</span><br></pre></td></tr></table></figure>
 <p>上面例子中，RLP 算法将嵌套的数组转化为一个字节序列 ( 编码 )，可以方便的进行存储和传输，同时，该字节序列还记录了原始数据的结构及其中的数据，可以方便地将数据还原出来，这个过程称为<a href="/2018/12/22/ethereum-rlp-decode/">解码</a>。本文将对编码算法进行说明。</p>
-<h3><span id="算法流程"> 算法流程</span></h3>
-<h5><span id="字符串-无嵌套的字节数组-编码"> 字符串 ( 无嵌套的字节数组 ) 编码</span></h5>
+<h2><span id="算法流程"> 算法流程</span></h2>
+<h3><span id="字符串-无嵌套的字节数组-编码"> 字符串 ( 无嵌套的字节数组 ) 编码</span></h3>
 <ol>
 <li>对于字符串中的<strong>一个字节</strong>的值，如果其值在 <code>[0x00, 0x7f]</code> 之间 ( 即 <code>[0, 127]</code>，为 ASCII 表中的字符的取值范围 )，其 RLP 编码值为其本身。</li>
 </ol>
@@ -247,7 +247,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">str_len = len(<span class="string">"Lorem ipsum dolor sit amet, consectetur adipisicing elit"</span>) </span><br><span class="line">        = <span class="number">56</span> = <span class="number">0x38</span></span><br><span class="line">len_of_str_len </span><br><span class="line">    = len(len(<span class="string">"Lorem ipsum dolor sit amet, consectetur adipisicing elit"</span>)) </span><br><span class="line">    = len(<span class="number">0x38</span>) = <span class="number">1</span> = <span class="number">0x01</span></span><br></pre></td></tr></table></figure>
 <p>然后在每个字符编码结束后的结果前添加两部分，第一部分为 <code>0x80 + 0x37 + 长度值的字节数</code> ( 占用一个字节 )，第二部分为 <code>长度值</code> ( 占 <code>长度值的字节数</code> 个字节 )，所以有：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RLP(<span class="string">"Lorem ipsum dolor sit amet, consectetur adipisicing elit"</span>) </span><br><span class="line">  = <span class="xml"><span class="tag">&lt; <span class="attr">0x80</span> + <span class="attr">0x37</span> + <span class="attr">len_of_str_len</span>, <span class="attr">str_len</span>, '<span class="attr">L</span>', '<span class="attr">o</span>', <span class="attr">...</span> , ' ', '<span class="attr">e</span>', '<span class="attr">l</span>', '<span class="attr">i</span>', '<span class="attr">t</span>' &gt;</span></span></span><br><span class="line"><span class="xml">  = <span class="tag">&lt; <span class="attr">0x80</span> + <span class="attr">0x37</span> + <span class="attr">0x01</span>, <span class="attr">0x38</span>, '<span class="attr">L</span>', '<span class="attr">o</span>', <span class="attr">...</span> , ' ', '<span class="attr">e</span>', '<span class="attr">l</span>', '<span class="attr">i</span>', '<span class="attr">t</span>' &gt;</span></span></span><br><span class="line"><span class="xml">  = <span class="tag">&lt; <span class="attr">0xb8</span>, <span class="attr">0x38</span>, '<span class="attr">L</span>', '<span class="attr">o</span>', <span class="attr">...</span> , ' ', '<span class="attr">e</span>', '<span class="attr">l</span>', '<span class="attr">i</span>', '<span class="attr">t</span>' &gt;</span></span></span><br></pre></td></tr></table></figure>
-<h5><span id="列表编码"> 列表编码</span></h5>
+<h3><span id="列表编码"> 列表编码</span></h3>
 <p>对于列表使用下面规则进行编码：</p>
 <ol>
 <li>首先需要对列表中的字符串和列表均进行编码 ( 字符串编码使用上一节的规则 ) 得到的列表是内部无嵌套的字节数组。</li>
@@ -266,7 +266,7 @@
 <p>此时编码字节数为 8 ( 0x08 ) 个字节，小于 55 个字节，因此只需添加一个字节，其内容为 <code>0xc0 + list_len</code>，所以有：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RLP([<span class="string">"dog"</span>, <span class="string">"dog"</span>]) = RLP([RLP(<span class="string">"dog"</span>), RLP(<span class="string">"dog"</span>)])</span><br><span class="line">                    = RLP([<span class="number">0x83</span>, <span class="string">'d'</span>, <span class="string">'o'</span>, <span class="string">'g'</span>, <span class="number">0x83</span>, <span class="string">'d'</span>, <span class="string">'o'</span>, <span class="string">'g'</span>])</span><br><span class="line">                    = <span class="xml"><span class="tag">&lt; <span class="attr">0xc0</span> + <span class="attr">0x08</span>, <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>', <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>' &gt;</span></span></span><br><span class="line"><span class="xml">                    = <span class="tag">&lt; <span class="attr">0xc8</span>, <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>', <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>' &gt;</span></span></span><br></pre></td></tr></table></figure>
 <p>对于较长的数组操作相似使用 3 中描述的方式添加前缀，不再赘述。</p>
-<h3><span id="总结"> 总结</span></h3>
+<h2><span id="总结"> 总结</span></h2>
 <p>对于字符串使用下面规则进行编码：</p>
 <ol>
 <li>对于字符串中的<strong>一个字节</strong>的值，如果其值在 <code>[0x00, 0x7f]</code> 之间 ( 即 <code>[0, 127]</code>，为 ASCII 表中的字符的取值范围 )，其 RLP 编码值为其本身。</li>
@@ -289,7 +289,7 @@
 </ol>
 </li>
 </ol>
-<h3><span id="参考资料"> 参考资料</span></h3>
+<h2><span id="参考资料"> 参考资料</span></h2>
 <p><a href="https://github.com/ethereum/wiki/wiki/RLP" target="_blank" rel="noopener">RLP · ethereum/wiki Wiki</a></p>
 <!-- Input str:
 - byte_val in [0x00, 0x7f] -> <str>
@@ -348,7 +348,7 @@ Output arr;
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 概述</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 算法流程</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.0.1.</span> <span class="toc-nav-text"> 字符串 ( 无嵌套的字节数组 ) 编码</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.0.2.</span> <span class="toc-nav-text"> 列表编码</span></a></li></ol></li></ol><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 总结</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 参考资料</span></a></li>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 概述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 算法流程</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"> 字符串 ( 无嵌套的字节数组 ) 编码</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"> 列表编码</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 总结</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 参考资料</span></a></li></ol>
         
         </div>
       </aside>
