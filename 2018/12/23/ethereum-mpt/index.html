@@ -242,14 +242,19 @@
 </ol>
 <p>示意图如下：</p>
 <p><img src="tire_ex.png" alt=""></p>
-<h2><span id="基数树-radix-tire-radix-tree"> 基数树 (Radix Tire / Radix Tree)</span></h2>
-<p>基数树是空间优化后的前缀树，简单来说就是当一个节点是其父节点的唯一子节点，则将该节点与其父节点合并来减少空间消耗。相对于常规的前缀树，基数树的边可以是字母表中的单个元素也可以是字母序列，这使得基数树相对来说在小的集合上或共享前缀长的字符串集合上更高效。</p>
+<h2><span id="基数树-patricia-trie-radix-tire-radix-tree"> 基数树 (Patricia Trie / Radix Tire / Radix Tree)</span></h2>
+<p>拿上一小节的例子来说，对于查找示意图中的路径 ( <code>zaab</code> )，尽管只存储了一个键值对 <code>('zaab', v6)</code>，但却使整个树增加到了 5 层，基数树在这种情况合并一些子节点来减少空间开销，例如，将 <code>a</code>、<code>a</code>、<code>b</code> 合并成一个节点 <code>aab</code>，当 <code>key</code> 值为 <code>zaab</code> 时，经过 <code>z</code> 节点后直接进入 <code>aab</code> 节点取出 <code>value</code>即可。不但加快了取操作，还减少了空间使用。</p>
+<p>正式的说，基数树是空间优化后的前缀树，简单来说就是当一个节点是其父节点的唯一子节点，则将该节点与其父节点合并来减少空间消耗。相对于常规的前缀树，基数树的边可以是字母表中的单个元素也可以是字母序列，这使得基数树相对来说在小的集合上或共享前缀长的字符串集合上更高效。下面是一个基数树的例子：</p>
+<p><img src="patricia_trie.svg.png" alt=""></p>
+<h2><span id="哈希树-merkle-tree-hash-tree"> 哈希树 (Merkle tree / hash tree)</span></h2>
+<p><img src="hash_tree.png" alt=""></p>
 <h2><span id="参考资料"> 参考资料</span></h2>
 <p><a href="https://github.com/ethereum/wiki/wiki/Patricia-Tree" target="_blank" rel="noopener">Patricia Tree · ethereum/wiki Wiki</a><br>
-<a href="https://blog.csdn.net/ITleaks/article/details/79992072" target="_blank" rel="noopener">以太坊MPT原理，你最值得看的一篇</a></p>
-<!-- Tire Wiki -->
-<!-- Radix Tire Wiki -->
-<!-- Merkle Tree -->
+<a href="https://blog.csdn.net/ITleaks/article/details/79992072" target="_blank" rel="noopener">以太坊MPT原理，你最值得看的一篇</a><br>
+<a href="https://en.wikipedia.org/wiki/Trie" target="_blank" rel="noopener">Tire</a><br>
+<a href="https://en.wikipedia.org/wiki/Radix_tree" target="_blank" rel="noopener">Radix tree</a><br>
+<a href="https://en.wikipedia.org/wiki/Merkle_tree" target="_blank" rel="noopener">Merkle tree</a></p>
+
                 
 
                 <hr>
@@ -292,7 +297,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 概述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 前缀树 (Tire / Prefix Tree)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 基数树 (Radix Tire / Radix Tree)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 参考资料</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 概述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 前缀树 (Tire / Prefix Tree)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 基数树 (Patricia Trie / Radix Tire / Radix Tree)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 哈希树 (Merkle tree / hash tree)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text"> 参考资料</span></a></li></ol>
         
         </div>
       </aside>
