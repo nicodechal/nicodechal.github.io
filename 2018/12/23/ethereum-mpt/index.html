@@ -248,12 +248,15 @@
 <p><img src="patricia_trie.svg.png" alt=""></p>
 <h2><span id="哈希树-merkle-tree-hash-tree"> 哈希树 (Merkle tree / hash tree)</span></h2>
 <p><img src="hash_tree.png" alt=""></p>
+<p>在密码学和计算机科学中，哈希树或 Merkle 树是一种树，其中每个叶节点是数据块的哈希值，并且每个非叶节点的值为其子节点的值的哈希值 (哈希的哈希)。即，Merkle 树是哈希列表的二叉树，父节点的值的是其子节点值的哈希值，叶节点值原始数据块的哈希值。哈希树可以用于有效、安全地验证大型数据结构的内容。</p>
+<p>上图是一个哈希树的例子。其中四个数据块 <code>L1, L2, L3, L4</code> 的哈希值被存放在哈希树的叶节点中，之后每两个节点值合并后取哈希得到这两个节点的父节点，以此类推直到只剩下一个节点作为根节点。</p>
 <h2><span id="参考资料"> 参考资料</span></h2>
 <p><a href="https://github.com/ethereum/wiki/wiki/Patricia-Tree" target="_blank" rel="noopener">Patricia Tree · ethereum/wiki Wiki</a><br>
 <a href="https://blog.csdn.net/ITleaks/article/details/79992072" target="_blank" rel="noopener">以太坊MPT原理，你最值得看的一篇</a><br>
 <a href="https://en.wikipedia.org/wiki/Trie" target="_blank" rel="noopener">Tire</a><br>
 <a href="https://en.wikipedia.org/wiki/Radix_tree" target="_blank" rel="noopener">Radix tree</a><br>
-<a href="https://en.wikipedia.org/wiki/Merkle_tree" target="_blank" rel="noopener">Merkle tree</a></p>
+<a href="https://en.wikipedia.org/wiki/Merkle_tree" target="_blank" rel="noopener">Merkle tree</a><br>
+<a href="https://www.cnblogs.com/fengzhiwu/p/5524324.html" target="_blank" rel="noopener">Merkle Tree学习</a></p>
 
                 
 
