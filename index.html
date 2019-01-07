@@ -130,14 +130,14 @@
 
                         
                         <li>
-                            <a href="/about/">About Me</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About Me</a>
                         </li>
                         
                     
@@ -211,6 +211,84 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2019/01/06/theory-of-computation-2/">
+        <h2 class="post-title">
+            上下文无关文法
+        </h2>
+        <h3 class="post-subtitle">
+            计算理论基础课程总结
+        </h3>
+        <div class="post-content-preview">
+             上下文无关文法的定义
+定义3.1：上下文无关文法
+G=(V,Σ,R,S)G=(V,\Sigma, R,S)
+G=(V,Σ,R,S)
+
+VVV：有穷变元集
+Σ\SigmaΣ：有穷终结符集
+RRR：有穷规则集
+$S
+
+定义：
+
+一步生成：uAv⇒uwvuAv\Rightarrow uwvuAv⇒uwv，使用产生式 A→wA\to wA→w
+任意步生成：u⇒∗v=u⇒u1⇒...⇒vu \Rig......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2019-01-06
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Computation" title="Computation">Computation</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/01/06/theory-of-computation-1/">
+        <h2 class="post-title">
+            有穷自动机
+        </h2>
+        <h3 class="post-subtitle">
+            计算理论基础课程总结
+        </h3>
+        <div class="post-content-preview">
+             确定性有穷自动机
+定义2.1：确定性有穷自动机
+M=(Q,Σ,δ,q0,F)M=(Q,\Sigma, \delta, q_0, F)
+M=(Q,Σ,δ,q​0​​,F)
+其中：
+
+QQQ：有穷状态集
+Σ\SigmaΣ: 输入字母表
+δ:Q×Σ→Q\delta: Q \times \Sigma \to Qδ:Q×Σ→Q: 转移函数
+扩展的转移函数：δ:Q×Σ∗→Q\delta: Q \tim......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2019-01-06
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Computation" title="Computation">Computation</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -495,77 +573,6 @@ Gitlab-CI 是 Gitlab 提供的一个服务，该服务为项目开发提供了�
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/06/27/react-main-concepts-summary-2/">
-        <h2 class="post-title">
-            React 基本概念总结(二)
-        </h2>
-        <h3 class="post-subtitle">
-            React 初探
-        </h3>
-        <div class="post-content-preview">
-             Components and Props
- 函数式组件和类组件
-函数式组件的例子：
-123function Welcome(props) &#123;  return &lt;h1&gt;Hello, &#123;props.name&#125;&lt;/h1&gt;;&#125;
-类组件使用 ES6 的 class 语法创建 React 组件：
-12345class Welcome ex......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-06-27
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
-            
-              <a href="/tags/#React" title="React">React</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/06/26/react-main-concepts-summary-1/">
-        <h2 class="post-title">
-            React 基本概念总结(一)
-        </h2>
-        <h3 class="post-subtitle">
-            React 初探
-        </h3>
-        <div class="post-content-preview">
-             Hello World
-一个最小的 React 示例：
-1ReactDOM.render(&lt;h1&gt;Hello World&lt;/h1&gt;, document.getElementById("root"));
-这个例子会在页面上渲染出 Hello World 。
- Introducing JSX
-jsx 的语法允许下面这样的变量定义：·
-1const element = &......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-06-26
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
-            
-              <a href="/tags/#React" title="React">React</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -668,6 +675,14 @@ jsx 的语法允许下面这样的变量定义：·
     <ul>
       
         <li>
+          <a href="/2019/01/06/theory-of-computation-2/">上下文无关文法</a>
+        </li>
+      
+        <li>
+          <a href="/2019/01/06/theory-of-computation-1/">有穷自动机</a>
+        </li>
+      
+        <li>
           <a href="/2019/01/04/uncertain-knowledge-2/">使用完全联合分布进行推理 — 不确定性的量化（2）</a>
         </li>
       
@@ -677,14 +692,6 @@ jsx 的语法允许下面这样的变量定义：·
       
         <li>
           <a href="/2018/12/26/mlp/">多层感知器</a>
-        </li>
-      
-        <li>
-          <a href="/2018/12/23/ethereum-mpt/">Ethereum 中的 MPT ( Merkle Patricia Tree )（一）</a>
-        </li>
-      
-        <li>
-          <a href="/2018/12/22/ethereum-rlp-decode/">Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码</a>
         </li>
       
     </ul>
