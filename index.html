@@ -214,6 +214,97 @@
 
 <div class="post-preview">
 
+    <a href="/2019/01/11/theory-of-computation-7/">
+        <h2 class="post-title">
+            层次定理
+        </h2>
+        <h3 class="post-subtitle">
+            计算理论基础课程总结
+        </h3>
+        <div class="post-content-preview">
+             空间层次定理
+空间可构造函数：满足 f(n)≥lognf(n)\geq lognf(n)≥logn，且 f(n)f(n)f(n) 在 O(f(n))O(f(n))O(f(n)) 空间内可计算，输入 1n1^n1​n​​，输出二进制 f(n)f(n)f(n).即，存在 TM 以 f(n)f(n)f(n) 作为空间复杂性。
+线性加速定理：TIME(cf(n))=TIME(f(n))TIME(c......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2019-01-11
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Computation" title="Computation">Computation</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/01/11/theory-of-computation-6/">
+        <h2 class="post-title">
+            空间复杂性
+        </h2>
+        <h3 class="post-subtitle">
+            计算理论基础课程总结
+        </h3>
+        <div class="post-content-preview">
+            DTM 的空间复杂性：在长度为 n 的输入上最多扫描 f(n)f(n)f(n) 个不同带方格，则 M 的空间复杂度为 f(h)f(h)f(h)。
+NTM 的空间复杂性：在所有分支停机，在任何计算分支上最多扫描 f(n)f(n)f(n) 个不同带方格，则 M 的空间复杂性是 f(n)f(n)f(n).
+
+可满足性问题：SAT={&lt;ϕ&gt;∣ϕSAT=\{&lt;\phi&gt;|\ph......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2019-01-11
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Computation" title="Computation">Computation</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/01/10/theory-of-computation-5/">
+        <h2 class="post-title">
+            时间复杂性
+        </h2>
+        <h3 class="post-subtitle">
+            计算理论基础课程总结
+        </h3>
+        <div class="post-content-preview">
+             函数的阶
+大 O 阶：设 fff，ggg 是函数、如果存在某个 ccc，n0n_0n​0​​，对于任意 n≥n0n\geq n_0n≥n​0​​，f(n)≤cg(n)f(n)\leq cg(n)f(n)≤cg(n)，则有 f(n)=O(g(n))f(n)=O(g(n))f(n)=O(g(n))
+小 o 阶：limn→inff(n)g(n)=0\lim_{n\to \inf}\frac{f(......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2019-01-10
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Computation" title="Computation">Computation</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2019/01/07/theory-of-computation-4/">
         <h2 class="post-title">
             可计算问题
@@ -462,109 +553,6 @@ P(Y)=∑z∈ZP(Y,z)=∑zP......
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/12/23/ethereum-mpt/">
-        <h2 class="post-title">
-            Ethereum 中的 MPT ( Merkle Patricia Tree )（一）
-        </h2>
-        <h3 class="post-subtitle">
-            Ethereum 学习笔记
-        </h3>
-        <div class="post-content-preview">
-             概述
-本系列文章分为两部分，第一部分介绍介绍以太坊中使用到的 MPT ( Merkle Patricia Tree ) 的相关背景知识，基本的前缀树，及其改进基数树，以及哈希树。第二部分介绍以太坊中的 Merkle Patricia Tree。
- 前缀树 (Tire / Prefix Tree)
-先给出一个前缀树的例子：
-
-前缀树一种树结构，可以用于存储 (key, value) 对集合。......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-12-23
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
-            
-              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/12/22/ethereum-rlp-decode/">
-        <h2 class="post-title">
-            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码
-        </h2>
-        <h3 class="post-subtitle">
-            Ethereum 学习笔记
-        </h3>
-        <div class="post-content-preview">
-             概述
-RLP 算法能够将任意嵌套字节数组编码为字节序列，也能够将其还原为字节数组，这个过程相对于编码过程的逆过程，称为 RLP 算法的解码。下面是一个具体示例。
-1&lt; 0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0 &gt; = [ [], [[]], [ [], [[]] ] ]
-本文对于 RLP 算法解码过程进行说明。
- 算法流程
-相......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-12-22
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
-            
-              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/12/20/ethereum-rlp-encode/">
-        <h2 class="post-title">
-            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码
-        </h2>
-        <h3 class="post-subtitle">
-            Ethereum 学习笔记
-        </h3>
-        <div class="post-content-preview">
-             概述
-在 Ethereum 中，RLP 算法被用于编码任意嵌套的字节数组，下面是一个任意嵌套字节数组的例子：
-1["cat",["puppy","cow"],"horse",[[]],"pig",[""],"sheep"]
-RLP 算法用来编码 ( 序列化 ) 其结构，使其变为字节序列 ( 二进制串 ) 。下面是一个简单的转化例子 ( 使用 &lt; 和 &gt; 表示序列和数组区分 ) ......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-12-20
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
-            
-              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -667,23 +655,23 @@ RLP 算法用来编码 ( 序列化 ) 其结构，使其变为字节序列 ( 二�
     <ul>
       
         <li>
+          <a href="/2019/01/11/theory-of-computation-7/">层次定理</a>
+        </li>
+      
+        <li>
+          <a href="/2019/01/11/theory-of-computation-6/">空间复杂性</a>
+        </li>
+      
+        <li>
+          <a href="/2019/01/10/theory-of-computation-5/">时间复杂性</a>
+        </li>
+      
+        <li>
           <a href="/2019/01/07/theory-of-computation-4/">可计算问题</a>
         </li>
       
         <li>
           <a href="/2019/01/07/theory-of-computation-3/">图灵机</a>
-        </li>
-      
-        <li>
-          <a href="/2019/01/06/theory-of-computation-2/">上下文无关文法</a>
-        </li>
-      
-        <li>
-          <a href="/2019/01/06/theory-of-computation-1/">有穷自动机</a>
-        </li>
-      
-        <li>
-          <a href="/2019/01/04/uncertain-knowledge-2/">使用完全联合分布进行推理 — 不确定性的量化（2）</a>
         </li>
       
     </ul>
