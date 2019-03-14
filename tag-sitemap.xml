@@ -86,20 +86,6 @@
     </url>
 
     <url>
-        <loc>https://nicodechal.github.io/tags/Ethereum/</loc>
-        <lastmod>2018-12-27T05:51:38.680Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/tags/Blockchain/</loc>
-        <lastmod>2018-12-27T05:51:38.680Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://nicodechal.github.io/tags/AI/</loc>
         <lastmod>2019-01-05T04:16:42.311Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -116,6 +102,20 @@
     <url>
         <loc>https://nicodechal.github.io/tags/Computation/</loc>
         <lastmod>2019-01-14T09:10:27.977Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/tags/Ethereum/</loc>
+        <lastmod>2019-03-14T16:21:09.282Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/tags/Blockchain/</loc>
+        <lastmod>2019-03-14T16:21:09.282Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
