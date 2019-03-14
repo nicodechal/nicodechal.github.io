@@ -214,33 +214,38 @@
 
 <div class="post-preview">
 
-    <a href="/2018/04/01/vue-sfc-compile-without-webpack/">
+    <a href="/2018/01/06/theory-of-computation-2/">
         <h2 class="post-title">
-            如何不依赖 Webpack 编译 Vue 单文件组件
+            上下文无关文法
         </h2>
         <h3 class="post-subtitle">
-            vueify 体验记录
+            计算理论基础课程总结
         </h3>
         <div class="post-content-preview">
-             起因
-通常编译 Vue 的单文件组件时都会使用 vue-loader ，而要使用 vue-loader 就需要在项目中引入 webpack 。
-也许你不需要或不想使用 webpack ，但遇到了需要将 Vue 的单文件组件 (*.vue 文件) 转换为普通 js 模块 (*.js 文件) 的情况，此时可以尝试使用 vueify。
- 使用 vueify 编译
-vueify 是一个提供给 Br......
+             上下文无关文法的定义
+定义3.1：上下文无关文法
+G=(V,Σ,R,S)G=(V,\Sigma, R,S)
+G=(V,Σ,R,S)
+
+VVV：有穷变元集
+Σ\SigmaΣ：有穷终结符集
+RRR：有穷规则集
+SSS：起始变元
+
+定义：
+
+一步生成：uAv⇒uwvuAv\Rightarrow uwvuAv⇒uwv，使用产生式 A→wA\to wA→w
+任意步生成：u⇒∗v=u⇒u1⇒...⇒v......
         </div>
     </a>
     
         <p class="post-meta" style="margin: 10px 0;">
             Posted by Nicodechal on
-            2018-04-01
+            2018-01-06
         </p>
         <div class="tags">
             
-              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
-            
-              <a href="/tags/#Vue.js" title="Vue.js">Vue.js</a>
-            
-              <a href="/tags/#vueify" title="vueify">vueify</a>
+              <a href="/tags/#Computation" title="Computation">Computation</a>
             
         </div>
     
@@ -250,30 +255,34 @@ vueify 是一个提供给 Br......
 
 <div class="post-preview">
 
-    <a href="/2018/03/07/spark-note-fpgrowth-1/">
+    <a href="/2018/01/06/theory-of-computation-1/">
         <h2 class="post-title">
-            [Spark 源码阅读笔记] FP-Growth 算法在 Spark 中的实现(一)
+            有穷自动机
         </h2>
         <h3 class="post-subtitle">
-            FPTree 的实现
+            计算理论基础课程总结
         </h3>
         <div class="post-content-preview">
-            
-FP-growth (Frequent-Pattern Growth)是数据挖掘中用于挖掘频繁项集的经典算法之一。相较于 Apriori 算法，该算法消除了候选项集，并减少了对数据库扫描的次数，因而效率更高。具体算法思路可以参考数据挖掘教材 data mining concepts and techniques 第六章的内容。
+             确定性有穷自动机
+定义2.1：确定性有穷自动机
+M=(Q,Σ,δ,q0,F)M=(Q,\Sigma, \delta, q_0, F)
+M=(Q,Σ,δ,q​0​​,F)
+其中：
 
-本文主要介绍 FPTree 的实现，FPTree 结构是 S......
+QQQ：有穷状态集
+Σ\SigmaΣ: 输入字母表
+δ:Q×Σ→Q\delta: Q \times \Sigma \to Qδ:Q×Σ→Q: 转移函数
+扩展的转移函数：δ:Q×Σ∗→Q\delta: Q \tim......
         </div>
     </a>
     
         <p class="post-meta" style="margin: 10px 0;">
             Posted by Nicodechal on
-            2018-03-07
+            2018-01-06
         </p>
         <div class="tags">
             
-              <a href="/tags/#Spark" title="Spark">Spark</a>
-            
-              <a href="/tags/#Big-Data" title="Big-Data">Big-Data</a>
+              <a href="/tags/#Computation" title="Computation">Computation</a>
             
         </div>
     
@@ -387,19 +396,19 @@ FP-growth (Frequent-Pattern Growth)是数据挖掘中用于挖掘频繁项集的
         </li>
       
         <li>
-          <a href="/2019/01/12/theory-of-computation-8/">完全问题</a>
+          <a href="/2019/01/04/uncertain-knowledge-2/">使用完全联合分布进行推理 — 不确定性的量化（2）</a>
         </li>
       
         <li>
-          <a href="/2019/01/11/theory-of-computation-7/">层次定理</a>
+          <a href="/2019/01/04/uncertain-knowledge-1/">基本概念符号 - 不确定性的量化（1）</a>
         </li>
       
         <li>
-          <a href="/2019/01/11/theory-of-computation-6/">空间复杂性</a>
+          <a href="/2018/12/26/mlp/">多层感知器</a>
         </li>
       
         <li>
-          <a href="/2019/01/10/theory-of-computation-5/">时间复杂性</a>
+          <a href="/2018/12/23/ethereum-mpt-1/">Ethereum 中的 MPT ( Merkle Patricia Tree )（一）</a>
         </li>
       
     </ul>

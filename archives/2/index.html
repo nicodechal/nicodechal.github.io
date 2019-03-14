@@ -214,292 +214,6 @@
 
 <div class="post-preview">
 
-    <a href="/2019/01/04/uncertain-knowledge-1/">
-        <h2 class="post-title">
-            基本概念符号 - 不确定性的量化（1）
-        </h2>
-        <h3 class="post-subtitle">
-            不确定知识与推理（一）
-        </h3>
-        <div class="post-content-preview">
-             概率相关概念
-可能世界指样本空间中可能的组合，例如，掷两个骰子可能产生的组合产生的集合即为一个样本空间 Ω\OmegaΩ：
-Ω={(1,1),(1,2),(1,3),...,(2,1),(2,2),(2,3),...,(6,5),(6,6)}\Omega = \{(1,1),(1,2),(1,3),...,(2,1),(2,2),(2,3),...,(6,5),(6,6)\}
-Ω={(1,......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2019-01-04
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#AI" title="AI">AI</a>
-            
-              <a href="/tags/#Bayes" title="Bayes">Bayes</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/12/26/mlp/">
-        <h2 class="post-title">
-            多层感知器
-        </h2>
-        <h3 class="post-subtitle">
-            机器学习学习笔记
-        </h3>
-        <div class="post-content-preview">
-            
-本文为整理笔记。
-
- 简介
-多层感知器(Multilayer Perceptron)是前馈人工神经网络的一种，一个多层感知器至少包含三层节点：输入层，隐藏层，输出层，除了输入节点，每个节点都是一个包含非线性激活函数(nonlinear activation function)的神经元。多层感知器使用反向传播算法训练。
-
-“多层感知器” 一词不是指一个有很多层的感知器。而是包含了许多组织成层......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-12-26
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Deep-Learning" title="Deep-Learning">Deep-Learning</a>
-            
-              <a href="/tags/#Reproduction" title="Reproduction">Reproduction</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/12/23/ethereum-mpt-1/">
-        <h2 class="post-title">
-            Ethereum 中的 MPT ( Merkle Patricia Tree )（一）
-        </h2>
-        <h3 class="post-subtitle">
-            Ethereum 学习笔记
-        </h3>
-        <div class="post-content-preview">
-             概述
-本系列文章分为两部分，第一部分介绍介绍以太坊中使用到的 MPT ( Merkle Patricia Tree ) 的相关背景知识，基本的前缀树，及其改进基数树，以及哈希树。第二部分介绍以太坊中的 Merkle Patricia Tree。
- 前缀树 (Tire / Prefix Tree)
-先给出一个前缀树的例子：
-
-前缀树一种树结构，可以用于存储 (key, value) 对集合。......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-12-23
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
-            
-              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/12/22/ethereum-rlp-decode/">
-        <h2 class="post-title">
-            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码
-        </h2>
-        <h3 class="post-subtitle">
-            Ethereum 学习笔记
-        </h3>
-        <div class="post-content-preview">
-             概述
-RLP 算法能够将任意嵌套字节数组编码为字节序列，也能够将其还原为字节数组，这个过程相对于编码过程的逆过程，称为 RLP 算法的解码。下面是一个具体示例。
-1&lt; 0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0 &gt; = [ [], [[]], [ [], [[]] ] ]
-本文对于 RLP 算法解码过程进行说明。
- 算法流程
-相......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-12-22
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
-            
-              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/12/20/ethereum-rlp-encode/">
-        <h2 class="post-title">
-            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码
-        </h2>
-        <h3 class="post-subtitle">
-            Ethereum 学习笔记
-        </h3>
-        <div class="post-content-preview">
-             概述
-在 Ethereum 中，RLP 算法被用于编码任意嵌套的字节数组，下面是一个任意嵌套字节数组的例子：
-1["cat",["puppy","cow"],"horse",[[]],"pig",[""],"sheep"]
-RLP 算法用来编码 ( 序列化 ) 其结构，使其变为字节序列 ( 二进制串 ) 。下面是一个简单的转化例子 ( 使用 &lt; 和 &gt; 表示序列和数组区分 ) ......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-12-20
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
-            
-              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/11/17/data-mining-basic/">
-        <h2 class="post-title">
-            数据挖掘基础知识
-        </h2>
-        <h3 class="post-subtitle">
-            数据挖掘系列总结（一）
-        </h3>
-        <div class="post-content-preview">
-             相似性和不相似性
-
-相似性：数值越大越相似，取值在 [0, 1] 之间。
-不相似性：越小越相似，最小的不相似性取值为 0。
-接近性：相似性或不相似性。
-
-对于  p 和 q 两个对象的属性值，有：
-
-
-
-属性类型
-不相似性
-相似性
-
-
-
-
-Nominal
-d={0if p=q1if p≠qd = \left\{ \begin{array}{lr}0 &amp; if\space p = q......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-11-17
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Data-Mining" title="Data-Mining">Data-Mining</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/11/03/gitlab-ci-usage/">
-        <h2 class="post-title">
-            Gitlab-CI 使用初探
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-             Gitlab-CI 介绍
-Gitlab-CI 是 Gitlab 提供的一个服务，该服务为项目开发提供了自动化构建、测试和部署的能力。Gitlab-CI 可以在项目每次提交后触发配置好的自动化工作流程，例如在每次提交代码后对代码进行测试同时打包代码发布(持续集成)。Gitlan-CI 方便了提交代码后的代码测试、构建和部署，提高了代码交付的效率。
- Gitlab-CI 的使用
-从 Gitla......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-11-03
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#gitlab" title="gitlab">gitlab</a>
-            
-              <a href="/tags/#CI/CD" title="CI/CD">CI/CD</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/06/27/react-main-concepts-summary-2/">
-        <h2 class="post-title">
-            React 基本概念总结(二)
-        </h2>
-        <h3 class="post-subtitle">
-            React 初探
-        </h3>
-        <div class="post-content-preview">
-             Components and Props
- 函数式组件和类组件
-函数式组件的例子：
-123function Welcome(props) &#123;  return &lt;h1&gt;Hello, &#123;props.name&#125;&lt;/h1&gt;;&#125;
-类组件使用 ES6 的 class 语法创建 React 组件：
-12345class Welcome ex......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-06-27
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
-            
-              <a href="/tags/#React" title="React">React</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
     <a href="/2018/06/26/react-main-concepts-summary-1/">
         <h2 class="post-title">
             React 基本概念总结(一)
@@ -560,6 +274,275 @@ jsx 的语法允许下面这样的变量定义：·
               <a href="/tags/#Vue.js" title="Vue.js">Vue.js</a>
             
               <a href="/tags/#Vuegister" title="Vuegister">Vuegister</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/04/01/vue-sfc-compile-without-webpack/">
+        <h2 class="post-title">
+            如何不依赖 Webpack 编译 Vue 单文件组件
+        </h2>
+        <h3 class="post-subtitle">
+            vueify 体验记录
+        </h3>
+        <div class="post-content-preview">
+             起因
+通常编译 Vue 的单文件组件时都会使用 vue-loader ，而要使用 vue-loader 就需要在项目中引入 webpack 。
+也许你不需要或不想使用 webpack ，但遇到了需要将 Vue 的单文件组件 (*.vue 文件) 转换为普通 js 模块 (*.js 文件) 的情况，此时可以尝试使用 vueify。
+ 使用 vueify 编译
+vueify 是一个提供给 Br......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-04-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
+            
+              <a href="/tags/#Vue.js" title="Vue.js">Vue.js</a>
+            
+              <a href="/tags/#vueify" title="vueify">vueify</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/03/07/spark-note-fpgrowth-1/">
+        <h2 class="post-title">
+            [Spark 源码阅读笔记] FP-Growth 算法在 Spark 中的实现(一)
+        </h2>
+        <h3 class="post-subtitle">
+            FPTree 的实现
+        </h3>
+        <div class="post-content-preview">
+            
+FP-growth (Frequent-Pattern Growth)是数据挖掘中用于挖掘频繁项集的经典算法之一。相较于 Apriori 算法，该算法消除了候选项集，并减少了对数据库扫描的次数，因而效率更高。具体算法思路可以参考数据挖掘教材 data mining concepts and techniques 第六章的内容。
+
+本文主要介绍 FPTree 的实现，FPTree 结构是 S......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-03-07
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Spark" title="Spark">Spark</a>
+            
+              <a href="/tags/#Big-Data" title="Big-Data">Big-Data</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/01/12/theory-of-computation-8/">
+        <h2 class="post-title">
+            完全问题
+        </h2>
+        <h3 class="post-subtitle">
+            计算理论基础课程总结
+        </h3>
+        <div class="post-content-preview">
+             相关概念
+NP 完全：
+
+NP 中的每个语言 A 都多项式时间规约到 B，则 B 是 NP 难的。
+同时，如果 B 是 NP 问题，且 B 是 NP 完全的。
+
+
+定理8.28：如果 B 是 NP 完全的，并且 B 属于 P，NP = P。
+定理8.29：如果 B 是 NP 完全的，B 多项式时间规约到 C，C 属于 NP，则 C 是 NP 完全的。
+
+推论：cnf-SAT、SAT、3SA......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-01-12
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Computation" title="Computation">Computation</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/01/11/theory-of-computation-7/">
+        <h2 class="post-title">
+            层次定理
+        </h2>
+        <h3 class="post-subtitle">
+            计算理论基础课程总结
+        </h3>
+        <div class="post-content-preview">
+             空间层次定理
+空间可构造函数：满足 f(n)≥lognf(n)\geq lognf(n)≥logn，且 f(n)f(n)f(n) 在 O(f(n))O(f(n))O(f(n)) 空间内可计算，输入 1n1^n1​n​​，输出二进制 f(n)f(n)f(n).即，存在 TM 以 f(n)f(n)f(n) 作为空间复杂性。
+线性加速定理：TIME(cf(n))=TIME(f(n))TIME(c......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-01-11
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Computation" title="Computation">Computation</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/01/11/theory-of-computation-6/">
+        <h2 class="post-title">
+            空间复杂性
+        </h2>
+        <h3 class="post-subtitle">
+            计算理论基础课程总结
+        </h3>
+        <div class="post-content-preview">
+            DTM 的空间复杂性：在长度为 n 的输入上最多扫描 f(n)f(n)f(n) 个不同带方格，则 M 的空间复杂度为 f(h)f(h)f(h)。
+NTM 的空间复杂性：在所有分支停机，在任何计算分支上最多扫描 f(n)f(n)f(n) 个不同带方格，则 M 的空间复杂性是 f(n)f(n)f(n).
+
+可满足性问题：SAT={&lt;ϕ&gt;∣ϕSAT=\{&lt;\phi&gt;|\ph......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-01-11
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Computation" title="Computation">Computation</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/01/10/theory-of-computation-5/">
+        <h2 class="post-title">
+            时间复杂性
+        </h2>
+        <h3 class="post-subtitle">
+            计算理论基础课程总结
+        </h3>
+        <div class="post-content-preview">
+             函数的阶
+大 O 阶：设 fff，ggg 是函数、如果存在某个 ccc，n0n_0n​0​​，对于任意 n≥n0n\geq n_0n≥n​0​​，f(n)≤cg(n)f(n)\leq cg(n)f(n)≤cg(n)，则有 f(n)=O(g(n))f(n)=O(g(n))f(n)=O(g(n))
+小 o 阶：limn→inff(n)g(n)=0\lim_{n\to \inf}\frac{f(......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-01-10
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Computation" title="Computation">Computation</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/01/07/theory-of-computation-4/">
+        <h2 class="post-title">
+            可计算问题
+        </h2>
+        <h3 class="post-subtitle">
+            计算理论基础课程总结
+        </h3>
+        <div class="post-content-preview">
+             正则语言的可判定问题
+ADFA,ANFA,AREX,EDFA,EQDFAA_{DFA}, A_{NFA}, A_{REX}, E_{DFA}, EQ_{DFA}A​DFA​​,A​NFA​​,A​REX​​,E​DFA​​,EQ​DFA​​
+ DFA 接受性问题 - 可判定
+
+检查输入是否是 DFA 和串
+直接模拟 DFA，其一定可以停机
+
+ NFA 接受性问题 - 可判定
+
+检查输入
+选......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-01-07
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Computation" title="Computation">Computation</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/01/07/theory-of-computation-3/">
+        <h2 class="post-title">
+            图灵机
+        </h2>
+        <h3 class="post-subtitle">
+            计算理论基础课程总结
+        </h3>
+        <div class="post-content-preview">
+             单带图灵机
+定义4.1：TM M=(Q,Σ,Γ,δ,q0,qacc,qrej)M=(Q,\Sigma,\Gamma,\delta,q_0,q_{acc},q_{rej})M=(Q,Σ,Γ,δ,q​0​​,q​acc​​,q​rej​​)
+
+QQQ：有穷状态集
+Σ\SigmaΣ 输入字母表
+Γ\GammaΓ，带字母表 Γ∪{B}⊆Γ\Gamma\cup \{B\}\subseteq \Gam......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-01-07
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Computation" title="Computation">Computation</a>
             
         </div>
     
@@ -677,19 +660,19 @@ jsx 的语法允许下面这样的变量定义：·
         </li>
       
         <li>
-          <a href="/2019/01/12/theory-of-computation-8/">完全问题</a>
+          <a href="/2019/01/04/uncertain-knowledge-2/">使用完全联合分布进行推理 — 不确定性的量化（2）</a>
         </li>
       
         <li>
-          <a href="/2019/01/11/theory-of-computation-7/">层次定理</a>
+          <a href="/2019/01/04/uncertain-knowledge-1/">基本概念符号 - 不确定性的量化（1）</a>
         </li>
       
         <li>
-          <a href="/2019/01/11/theory-of-computation-6/">空间复杂性</a>
+          <a href="/2018/12/26/mlp/">多层感知器</a>
         </li>
       
         <li>
-          <a href="/2019/01/10/theory-of-computation-5/">时间复杂性</a>
+          <a href="/2018/12/23/ethereum-mpt-1/">Ethereum 中的 MPT ( Merkle Patricia Tree )（一）</a>
         </li>
       
     </ul>
