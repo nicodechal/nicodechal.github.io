@@ -7,8 +7,16 @@
     </url>
 
     <url>
+        <loc>https://nicodechal.github.io/2018/12/26/mlp/</loc>
+        <lastmod>2019-03-15T03:15:39.412Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://nicodechal.github.io/2018/01/12/theory-of-computation-8/</loc>
-        <lastmod>2019-03-14T16:27:16.337Z</lastmod>
+        <lastmod>2019-03-15T03:15:21.930Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -16,7 +24,7 @@
 
     <url>
         <loc>https://nicodechal.github.io/2018/01/11/theory-of-computation-7/</loc>
-        <lastmod>2019-03-14T16:27:10.887Z</lastmod>
+        <lastmod>2019-03-15T03:12:50.667Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -24,7 +32,7 @@
 
     <url>
         <loc>https://nicodechal.github.io/2018/01/11/theory-of-computation-6/</loc>
-        <lastmod>2019-03-14T16:27:06.113Z</lastmod>
+        <lastmod>2019-03-15T03:12:45.158Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -32,7 +40,7 @@
 
     <url>
         <loc>https://nicodechal.github.io/2018/01/10/theory-of-computation-5/</loc>
-        <lastmod>2019-03-14T16:26:57.252Z</lastmod>
+        <lastmod>2019-03-15T03:12:38.570Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -40,7 +48,7 @@
 
     <url>
         <loc>https://nicodechal.github.io/2018/01/07/theory-of-computation-4/</loc>
-        <lastmod>2019-03-14T16:26:52.444Z</lastmod>
+        <lastmod>2019-03-15T03:12:32.162Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -48,7 +56,7 @@
 
     <url>
         <loc>https://nicodechal.github.io/2018/01/07/theory-of-computation-3/</loc>
-        <lastmod>2019-03-14T16:26:44.972Z</lastmod>
+        <lastmod>2019-03-15T03:12:26.239Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -56,7 +64,7 @@
 
     <url>
         <loc>https://nicodechal.github.io/2018/01/06/theory-of-computation-2/</loc>
-        <lastmod>2019-03-14T16:26:39.990Z</lastmod>
+        <lastmod>2019-03-15T03:12:17.566Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -64,7 +72,7 @@
 
     <url>
         <loc>https://nicodechal.github.io/2018/01/06/theory-of-computation-1/</loc>
-        <lastmod>2019-03-14T16:26:32.941Z</lastmod>
+        <lastmod>2019-03-15T03:11:39.051Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -97,14 +105,6 @@
     <url>
         <loc>https://nicodechal.github.io/2019/01/04/uncertain-knowledge-1/</loc>
         <lastmod>2019-01-04T09:35:54.844Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/2018/12/26/mlp/</loc>
-        <lastmod>2018-12-26T16:18:24.065Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

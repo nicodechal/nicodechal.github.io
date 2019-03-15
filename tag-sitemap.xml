@@ -72,20 +72,6 @@
     </url>
 
     <url>
-        <loc>https://nicodechal.github.io/tags/Deep-Learning/</loc>
-        <lastmod>2018-12-26T16:18:24.065Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/tags/Reproduction/</loc>
-        <lastmod>2018-12-26T16:18:24.065Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://nicodechal.github.io/tags/AI/</loc>
         <lastmod>2019-01-05T04:16:42.311Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -115,7 +101,21 @@
 
     <url>
         <loc>https://nicodechal.github.io/tags/Computation/</loc>
-        <lastmod>2019-03-14T16:27:16.337Z</lastmod>
+        <lastmod>2019-03-15T03:15:21.930Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/tags/Deep-Learning/</loc>
+        <lastmod>2019-03-15T03:15:39.412Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/tags/Reproduction/</loc>
+        <lastmod>2019-03-15T03:15:39.412Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
