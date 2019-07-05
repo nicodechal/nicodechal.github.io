@@ -130,13 +130,6 @@
 
                         
                         <li>
-                            <a href="/about/">About Me</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/archive/">Archives</a>
                         </li>
                         
@@ -144,7 +137,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About Me</a>
                         </li>
                         
                     
@@ -152,6 +145,13 @@
                         
                         <li>
                             <a href="/links/">links</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -211,6 +211,78 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2019/07/05/iptables-usage/">
+        <h2 class="post-title">
+            Iptables 命令学习总结
+        </h2>
+        <h3 class="post-subtitle">
+            网络相关工具学习
+        </h3>
+        <div class="post-content-preview">
+             介绍
+iptables 是 Linux 下的常用网络工具，可以用于对网络数据包的过滤、修改和管理。
+ 基本概念
+ 链的概念
+链是 iptables 中的基本组成，每个链上都包含着一系列用于控制数据包的规则：
+
+每个链在数据包流转的不同环节中发挥作用，流转图和链的关系如下：
+
+图中红色的代表的是 iptables 中的规则链。
+ 表的概念
+表是我们操作这些链的接口，每个链上的规则都被分到不同......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2019-07-05
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Network" title="Network">Network</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/06/17/css-visual-formatting-model/">
+        <h2 class="post-title">
+            [CSS 标准学习] 视觉格式化模型 - Visual Formatting Model
+        </h2>
+        <h3 class="post-subtitle">
+            CSS 标准学习笔记（一）
+        </h3>
+        <div class="post-content-preview">
+            
+本文基于 CSS 2.2 标准文档中视觉格式化模型 Normal Flow 小结进行整理。
+
+标准中这一部分主要描述用户代理 ( User Agent ) 如何为可视媒介 (Visual Media) 处理文档树。在视觉格式化模型中，文档中的每个节点都会根据盒子模型 ( Box Model ) 生成零个或多个盒子。这些盒子根据下面条件进行布局：
+
+盒子的尺寸和类型。
+定位方式 ( 常规流、......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2019-06-17
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#CSS" title="CSS">CSS</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -483,85 +555,6 @@ RLP 算法用来编码 ( 序列化 ) 其结构，使其变为字节序列 ( 二�
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/11/17/data-mining-basic/">
-        <h2 class="post-title">
-            数据挖掘基础知识
-        </h2>
-        <h3 class="post-subtitle">
-            数据挖掘系列总结（一）
-        </h3>
-        <div class="post-content-preview">
-             相似性和不相似性
-
-相似性：数值越大越相似，取值在 [0, 1] 之间。
-不相似性：越小越相似，最小的不相似性取值为 0。
-接近性：相似性或不相似性。
-
-对于  p 和 q 两个对象的属性值，有：
-
-
-
-属性类型
-不相似性
-相似性
-
-
-
-
-Nominal
-d={0if p=q1if p≠qd = \left\{ \begin{array}{lr}0 &amp; if\space p = q......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-11-17
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Data-Mining" title="Data-Mining">Data-Mining</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/11/03/gitlab-ci-usage/">
-        <h2 class="post-title">
-            Gitlab-CI 使用初探
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-             Gitlab-CI 介绍
-Gitlab-CI 是 Gitlab 提供的一个服务，该服务为项目开发提供了自动化构建、测试和部署的能力。Gitlab-CI 可以在项目每次提交后触发配置好的自动化工作流程，例如在每次提交代码后对代码进行测试同时打包代码发布(持续集成)。Gitlan-CI 方便了提交代码后的代码测试、构建和部署，提高了代码交付的效率。
- Gitlab-CI 的使用
-从 Gitla......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-11-03
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#gitlab" title="gitlab">gitlab</a>
-            
-              <a href="/tags/#CI/CD" title="CI/CD">CI/CD</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -664,6 +657,14 @@ Gitlab-CI 是 Gitlab 提供的一个服务，该服务为项目开发提供了�
     <ul>
       
         <li>
+          <a href="/2019/07/05/iptables-usage/">Iptables 命令学习总结</a>
+        </li>
+      
+        <li>
+          <a href="/2019/06/17/css-visual-formatting-model/">[CSS 标准学习] 视觉格式化模型 - Visual Formatting Model</a>
+        </li>
+      
+        <li>
           <a href="/2019/04/08/hash-funciton-sha3/">SHA-3 算法计算过程总结</a>
         </li>
       
@@ -673,14 +674,6 @@ Gitlab-CI 是 Gitlab 提供的一个服务，该服务为项目开发提供了�
       
         <li>
           <a href="/2019/01/04/uncertain-knowledge-2/">使用完全联合分布进行推理 — 不确定性的量化（2）</a>
-        </li>
-      
-        <li>
-          <a href="/2019/01/04/uncertain-knowledge-1/">基本概念符号 - 不确定性的量化（1）</a>
-        </li>
-      
-        <li>
-          <a href="/2018/12/26/mlp/">计算智能总结 - 多层感知器</a>
         </li>
       
     </ul>
