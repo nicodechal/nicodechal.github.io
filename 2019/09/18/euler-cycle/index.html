@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-            React 基本概念总结(一) - Nicodechal
+            欧拉回路的判定和求解 - Nicodechal
                 
     </title>
 
-    <link rel="canonical" href="https://nicodechal.github.io/2018/06/26/react-main-concepts-summary-1/">
+    <link rel="canonical" href="https://nicodechal.github.io/2019/09/18/euler-cycle/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -84,16 +84,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Front-End" title="Front-End">Front-End</a>
-                            
-                              <a class="tag" href="/tags/#React" title="React">React</a>
+                              <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
                             
                         </div>
-                        <h1>React 基本概念总结(一)</h1>
-                        <h2 class="subheading">React 初探</h2>
+                        <h1>欧拉回路的判定和求解</h1>
+                        <h2 class="subheading">算法学习笔记</h2>
                         <span class="meta">
                             Posted by Nicodechal on
-                            2018-06-26
+                            2019-09-18
                         </span>
                     </div>
                 
@@ -217,38 +215,76 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="hello-world"> Hello World</span></h2>
-<p>一个最小的 React 示例：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>));</span><br></pre></td></tr></table></figure>
-<p>这个例子会在页面上渲染出 Hello World 。</p>
-<h2><span id="introducing-jsx"> Introducing JSX</span></h2>
-<p>jsx 的语法允许下面这样的变量定义：·</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure>
-<p>此时 element 是一个 DOM 结点。</p>
-<h3><span id="jsx-中嵌入变量"> jsx 中嵌入变量</span></h3>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> name = <span class="string">"Josh Perez"</span>;</span><br><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure>
-<h3><span id="jsx-也是表达式"> jsx 也是表达式</span></h3>
-<p>jsx 可以像一个表达式一样由一个函数返回：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getGreeting</span>(<span class="params">user</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (user) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;formatName(user)&#125;!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, Stranger.<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3><span id="在-jsx-中添加属性"> 在 jsx 中添加属性</span></h3>
-<p>首先属性名应该使用驼峰式的命名方式，如下：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">tabIndex</span>=<span class="string">"0"</span> /&gt;</span>;</span></span><br></pre></td></tr></table></figure>
-<p>这个例子同时也说明了如果属性值是字符串字面量时的语法，如果想在属性值中潜入 js 代码，使用下面的语法：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;user.avatarUrl&#125;</span> /&gt;</span>;</span></span><br></pre></td></tr></table></figure>
-<p>此时要注意大括号外不要添加引号。</p>
-<p>如果要为元素添加 class 属性，需要将 class 属性写作 className，class 在 js 是保留关键字。</p>
-<h3><span id="jsx-的本质"> jsx 的本质</span></h3>
-<p>jsx 最终会变为一个 React 元素，下面是一个简单的 jsx 示例：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">"greeting"</span>&gt;</span>Hello, world!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure>
-<p>这段代码和下面这段代码含义相同：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = React.createElement(</span><br><span class="line">  <span class="string">"h1"</span>,</span><br><span class="line">  &#123; <span class="attr">className</span>: <span class="string">"greeting"</span> &#125;,</span><br><span class="line">  <span class="string">"Hello, world!"</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p>它们都将产生一个 React 对象：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Note: 简化的形式</span></span><br><span class="line"><span class="keyword">const</span> element = &#123;</span><br><span class="line">  type: <span class="string">"h1"</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    className: <span class="string">"greeting"</span>,</span><br><span class="line">    children: <span class="string">"Hello, world!"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2><span id="rendering-elements"> Rendering Elements</span></h2>
-<p>React 的元素是不可变的，我们无法改变一个元素的孩子节点或属性，目前为止可以用下面的方法更新 UI：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tick</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> element = (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;Hello, world!<span class="xml"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line">      &lt;h2&gt;It is &#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleTimeString()&#125;.&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">  ReactDOM.render(element, <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setInterval(tick, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-<p>同时这个例子中，React 并不会更新整个页面，而是只更新需要更新的部分。</p>
-<p><img src="update.gif" alt=""></p>
+                <blockquote>
+<p>本文考虑无向图下的欧拉回路，基于 Leetcode.753 对应的一个例子进行解释</p>
+</blockquote>
+<h3><span id="欧拉回路的判定"> 欧拉回路的判定</span></h3>
+<p>一个图上的 <strong>欧拉回路</strong> 指一条<em>首尾相连的路径</em>，该路径经过图上<em>每条边</em>，且只经过每条边一次。</p>
+<p>一个图如果有欧拉回路，必需满足：</p>
+<ul>
+<li>每个顶点的度为偶数 ( 每个顶点的边有偶数条 )。</li>
+</ul>
+<h3><span id="欧拉回路的求解"> 欧拉回路的求解</span></h3>
+<h4><span id="深度优先搜索-dfs"> 深度优先搜索 ( DFS )</span></h4>
+<p>确定一个图有欧拉回路后，取一个顶点开始进行 DFS，搜索时，要记录每条边的访问情况，去掉已经访问的边。</p>
+<p>下面举一个实际的例子。下图中左边的图是一个包含欧拉回路的图，求出欧拉回路的路径。</p>
+<p><img src="euler.png" alt=""></p>
+<p>该图的每个结点为一个长度为 2 的字符串，内容为所有 2 位二进制数，边有两种 “0” 边或 “1” 边。描述如下：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Node</span> = &#123;<span class="string">"00"</span>, <span class="string">"01"</span>, <span class="string">"10"</span>, <span class="string">"11"</span>&#125;</span><br><span class="line"><span class="attr">Edge</span> = &#123;<span class="string">"0"</span>, <span class="string">"1"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>每个节点有两个出边 “0” 和 “1”。每个边指向的下一个点为，当前点去掉第一个字符后的串加上边上的值形成的字符串所在的点：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"00"</span> -<span class="string">"1"</span>-&gt; <span class="string">"00"</span>.slice(<span class="number">1</span>) + <span class="string">"1"</span>, 即 <span class="string">"00"</span> -<span class="string">"1"</span>-&gt; <span class="string">"01"</span></span><br><span class="line"><span class="string">"10"</span> -<span class="string">"0"</span>-&gt; <span class="string">"00"</span>, <span class="string">"01"</span> -<span class="string">"1"</span>-&gt; <span class="string">"11"</span> ...</span><br></pre></td></tr></table></figure>
+<p>使用 DFS 找出这张图的欧拉回路的核心代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> dfs = <span class="function"><span class="params">n</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123; <span class="comment">// 遍历 0 1 两条边</span></span><br><span class="line">        <span class="keyword">const</span> newn = n.slice(<span class="number">1</span>) + i; <span class="comment">// 得到下一个节点</span></span><br><span class="line">        <span class="keyword">if</span> (visitedn + i) <span class="keyword">continue</span>; <span class="comment">// 使用 **n + i** 唯一表示一条边</span></span><br><span class="line">        visitedn + i = <span class="literal">true</span>; </span><br><span class="line">        dfs(newn); <span class="comment">// 遍历下个节点</span></span><br><span class="line">        path += i; <span class="comment">// 利用递归栈保存路径</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">dfs(<span class="string">"00"</span>);</span><br></pre></td></tr></table></figure>
+<p>使用该方法的到的是路径的边的序列的<strong>逆序</strong>(将上面的 <code>path += i</code> 改为 <code>path = i + path</code> 可以的到正序边)。图中的例子得到的结果为：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">00111010</span></span><br></pre></td></tr></table></figure>
+<p>图中右边还给出了具体的分析，来说明该方法记录路径的方法。图中向右的箭头表示递归调用，向左的箭头表示递归结束回退。</p>
+<p>在进行解释之前，需要了解一下在有欧拉回路的图上进行 DFS 时的特点，即</p>
+<ul>
+<li><strong>从一个点出发，如果出现的回退，说明出现了回路。</strong></li>
+</ul>
+<p>图中出现了三次回退：</p>
+<ol>
+<li>从 00 出发回到 00，此时回退到了 10</li>
+<li>从 10 出发回到 10，此时回退到了 11</li>
+<li>从 11 出发回到 11，此时回退到了 11, 并一路回退到了 00 ( 因为会退到的点都已经没有还没 visit 的边了 )</li>
+</ol>
+<p>得到欧拉路径 (<strong>欧拉回路的目的是遍历所有的边</strong>) 的方式如下：</p>
+<ol>
+<li>先得到了一条 00 到 00 的路径：</li>
+</ol>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">00 </span>-<span class="number">0</span>-&gt; <span class="number">00</span> -<span class="number">1</span>-&gt; <span class="number">01</span> -<span class="number">0</span>-&gt; <span class="number">10</span> -<span class="number">0</span>-&gt; <span class="number">00</span>,</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>又得到了一条 10 到 10 的路径：</li>
+</ol>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">10 </span>-<span class="number">1</span>-&gt; <span class="number">01</span> -<span class="number">1</span>-&gt; <span class="number">11</span> -<span class="number">0</span>-&gt; <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>最后得到了 11 到 11 的路径：</li>
+</ol>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">11 </span>-<span class="number">1</span>-&gt; <span class="number">11</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>将 11 回路加入到 10 回路：</li>
+</ol>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">10 </span>-<span class="number">1</span>-&gt; <span class="number">01</span> -<span class="number">1</span>-&gt; <span class="number">11</span> -<span class="number">1</span>-&gt; <span class="number">11</span> -<span class="number">0</span>-&gt; <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>将 4 中的回路加入到 00 回路中：</li>
+</ol>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">00</span> <span class="number">-0</span>-&gt; <span class="number">00</span> <span class="number">-1</span>-&gt; <span class="number">01</span> <span class="number">-0</span>-&gt; <span class="number">10</span> <span class="number">-1</span>-&gt; <span class="number">01</span> <span class="number">-1</span>-&gt; <span class="number">11</span> <span class="number">-1</span>-&gt; <span class="number">11</span> <span class="number">-0</span>-&gt; <span class="number">10</span> <span class="number">-0</span>-&gt; <span class="number">00</span></span><br></pre></td></tr></table></figure>
+<p>总结起来递归的过程简单理解为寻找嵌套回路，比如：</p>
+<p>第一条回路：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">abcdefga</span></span><br></pre></td></tr></table></figure>
+<p>这是回路，但不包含所有的边，所以看有没有嵌套的回路：比如退到 f 发现可以展开，根据已知的条件，从 f 出发，一定会回到 f，所以，从 f 出发可能得到一个这样的回路</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">fhf</span></span><br></pre></td></tr></table></figure>
+<p>把这个路径加入到一开始的回路可以得到</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">abcdefhfga</span></span><br></pre></td></tr></table></figure>
+<p>这个回路比一开始的回路遍历了更多的边，所以，不断地使用这样的方法展开回路，如果一个图有欧拉回路，最终所有的边一定可以被遍历。</p>
+<p>图中还说明了每个边输出的顺序，使用带圈的 1, 2, 3 … 表示。程序中输出语句放在了递归之后，因此相当于利用递归栈记录了路径。</p>
+<p>例程中输出的顺序如下：</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">第一个回路后半<span class="function"><span class="params">(<span class="number">1</span>)</span> -&gt;</span> 第二个回路后半<span class="function"><span class="params">(<span class="number">2</span>)</span> -&gt;</span> 第三个回路<span class="function"><span class="params">(<span class="number">3</span>)</span> -&gt;</span> 第二个回路前半<span class="function"><span class="params">(<span class="number">4</span>, <span class="number">5</span>)</span> -&gt;</span> 第一个回路前半(<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>)</span><br></pre></td></tr></table></figure>
+<p>最终得到逆序的路径：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">00111010</span></span><br></pre></td></tr></table></figure>
+<h4><span id="fleury-佛罗莱-算法-todo"> Fleury ( 佛罗莱 ) 算法 [TODO]</span></h4>
+<h3><span id="参考资料"> 参考资料</span></h3>
+<p><a href="https://leetcode.com/problems/cracking-the-safe/" target="_blank" rel="noopener">Leetcode.753 - cracking-the-safe</a></p>
 
                 
 
@@ -256,13 +292,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/06/27/react-main-concepts-summary-2/" data-toggle="tooltip" data-placement="top" title="React 基本概念总结(二)">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2018/04/15/using-of-vuegister-module/" data-toggle="tooltip" data-placement="top" title="类似 babel-register 的 Vue 单文件组件编译模块 Vuegister 插件的使用">Next Post &rarr;</a>
+                            <a href="/2019/07/05/iptables-usage/" data-toggle="tooltip" data-placement="top" title="Iptables 命令学习总结">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -292,7 +324,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> Hello World</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> Introducing JSX</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"> jsx 中嵌入变量</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"> jsx 也是表达式</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text"> 在 jsx 中添加属性</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text"> jsx 的本质</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> Rendering Elements</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 欧拉回路的判定</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 欧拉回路的求解</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"> 深度优先搜索 ( DFS )</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"> Fleury ( 佛罗莱 ) 算法 [TODO]</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 参考资料</span></a></li></ol>
         
         </div>
       </aside>
@@ -312,9 +344,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Front-End" title="Front-End">Front-End</a>
-                        
-                          <a class="tag" href="/tags/#React" title="React">React</a>
+                          <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
                         
                     </div>
                 </section>
@@ -349,8 +379,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "nicodechal";
-    var disqus_identifier = "https://nicodechal.github.io/2018/06/26/react-main-concepts-summary-1/";
-    var disqus_url = "https://nicodechal.github.io/2018/06/26/react-main-concepts-summary-1/";
+    var disqus_identifier = "https://nicodechal.github.io/2019/09/18/euler-cycle/";
+    var disqus_url = "https://nicodechal.github.io/2019/09/18/euler-cycle/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
