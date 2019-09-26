@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-            Gitlab-CI 使用初探 - Nicodechal
+            拓扑排序的应用 - Nicodechal
                 
     </title>
 
-    <link rel="canonical" href="https://nicodechal.github.io/2018/11/03/gitlab-ci-usage/">
+    <link rel="canonical" href="https://nicodechal.github.io/2019/09/26/topological-sort/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -67,7 +67,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('undefined')
+            background-image: url('null')
             /*post*/
         
     }
@@ -84,14 +84,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#CI/CD" title="CI/CD">CI/CD</a>
+                              <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
                             
                         </div>
-                        <h1>Gitlab-CI 使用初探</h1>
+                        <h1>拓扑排序的应用</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Nicodechal on
-                            2018-11-03
+                            2019-09-26
                         </span>
                     </div>
                 
@@ -215,39 +215,24 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="gitlab-ci-介绍"> Gitlab-CI 介绍</span></h2>
-<p>Gitlab-CI 是 Gitlab 提供的一个服务，该服务为项目开发提供了自动化构建、测试和部署的能力。Gitlab-CI 可以在项目每次提交后触发配置好的自动化工作流程，例如在每次提交代码后对代码进行测试同时打包代码发布(持续集成)。Gitlan-CI 方便了提交代码后的代码测试、构建和部署，提高了代码交付的效率。</p>
-<h2><span id="gitlab-ci-的使用"> Gitlab-CI 的使用</span></h2>
-<p>从 Gitlab 8.0 版本开始 Gitlab-CI 已经被集成在 Gitlab 中，所以可以直接使用。在 Gitlab 上的项目使用 Gitlab-CI，只需要做两件事：</p>
+                <blockquote>
+<p>这是一篇关于拓扑排序的总结，以 LeetCode.1203 为例</p>
+</blockquote>
+<p>例子的问题不再复述，总的来说，就是需要进行两次拓扑排序，第一次对组内的元素进行排序，第二次对组之间进行排序。</p>
+<p>拓扑排序的大概过程：</p>
 <ol>
-<li>在项目的根目录下添加 <code>.gitlab-ci.yml</code> 文件</li>
-<li>配置 gitlab-runner</li>
+<li>取出所有入度为 0 的点放入队列 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">q</span></span></span></span>.</li>
+<li>取出一个点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span>，将其加入结果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>n</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">ans</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mord mathit">s</span></span></span></span> 数组中，并遍历其出边指向的点集 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">S</span></span></span></span>.</li>
+<li>对于每个点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>s</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">s_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">s</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> ，入度减 1，如果此时其入度为 0 ，将其放入 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">q</span></span></span></span>.</li>
+<li>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">q</span></span></span></span> 中无节点输出 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>n</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">ans</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mord mathit">s</span></span></span></span>, 否则返回 2 步</li>
 </ol>
-<p>之后只要推送代码，就可以在 Gitlab 的 CI/CD 菜单中看到 Gitlab-CI 的运行情况。</p>
-<h3><span id="创建-gitlab-ciyml-文件"> 创建 .gitlab-ci.yml 文件</span></h3>
-<p>.gitlab-ci.yml 文件描述了需要 gitlab-ci 执行的自动化操作，每当提交代码之后，gitlab-ci 就会检查该文件然后根据该文件内容在 <em>Runners</em> 中执行相关操作。该文件是一个 YAML 文件。下面是一个 .gitlab-ci.yml 文件的实例：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">before_script:</span> <span class="comment"># 每个脚本执行前都要执行</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">apt-get</span> <span class="string">update</span> <span class="bullet">-qq</span> <span class="string">&amp;&amp;</span> <span class="string">apt-get</span> <span class="string">install</span> <span class="bullet">-y</span> <span class="bullet">-qq</span> <span class="string">sqlite3</span> <span class="string">libsqlite3-dev</span> <span class="string">nodejs</span> <span class="comment">#一些需要自动执行的命令</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">ruby</span> <span class="bullet">-v</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">which</span> <span class="string">ruby</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">gem</span> <span class="string">install</span> <span class="string">bundler</span> <span class="bullet">--no-ri</span> <span class="bullet">--no-rdoc</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">bundle</span> <span class="string">install</span> <span class="bullet">--jobs</span> <span class="string">$(nproc)</span>  <span class="string">"$&#123;FLAGS[@]&#125;"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rspec:</span> <span class="comment"># 一个job 名为 rspec</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">bundle</span> <span class="string">exec</span> <span class="string">rspec</span> <span class="comment"># 该 job 需要执行的脚本</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rubocop:</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">bundle</span> <span class="string">exec</span> <span class="string">rubocop</span></span><br></pre></td></tr></table></figure>
-<p>创建完成后，将该文件添加到项目的根目录并上传到 gitlab 上：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .gitlab-ci.yml</span><br><span class="line">git commit -m "Add .gitlab-ci.yml"</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<p>此时可以在 gitlab 的 WEB 页面看到刚才提交触发的构建，但是目前还没有配置 Runner 所以该构建处于 pending 状态(在 WEB 界面会看到一个暂停的小标记)，接下来需要配置Runner。</p>
-<h3><span id="配置-gitlab-runner"> 配置 gitlab-runner</span></h3>
-<p>Gitlab-CI 使用 gitlab-runner 执行 .gitlab-ci.yml 配置的脚本，是脚本的执行器。使用时首先需要安装 gitlab-runner ，然后在 Gitlab 的 WEB 界面对 Runner 进行配置和分配。</p>
-<p>本文使用 Docker 安装 gitlab-Runner，首先使用下面命令拉取 gitlab-runner 的镜像：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull gitlab/gitlab-runner</span><br></pre></td></tr></table></figure>
-<p>然后添加 gitlab-runner 的容器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name gitlab-runner --restart always \</span><br><span class="line">  -v /srv/gitlab-runner/config:/etc/gitlab-runner \</span><br><span class="line">  -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">  gitlab/gitlab-runner:latest</span><br></pre></td></tr></table></figure>
-<p>注册 Runner</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it gitlab-runner gitlab-ci-multi-runner register</span><br></pre></td></tr></table></figure>
-<p>注册过程参考 <a href="https://docs.gitlab.com/runner/register/index.html#docker" target="_blank" rel="noopener">gitlab-runner 注册</a></p>
-<p>最后运行下面命令启动</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it gitlab-runner gitlab-ci-multi-runner install</span><br><span class="line">sudo docker exec -it gitlab-runner gitlab-ci-multi-runner start</span><br></pre></td></tr></table></figure>
-<p>此时在 gitlab WEB 界面可以看到 Runner正常运行 (Runner 旁边有绿色的灯亮起)</p>
-<p><img src="https://img-blog.csdn.net/20170515161632358?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYWl4aWFveWFuZzE2OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
-<p>完成上述步骤后，只要进行代码提交， gitlab 就会运行 runner 执行 .gitlab-ci.yml 中设置的 jobs。</p>
-<h2><span id="参考资料"> 参考资料</span></h2>
-<p><a href="https://docs.gitlab.com/ee/ci/quick_start/README.html" target="_blank" rel="noopener">Getting started with GitLab CI/CD</a><br>
-<a href="https://blog.csdn.net/aixiaoyang168/article/details/72168834" target="_blank" rel="noopener">Docker搭建自己的Gitlab CI Runner</a><br>
-<a href="https://about.gitlab.com/2016/08/05/continuous-integration-delivery-and-deployment-with-gitlab/" target="_blank" rel="noopener">Continuous Integration, Delivery, and Deployment with GitLab</a></p>
+<p>正常的拓扑排序就比较简单，这里还要考虑条件冲突的情况（即例如 A 要求 B 在 A 前，B 要求 A 在 B 前），就是图中出现了环形依赖。</p>
+<p>利用拓扑排序的特点，这个问题也容易解决，因为拓扑排序要求图是有向无环图，所以如果出现环，得到的排序将会不完整，所以根据得到的结果的节点数是否等于原来的节点数即可知道是否出现环，而如果出现环，即表示无解，直接返回空数组。</p>
+<p>下面说明 LeetCode.1203 的解。</p>
+<p>首先得到一个根据每个节点入度数和出边对应的节点进行拓扑排序的函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A 为节点编号，inn为入度数组，out为每个点对应的后续节点</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sortInOut</span>(<span class="params">A, inn, out</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> q = [], nA = [];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">const</span> a <span class="keyword">of</span> A) &#123;</span><br><span class="line">		<span class="keyword">if</span> (inn[a] === <span class="number">0</span>) q.push(a); <span class="comment">// 先将入度为 0 的点放入队列</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (q.length) &#123; <span class="comment">// 当队列不空就一直执行</span></span><br><span class="line">		<span class="keyword">const</span> t = q.shift(); </span><br><span class="line">		nA.push(t); <span class="comment">// 取出头结点并加入结果中</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">const</span> v <span class="keyword">of</span> out[t]) &#123;</span><br><span class="line">			inn[v]--;</span><br><span class="line">			<span class="keyword">if</span> (inn[v] === <span class="number">0</span>) q.push(v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">  <span class="comment">// 下面判断是否无解</span></span><br><span class="line">	<span class="keyword">if</span> (nA.length !== A.length) <span class="keyword">return</span> [];</span><br><span class="line">	<span class="keyword">return</span> nA;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用这个函数，首先对每一个 group 子数组排序，再对 group 进行排序，因此剩下的就是分别构建子数组和 group 对应的 <code>inn</code> 和 <code>out</code>。主函数代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sortItems = <span class="function"><span class="keyword">function</span> (<span class="params">n, m, gp, bf</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> gn = m;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (gp[i] === <span class="number">-1</span>) gp[i] = gn++; <span class="comment">// 这里先将 -1 的组都编上号</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 要构建的四个数组</span></span><br><span class="line">	<span class="keyword">const</span> inn = nArray(n, () =&gt; <span class="number">0</span>), out = nArray(n),</span><br><span class="line">		ginn = nArray(gn, () =&gt; <span class="number">0</span>), gout = nArray(gn);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> inner = nArray(gn); <span class="comment">//inner[i] 表示第 i 组的子数组</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		inner[gp[i]].push(i);</span><br><span class="line">		<span class="keyword">const</span> b = bf[i]; <span class="comment">// i节点的前序节点集</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">const</span> v <span class="keyword">of</span> b) &#123;</span><br><span class="line">			<span class="comment">// v before i</span></span><br><span class="line">      <span class="comment">// 下面将依赖关系分成两组，如果同组则认为这个依赖是**组内依赖**</span></span><br><span class="line">      <span class="comment">// 否则认为是组间依赖</span></span><br><span class="line">      <span class="comment">// 例如 v 在 i 前，如果两个点同组，即 gp[v] === gp[i]，则可以在组内满足这条依赖</span></span><br><span class="line">      <span class="comment">// 如果不同组，则我们只要让 gp[i] 在 gp[v] 之前就可以保证依赖满足</span></span><br><span class="line">			<span class="keyword">if</span> (gp[v] === gp[i]) &#123; </span><br><span class="line">				inn[i]++;</span><br><span class="line">				out[v].push(i);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				ginn[gp[i]]++;</span><br><span class="line">				gout[gp[v]].push(gp[i]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 这里进行组内排序</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> k = <span class="number">0</span>; k &lt; gn; k++) &#123;</span><br><span class="line">		<span class="keyword">const</span> ninner = sortInOut(inner[k], inn, out);</span><br><span class="line">		<span class="keyword">if</span> (ninner.length !== inner[k].length) <span class="keyword">return</span> [];</span><br><span class="line">		inner[k] = ninner;</span><br><span class="line">	&#125;</span><br><span class="line">  <span class="comment">// 这里进行组间排序</span></span><br><span class="line">	<span class="keyword">const</span> pos = sortInOut(inner.map(<span class="function">(<span class="params">v, i</span>) =&gt;</span> i), ginn, gout);</span><br><span class="line">  <span class="comment">// 按照排序后的 index 拼接出结果</span></span><br><span class="line">	<span class="keyword">const</span> ans = [];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">const</span> p <span class="keyword">of</span> pos) &#123;</span><br><span class="line">		ans.push(...inner[p]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
                 
 
@@ -255,13 +240,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/11/17/data-mining-basic/" data-toggle="tooltip" data-placement="top" title="数据挖掘基础知识">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2018/06/27/react-main-concepts-summary-2/" data-toggle="tooltip" data-placement="top" title="React 基本概念总结(二)">Next Post &rarr;</a>
+                            <a href="/2019/09/18/euler-cycle/" data-toggle="tooltip" data-placement="top" title="欧拉回路的判定和求解">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -286,6 +267,17 @@
             <!-- Tabe of Content -->
             <!-- Table of Contents -->
 
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="nav">none</ol>
+        
+        </div>
+      </aside>
+    
+
                 
             <!-- Sidebar Container -->
             <div class="
@@ -300,7 +292,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#CI/CD" title="CI/CD">CI/CD</a>
+                          <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
                         
                     </div>
                 </section>
@@ -335,8 +327,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "nicodechal";
-    var disqus_identifier = "https://nicodechal.github.io/2018/11/03/gitlab-ci-usage/";
-    var disqus_url = "https://nicodechal.github.io/2018/11/03/gitlab-ci-usage/";
+    var disqus_identifier = "https://nicodechal.github.io/2019/09/26/topological-sort/";
+    var disqus_url = "https://nicodechal.github.io/2019/09/26/topological-sort/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

@@ -214,6 +214,41 @@
 
 <div class="post-preview">
 
+    <a href="/2018/12/22/ethereum-rlp-decode/">
+        <h2 class="post-title">
+            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码
+        </h2>
+        <h3 class="post-subtitle">
+            Ethereum 学习笔记
+        </h3>
+        <div class="post-content-preview">
+             概述
+RLP 算法能够将任意嵌套字节数组编码为字节序列，也能够将其还原为字节数组，这个过程相对于编码过程的逆过程，称为 RLP 算法的解码。下面是一个具体示例。
+1&lt; 0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0 &gt; = [ [], [[]], [ [], [[]] ] ]
+本文对于 RLP 算法解码过程进行说明。
+ 算法流程
+相......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-12-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
+            
+              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2018/12/20/ethereum-rlp-encode/">
         <h2 class="post-title">
             Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码
@@ -313,8 +348,6 @@ Gitlab-CI 是 Gitlab 提供的一个服务，该服务为项目开发提供了�
             2018-11-03
         </p>
         <div class="tags">
-            
-              <a href="/tags/#gitlab" title="gitlab">gitlab</a>
             
               <a href="/tags/#CI/CD" title="CI/CD">CI/CD</a>
             
@@ -420,8 +453,6 @@ jsx 的语法允许下面这样的变量定义：·
             
               <a href="/tags/#Vue.js" title="Vue.js">Vue.js</a>
             
-              <a href="/tags/#Vuegister" title="Vuegister">Vuegister</a>
-            
         </div>
     
 
@@ -455,8 +486,6 @@ vueify 是一个提供给 Br......
               <a href="/tags/#Front-End" title="Front-End">Front-End</a>
             
               <a href="/tags/#Vue.js" title="Vue.js">Vue.js</a>
-            
-              <a href="/tags/#vueify" title="vueify">vueify</a>
             
         </div>
     
@@ -524,36 +553,6 @@ NP 中的每个语言 A 都多项式时间规约到 B，则 B 是 NP 难的。
         <p class="post-meta" style="margin: 10px 0;">
             Posted by Nicodechal on
             2018-01-12
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Computation" title="Computation">Computation</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/01/11/theory-of-computation-7/">
-        <h2 class="post-title">
-            [计算理论基础] 层次定理
-        </h2>
-        <h3 class="post-subtitle">
-            计算理论基础课程总结
-        </h3>
-        <div class="post-content-preview">
-             空间层次定理
-空间可构造函数：满足 f(n)≥lognf(n)\geq lognf(n)≥logn，且 f(n)f(n)f(n) 在 O(f(n))O(f(n))O(f(n)) 空间内可计算，输入 1n1^n1​n​​，输出二进制 f(n)f(n)f(n).即，存在 TM 以 f(n)f(n)f(n) 作为空间复杂性。
-线性加速定理：TIME(cf(n))=TIME(f(n))TIME(c......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-01-11
         </p>
         <div class="tags">
             
@@ -671,6 +670,10 @@ NP 中的每个语言 A 都多项式时间规约到 B，则 B 是 NP 难的。
     <ul>
       
         <li>
+          <a href="/2019/09/26/topological-sort/">拓扑排序的应用</a>
+        </li>
+      
+        <li>
           <a href="/2019/09/18/euler-cycle/">欧拉回路的判定和求解</a>
         </li>
       
@@ -684,10 +687,6 @@ NP 中的每个语言 A 都多项式时间规约到 B，则 B 是 NP 难的。
       
         <li>
           <a href="/2019/04/08/hash-funciton-sha3/">SHA-3 算法计算过程总结</a>
-        </li>
-      
-        <li>
-          <a href="/2019/03/03/ethereum-mpt-2/">Ethereum 中的 MPT ( Merkle Patricia Tree )（二）</a>
         </li>
       
     </ul>

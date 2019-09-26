@@ -16,50 +16,8 @@
     </url>
 
     <url>
-        <loc>https://nicodechal.github.io/tags/vueify/</loc>
-        <lastmod>2018-04-02T03:25:12.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/tags/Vue-js/</loc>
-        <lastmod>2018-04-15T15:14:12.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/tags/Vuegister/</loc>
-        <lastmod>2018-04-15T15:14:12.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/tags/Front-End/</loc>
-        <lastmod>2018-12-26T16:13:07.807Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://nicodechal.github.io/tags/React/</loc>
         <lastmod>2018-12-26T16:13:07.807Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/tags/gitlab/</loc>
-        <lastmod>2018-12-26T16:17:57.117Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/tags/CI-CD/</loc>
-        <lastmod>2018-12-26T16:17:57.117Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -128,13 +86,6 @@
     </url>
 
     <url>
-        <loc>https://nicodechal.github.io/tags/CSS/</loc>
-        <lastmod>2019-07-05T02:00:22.067Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://nicodechal.github.io/tags/Network/</loc>
         <lastmod>2019-07-05T04:59:12.944Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -142,8 +93,36 @@
     </url>
 
     <url>
+        <loc>https://nicodechal.github.io/tags/CSS/</loc>
+        <lastmod>2019-09-26T15:12:29.361Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/tags/Front-End/</loc>
+        <lastmod>2019-09-26T15:15:34.035Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/tags/Vue-js/</loc>
+        <lastmod>2019-09-26T15:15:34.035Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/tags/CI-CD/</loc>
+        <lastmod>2019-09-26T15:16:22.426Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://nicodechal.github.io/tags/Algorithm/</loc>
-        <lastmod>2019-09-19T13:21:29.061Z</lastmod>
+        <lastmod>2019-09-26T15:47:28.820Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
