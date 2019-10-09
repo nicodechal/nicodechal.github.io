@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://nicodechal.github.io/2019/10/09/cycle-finding-DFS/</loc>
+        <lastmod>2019-10-09T07:26:26.997Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://nicodechal.github.io/2019/10/02/skiplist-you-must-know/</loc>
         <lastmod>2019-10-02T11:22:14.928Z</lastmod>
         <changefreq>weekly</changefreq>

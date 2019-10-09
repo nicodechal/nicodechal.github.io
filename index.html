@@ -214,6 +214,42 @@
 
 <div class="post-preview">
 
+    <a href="/2019/10/09/cycle-finding-DFS/">
+        <h2 class="post-title">
+            环路检测的 DFS 算法
+        </h2>
+        <h3 class="post-subtitle">
+            算法学习笔记
+        </h3>
+        <div class="post-content-preview">
+            传统的 DFS 算法比较简单，这里考虑可以进行环路检测的 DFS 算法, 该算法也称为 “White-Gray-Black” DFS。
+ 算法思路
+对于访问的节点，相比于以往使用 visited 数组记录一个点是否访问，这里使用一个 color 数组，将状态分为三种：
+
+WHITE: 节点还未访问
+GRAY: 节点正在被访问
+BLACK: 节点已经访问
+
+可以看到，节点正在访问的情况也被记录......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2019-10-09
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2019/10/02/skiplist-you-must-know/">
         <h2 class="post-title">
             跳表 ( Skiplist ) 的数据结构实现
@@ -521,42 +557,6 @@ P(Y)=∑z∈ZP(Y,z)=∑zP......
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/12/26/mlp/">
-        <h2 class="post-title">
-            计算智能总结 - 多层感知器
-        </h2>
-        <h3 class="post-subtitle">
-            机器学习学习笔记
-        </h3>
-        <div class="post-content-preview">
-            
-本文为整理笔记。
-
- 简介
-多层感知器(Multilayer Perceptron)是前馈人工神经网络的一种，一个多层感知器至少包含三层节点：输入层，隐藏层，输出层，除了输入节点，每个节点都是一个包含非线性激活函数(nonlinear activation function)的神经元。多层感知器使用反向传播算法训练。
-
-“多层感知器” 一词不是指一个有很多层的感知器。而是包含了许多组织成层......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-12-26
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Deep-Learning" title="Deep-Learning">Deep-Learning</a>
-            
-              <a href="/tags/#Reproduction" title="Reproduction">Reproduction</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -659,6 +659,10 @@ P(Y)=∑z∈ZP(Y,z)=∑zP......
     <ul>
       
         <li>
+          <a href="/2019/10/09/cycle-finding-DFS/">环路检测的 DFS 算法</a>
+        </li>
+      
+        <li>
           <a href="/2019/10/02/skiplist-you-must-know/">跳表 ( Skiplist ) 的数据结构实现</a>
         </li>
       
@@ -672,10 +676,6 @@ P(Y)=∑z∈ZP(Y,z)=∑zP......
       
         <li>
           <a href="/2019/07/05/iptables-usage/">Iptables 命令学习总结</a>
-        </li>
-      
-        <li>
-          <a href="/2019/06/17/css-visual-formatting-model/">[CSS 标准学习] 视觉格式化模型 - Visual Formatting Model</a>
         </li>
       
     </ul>

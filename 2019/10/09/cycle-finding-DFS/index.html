@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-            About Me - Nicodechal
+            环路检测的 DFS 算法 - Nicodechal
                 
     </title>
 
-    <link rel="canonical" href="https://nicodechal.github.io/about/">
+    <link rel="canonical" href="https://nicodechal.github.io/2019/10/09/cycle-finding-DFS/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -67,8 +67,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/self.jpg')
-            /*page*/
+            background-image: url('null')
+            /*post*/
         
     }
     
@@ -81,10 +81,18 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>About Me</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">Welcome to Nicodechal&#39;s Blog</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
+                            
+                        </div>
+                        <h1>环路检测的 DFS 算法</h1>
+                        <h2 class="subheading">算法学习笔记</h2>
+                        <span class="meta">
+                            Posted by Nicodechal on
+                            2019-10-09
+                        </span>
                     </div>
                 
 
@@ -194,222 +202,181 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
+    <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <p>Hi, Welcome to my Blog, you can read my articles to know more about my study and interest.</p>
-<!-- The technologies **I have tried** are as follows:
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-- Front End
-  - HTML, CSS, JavaScript
-  - Devtools like Webpack, Parcel, Babel, Postcss etc.
-  - Scss, Less, ES6, know a little Typescript 
-  - Node.js
-  - Vue.js, jQuery, know a little React, Angular
-  - Mocha+chai test framework
-  - Wechat Miniprogram Development
+                <p>传统的 DFS 算法比较简单，这里考虑可以进行环路检测的 DFS 算法, 该算法也称为 <a href="https://www.geeksforgeeks.org/detect-cycle-direct-graph-using-colors/" target="_blank" rel="noopener">“White-Gray-Black” DFS</a>。</p>
+<h3><span id="算法思路"> 算法思路</span></h3>
+<p>对于访问的节点，相比于以往使用 <code>visited</code> 数组记录一个点是否访问，这里使用一个 <code>color</code> 数组，将状态分为三种：</p>
+<ol>
+<li><code>WHITE</code>: 节点还未访问</li>
+<li><code>GRAY</code>: 节点正在被访问</li>
+<li><code>BLACK</code>: 节点已经访问</li>
+</ol>
+<p>可以看到，节点正在访问的情况也被记录，如果再一次搜索中，一个节点正在被访问 ( 节点的 <code>color</code> 已经是灰色 ) 时，又一次被访问，则说明该节点在环中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回 false 如果有环。</span></span><br><span class="line"><span class="keyword">const</span> cycleDFS = <span class="function"><span class="params">idx</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// WHITE - 0 | GRAY - 1 | BLACK - 2</span></span><br><span class="line">    <span class="comment">// 正在遍历标记为 GRAY</span></span><br><span class="line">    color[idx] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> v <span class="keyword">of</span> g[idx]) &#123;</span><br><span class="line">        <span class="comment">// BLACK 节点直接忽略</span></span><br><span class="line">        <span class="keyword">if</span> (color[v] === <span class="number">2</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="comment">// v 是 GRAY，说明环路了 </span></span><br><span class="line">        <span class="comment">// 或</span></span><br><span class="line">        <span class="comment">// v 是 WHITE 并递归检测下这个节点，如果 dfs 返回 false，说明有环</span></span><br><span class="line">        <span class="comment">// 其中一个成立本函数返回 false</span></span><br><span class="line">        <span class="keyword">if</span> (color[v] === <span class="number">1</span> || !cycleDFS(v)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 该节点检查完毕，置为 BLACK</span></span><br><span class="line">    color[idx] = <span class="number">2</span>;</span><br><span class="line">    <span class="comment">// 之前都没找到回路，这里就返回 true</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="小结"> 小结</span></h3>
+<p>本文对环路检测的算法 “White-Gray-Black” DFS 进行了简单的记录，总的来说，相较于普通的 DFS 算法，该算法将 <code>visited</code> 数组的状态进行了扩展，使得算法可以区分一个节点的正在访问状态。于是可以判定一个节点在一个路径上是否出现了两次 ( 如果一个节点正在访问且又一次访问到了该节点，说明该节点在一个环上 )。</p>
+<p>总的来说，对于环路检测问题，已知有以下思路：</p>
+<ol>
+<li><strong>拓扑排序</strong> (不停去掉入度为 0 的节点，如果最后还有节点无法去除，说明有环)</li>
+<li><strong>&quot;White-Gray-Black&quot; DFS</strong> (检测一个 visiting 的节点是否又一次被 visit)</li>
+<li><strong>链表环路检测算法</strong> ( 是两个指针以不同的速度前进，如果相遇说明遇到环路 )</li>
+<li>…</li>
+</ol>
+<p>以上方法应该在需要的时候灵活使用。</p>
 
-- Back End
-  - JAVA WEB framework SSH & SSM
-  - Django
-  - KOA based on Node.js 
-
-- Language
-  - JavaScript
-  - Java
-  - Python
-  - Scala
-  - C/C++
-  - ShellScript
-  - GO*
-  - C#*
-
-- Interest
-  - Web
-  - Big Data
-  - Blockchain / Ethereum
-  - Machine Learning -->
-
-                <!-- 如果开启评论功能 -->
                 
-                    <hr>
 
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
                     
+                    
+                        <li class="next">
+                            <a href="/2019/10/02/skiplist-you-must-know/" data-toggle="tooltip" data-placement="top" title="跳表 ( Skiplist ) 的数据结构实现">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
 
-                    
-                    <!-- disqus 评论框 start -->
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
                     <div class="comment">
                         <div id="disqus_thread" class="disqus-thread"></div>
                     </div>
-                    <!-- disqus 评论框 end -->
-                    
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
 
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 算法思路</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 小结</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
 
-                    
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
 
-                    
-                    <!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-                    <script type="text/javascript">
-                        /* * * CONFIGURATION VARIABLES * * */
-                        var disqus_shortname = "nicodechal";
-                        var disqus_identifier = "https://nicodechal.github.io/about/index.html";
-                        var disqus_url = "https://nicodechal.github.io/about/index.html";
-
-                        (function() {
-                            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                        })();
-
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
                         
-                    </script>
-                    <!-- disqus 公共JS代码 end -->
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
                     
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="https://www.w3.org/" target="_blank">W3C</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="https://vuejs.org" target="_blank">Vue.js</a></li>
+                    
+                </ul>
                 
             </div>
-
-          <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">ABOUT ME</a></h5>
-    <div class="short-about">
-
-        
-            <img id="avatar_pic" src="/img/head.jpg">
-        
-
-        
-            <p>Hi, i&#39;m Nicodechal</p>
-        
-
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
-            
-                <li>
-                    <a target="_blank" href="https://twitter.com/N">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-                <li>
-                    <a target="_blank" href="https://www.zhihu.com/people/N">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                        </span>
-                    </a>
-                </li>
-            
-
-            
-                <li>
-                    <a target="_blank" href="http://weibo.com/N">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-
-            
-
-            
-                <li>
-                    <a target="_blank" href="https://github.com/Nicodechal">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-            
-            
-        </ul>
+        </div>
     </div>
-</section>
-        <hr>
-    
-        
-  <h5>RECENT POSTS
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/2019/10/09/cycle-finding-DFS/">环路检测的 DFS 算法</a>
-        </li>
-      
-        <li>
-          <a href="/2019/10/02/skiplist-you-must-know/">跳表 ( Skiplist ) 的数据结构实现</a>
-        </li>
-      
-        <li>
-          <a href="/2019/09/26/topological-sort/">拓扑排序的应用</a>
-        </li>
-      
-        <li>
-          <a href="/2019/09/18/euler-cycle/">欧拉回路的判定和求解</a>
-        </li>
-      
-        <li>
-          <a href="/2019/07/05/iptables-usage/">Iptables 命令学习总结</a>
-        </li>
-      
-    </ul>
-  </div>
-</h5>
-        <hr>
-    
-        <!-- Friends Blog -->
+</article>
 
-<h5>FRIENDS</h5>
-<ul class="list-inline">
 
-    
-        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
-    
-        <li><a href="https://www.w3.org/" target="_blank">W3C</a></li>
-    
-        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
-    
-        <li><a href="https://vuejs.org" target="_blank">Vue.js</a></li>
-    
-</ul>
 
-        <hr>
-    
-</div>
 
-        
-    </div>
-</div>
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "nicodechal";
+    var disqus_identifier = "https://nicodechal.github.io/2019/10/09/cycle-finding-DFS/";
+    var disqus_url = "https://nicodechal.github.io/2019/10/09/cycle-finding-DFS/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
