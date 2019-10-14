@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-            React 基本概念总结(一) - Nicodechal
+            寻找连通图中的桥 - Nicodechal
                 
     </title>
 
-    <link rel="canonical" href="https://nicodechal.github.io/2018/06/26/react-main-concepts-summary-1/">
+    <link rel="canonical" href="https://nicodechal.github.io/2019/10/14/bridge-finding-algorithm/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -84,16 +84,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Front-End" title="Front-End">Front-End</a>
-                            
-                              <a class="tag" href="/tags/#React" title="React">React</a>
+                              <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
                             
                         </div>
-                        <h1>React 基本概念总结(一)</h1>
-                        <h2 class="subheading">React 初探</h2>
+                        <h1>寻找连通图中的桥</h1>
+                        <h2 class="subheading">算法学习笔记</h2>
                         <span class="meta">
                             Posted by Nicodechal on
-                            2018-06-26
+                            2019-10-14
                         </span>
                     </div>
                 
@@ -217,38 +215,27 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="hello-world"> Hello World</span></h2>
-<p>一个最小的 React 示例：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>));</span><br></pre></td></tr></table></figure>
-<p>这个例子会在页面上渲染出 Hello World 。</p>
-<h2><span id="introducing-jsx"> Introducing JSX</span></h2>
-<p>jsx 的语法允许下面这样的变量定义：·</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure>
-<p>此时 element 是一个 DOM 结点。</p>
-<h3><span id="jsx-中嵌入变量"> jsx 中嵌入变量</span></h3>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> name = <span class="string">"Josh Perez"</span>;</span><br><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure>
-<h3><span id="jsx-也是表达式"> jsx 也是表达式</span></h3>
-<p>jsx 可以像一个表达式一样由一个函数返回：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getGreeting</span>(<span class="params">user</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (user) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;formatName(user)&#125;!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, Stranger.<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3><span id="在-jsx-中添加属性"> 在 jsx 中添加属性</span></h3>
-<p>首先属性名应该使用驼峰式的命名方式，如下：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">tabIndex</span>=<span class="string">"0"</span> /&gt;</span>;</span></span><br></pre></td></tr></table></figure>
-<p>这个例子同时也说明了如果属性值是字符串字面量时的语法，如果想在属性值中潜入 js 代码，使用下面的语法：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;user.avatarUrl&#125;</span> /&gt;</span>;</span></span><br></pre></td></tr></table></figure>
-<p>此时要注意大括号外不要添加引号。</p>
-<p>如果要为元素添加 class 属性，需要将 class 属性写作 className，class 在 js 是保留关键字。</p>
-<h3><span id="jsx-的本质"> jsx 的本质</span></h3>
-<p>jsx 最终会变为一个 React 元素，下面是一个简单的 jsx 示例：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">"greeting"</span>&gt;</span>Hello, world!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure>
-<p>这段代码和下面这段代码含义相同：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = React.createElement(</span><br><span class="line">  <span class="string">"h1"</span>,</span><br><span class="line">  &#123; <span class="attr">className</span>: <span class="string">"greeting"</span> &#125;,</span><br><span class="line">  <span class="string">"Hello, world!"</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p>它们都将产生一个 React 对象：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Note: 简化的形式</span></span><br><span class="line"><span class="keyword">const</span> element = &#123;</span><br><span class="line">  type: <span class="string">"h1"</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    className: <span class="string">"greeting"</span>,</span><br><span class="line">    children: <span class="string">"Hello, world!"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2><span id="rendering-elements"> Rendering Elements</span></h2>
-<p>React 的元素是不可变的，我们无法改变一个元素的孩子节点或属性，目前为止可以用下面的方法更新 UI：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tick</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> element = (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;Hello, world!<span class="xml"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line">      &lt;h2&gt;It is &#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleTimeString()&#125;.&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">  ReactDOM.render(element, <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setInterval(tick, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-<p>同时这个例子中，React 并不会更新整个页面，而是只更新需要更新的部分。</p>
-<p><img src="update.gif" alt=""></p>
+                <p>从概念上讲，<strong>连通图</strong>，就是任意两点都连通的无向图，<strong>连通</strong>，就是指两个点有路径相连。而<strong>桥</strong>，简单来讲就是图上的一条边，如果去掉这条边，原图就不再是连通图。本文考虑如何找出所有的这样的边。</p>
+<h3><span id="算法思路"> 算法思路</span></h3>
+<p>这里使用的方法思路来源于 <a href="https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm" target="_blank" rel="noopener">Tarjan 算法</a>，该算法用于求有向图中的强连通分量，这里借用其思路来寻找无向图中的桥。</p>
+<p>该算法的基本思路是，</p>
+<ol>
+<li>首先对图进行一次 DFS 搜索，并对节点按照遍历到的顺序进行编号存放在 <code>dfn</code> 数组 <code>dfn[i]</code> 是第 i 个节点的遍历顺序。</li>
+<li>然后，对于每个节点，计算其<strong>在不经过其父节点时能够达到的编号最小值</strong>。父节点就是第一次 DFS 搜索时的进入该节点的前一个节点 (也即 DFS 搜索树上的父节点)，存放在 <code>low</code> 数组中，<code>low[i]</code> 是第 i 个节点不走父节点能到的最小的 <code>dfn</code> 值。</li>
+<li>最后，对于每条边 <code>ab</code> (假设 a 节点先被遍历)，如果有 <code>dfn[a] &lt; low[b]</code> 则 <code>ab</code> 边为桥。</li>
+</ol>
+<p>这里的判断是指，如果一个节点 ( <code>a</code> ) 的子节点 ( <code>b</code> ) 无法不通过其父节点 ( <code>a</code> ) 达到父节点 (<code>dfn[a] == low[b]</code>，这里指不直接走父节点到父节点) 或达到父节点前面的节点 (<code>dfn[a] &gt; low[b]</code>) 则说明如果没有 <code>ab</code> 这条边，b 节点无法和 <code>dfn</code> 编号小于等于 <code>dfn[a]</code> 的节点相关联，于是原图不再是连通图，所以 <code>ab</code> 是一个桥。以下<a href="https://leetcode.com/problems/critical-connections-in-a-network/discuss/382473/ChineseC%2B%2B-1192.-Tarjan-O(n-%2B-e)" target="_blank" rel="noopener">图</a>为例</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> ------------</span><br><span class="line">|            |</span><br><span class="line"><span class="number">1</span> --- <span class="number">2</span> ---- <span class="number">3</span></span><br><span class="line">      |</span><br><span class="line">      |</span><br><span class="line">      |</span><br><span class="line">      <span class="number">4</span> --- <span class="number">5</span></span><br><span class="line">      |     |</span><br><span class="line">      <span class="number">7</span>---- <span class="number">6</span></span><br></pre></td></tr></table></figure>
+<p>对于边 <code>24</code>，节点 <code>4</code> 不经过节点 <code>2</code> 能达到的 <code>dfn</code> 最小节点为 <code>low[4] = 4 &gt; dfn[2]</code>( 自己 )。所以 <code>24</code> 为桥。</p>
+<h3><span id="算法实现"> 算法实现</span></h3>
+<p>下面对关键的部分进行实现，实际实现时，以上步骤可以在一次遍历中完成：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> dfn = <span class="built_in">Array</span>(n).fill(<span class="number">-1</span>), low = <span class="built_in">Array</span>(n).fill(<span class="number">-1</span>); </span><br><span class="line"><span class="keyword">let</span> stp = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> ans = [];</span><br><span class="line"><span class="keyword">const</span> dfs = <span class="function">(<span class="params">idx, fa</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 首先将当前节点的 dfn 和 low 都设为遍历序号</span></span><br><span class="line">    dfn[idx] = low[idx] = stp++;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> v <span class="keyword">of</span> g[idx]) &#123;</span><br><span class="line">        <span class="comment">// 通过 dfn 值判断是否已经遍历该点，默认值为 -1.</span></span><br><span class="line">        <span class="keyword">if</span> (dfn[v] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 向下递归，传入节点和其父节点</span></span><br><span class="line">            dfs(v, idx);</span><br><span class="line">            <span class="comment">// 到这里 low[v] 应该已经算好了</span></span><br><span class="line">            <span class="comment">// 当前节点的 low 值是子节点 low 值得最小值</span></span><br><span class="line">            low[idx] = <span class="built_in">Math</span>.min(low[idx], low[v]);</span><br><span class="line">            <span class="comment">// 到这里当前节点的 dfn 和 子节点 的 low 都更新好了，判断一下这条边是不是桥</span></span><br><span class="line">            <span class="keyword">if</span> (dfn[idx] &lt; low[v]) ans.push([idx, v]);</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="小结"> 小结</span></h3>
+<p>本文使用 Tarjan 算法的思路，在连通图中对桥边进行了搜索，总体上基于 DFS 实现，使用两个数组记录每个节点的遍历编号 <code>dfn</code> 和不经过父节点的可达最小遍历编号 <code>low</code> 再通过比较边的两端点的 <code>dfn</code> 和 <code>low</code> 值了解该边是否为桥。</p>
+<p>这个算法将条件改为 <code>dfn[idx] &lt;= low[v]</code> 即可判断<strong>割点</strong>，等号表示一个节点不经过其父节点最多可以到达父节点 ( 即不直接走父节点，通过其他点到达，且只能到达父节点，不能到达父节点前面的节点 )，此时父节点就是一个<strong>割点</strong>，因为如果去掉父节点，子节点没法和父节点前面的节点连通了。</p>
+<h3><span id="参考资料"> 参考资料</span></h3>
+<p><a href="https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm" target="_blank" rel="noopener">Tarjan 算法</a><br>
+<a href="https://leetcode.com/problems/critical-connections-in-a-network/" target="_blank" rel="noopener">Critical Connections in a Network</a></p>
 
                 
 
@@ -256,13 +243,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/06/27/react-main-concepts-summary-2/" data-toggle="tooltip" data-placement="top" title="React 基本概念总结(二)">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2018/04/15/using-of-vuegister-module/" data-toggle="tooltip" data-placement="top" title="类似 babel-register 的 Vue 单文件组件编译模块 Vuegister 插件的使用">Next Post &rarr;</a>
+                            <a href="/2019/10/09/cycle-finding-DFS/" data-toggle="tooltip" data-placement="top" title="环路检测的 DFS 算法">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -292,7 +275,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> Hello World</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> Introducing JSX</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"> jsx 中嵌入变量</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"> jsx 也是表达式</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text"> 在 jsx 中添加属性</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text"> jsx 的本质</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> Rendering Elements</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 算法思路</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 算法实现</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 小结</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 参考资料</span></a></li></ol>
         
         </div>
       </aside>
@@ -312,9 +295,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Front-End" title="Front-End">Front-End</a>
-                        
-                          <a class="tag" href="/tags/#React" title="React">React</a>
+                          <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
                         
                     </div>
                 </section>
@@ -349,8 +330,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "nicodechal";
-    var disqus_identifier = "https://nicodechal.github.io/2018/06/26/react-main-concepts-summary-1/";
-    var disqus_url = "https://nicodechal.github.io/2018/06/26/react-main-concepts-summary-1/";
+    var disqus_identifier = "https://nicodechal.github.io/2019/10/14/bridge-finding-algorithm/";
+    var disqus_url = "https://nicodechal.github.io/2019/10/14/bridge-finding-algorithm/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
