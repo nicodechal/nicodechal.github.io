@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="4tFU9sK3wCTQTsGRhI4e0yTz0w1tO8HIP42wXGRN5Is">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="This is a blog for myself writing what I&#39;m learning, what I enjoy or what I think is important.">
+    <meta name="keyword" content="Web,Big-Data,CSS,Vue,Javascript">
+    <link rel="shortcut icon" href="/img/title.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+            [CSS 2.2 中文] 可视化格式模型 - Visual Formatting Model - Nicodechal
+                
+    </title>
+
+    <link rel="canonical" href="https://nicodechal.github.io/2019/10/16/css-spec-in-chinese-visual-formatting-model/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/beantech.min.css">
+                <!-- Pygments Highlight CSS -->
+                <link rel="stylesheet" href="/css/highlight.css">
+
+                    <link rel="stylesheet" href="/css/widget.css">
+
+                        <link rel="stylesheet" href="/css/rocket.css">
+
+                            <link rel="stylesheet" href="/css/signature.css">
+
+                                <link rel="stylesheet" href="/css/toc.css">
+
+                                    <!-- Custom Fonts -->
+                                    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+                                    <!-- Hux change font-awesome CDN to qiniu -->
+                                    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+                                    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+                                    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+                                    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+                                    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+                                    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+                                    <!-- ga & ba script hoook -->
+                                    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#CSS" title="CSS">CSS</a>
+                            
+                              <a class="tag" href="/tags/#Translation" title="Translation">Translation</a>
+                            
+                        </div>
+                        <h1>[CSS 2.2 中文] 可视化格式模型 - Visual Formatting Model</h1>
+                        <h2 class="subheading">CSS 标准翻译</h2>
+                        <span class="meta">
+                            Posted by Nicodechal on
+                            2019-10-16
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Blog is A Room</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/links/">links</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p><a href="https://www.w3.org/TR/CSS22/visuren.html" target="_blank" rel="noopener">LINK</a></p>
+<h3><span id="可视化格式模型-visual-formatting-model-序言"> 可视化格式模型 ( Visual Formatting Model ) 序言</span></h3>
+<p>这一章 (第九章) 和下一章将描述<strong>可视化格式模型</strong> ( visual formatting model )，即用户代理 ( user agents ) 如何为可视媒体 ( visual media ) 处理<a href="https://www.w3.org/TR/CSS22/conform.html#doctree" target="_blank" rel="noopener">文档树</a> ( document tree )。</p>
+<p>在可视化格式模型中，文档树中的每个元素都会根据<a href="https://www.w3.org/TR/CSS22/box.html" target="_blank" rel="noopener">盒子模型</a> ( box model ) 生成零个或多个盒子 (box)。这些盒子的布局取决于下面几点：</p>
+<ol>
+<li>盒子尺寸 和 类型 ( box dimensions and type )</li>
+<li><a href="https://www.w3.org/TR/CSS22/visuren.html#positioning-scheme" target="_blank" rel="noopener">定位方式</a> ( positioning schemes )，常规流，浮动和绝对定位 ( normal flow, float, and absolute positioning )。</li>
+<li>文档树中元素之间的关系</li>
+<li>外部信息 (例如，视口大小，图片本身的尺寸等)</li>
+</ol>
+<p>本章和下一章中定义的属性适用于连续媒体和分页媒体 ( continuous media and paged media )。 但是，外边距 ( margin ) 属性的含义在应用于分页媒体时会有所不同 ( 有关详细信息，请参见页面模型 (page model) )。</p>
+<p>可视化格式模型并未指定格式化的所有方面（例如，未指定字母间距算法）。 对于本规范未涵盖的格式化问题，一致的用户代理的在这些方面的行为可能有所不同。</p>
+<h4><span id="视口-the-viewport"> 视口 ( The Viewport )</span></h4>
+<p>连续媒体的用户代理通常会提供一个 “<strong>视口</strong>” 给用户 ( 一个窗口或者屏幕上的一个浏览区域 ) 用来查看文档。用户代理可能会在视口大小变化时改变文档的布局。( 见 <a href="https://www.w3.org/TR/CSS22/visudet.html#containing-block-details" target="_blank" rel="noopener">初始包含块</a> )</p>
+<h4><span id="包含块-containing-blocks"> 包含块 ( Containing Blocks )</span></h4>
+<p>在 CSS 2.2 中，许多盒的位置和尺寸都相对于一个矩形盒子的边缘进行计算，这个矩形盒叫做<strong>包含块</strong> ( containing blocks )。通常，已经生成的盒是其后代盒的包含块；这里我们说一个盒子为它的后代盒子 “建立” ( “establishes” ) 了包含块。习惯的说法 “一个盒子的包含块” 指的是 “这个盒子所在的包含块” 而不是这个盒子生成的包含块。</p>
+<p>每个盒子都根据其包含块确定位置，但是盒子不会被包含块限制 ( confined )；它有可能会溢出 ( overflow ) 。</p>
+<p><a href="https://www.w3.org/TR/CSS22/visudet.html" target="_blank" rel="noopener">下一章</a>会说明包含块尺寸的计算细节。</p>
+<h3><span id="控制盒子的生成"> 控制盒子的生成</span></h3>
+<p>以下各节描述了 CSS 2.2 中可能生成的盒类型。盒类型部分地影响盒在可视化格式模型中的行为。下面描述的 <code>display</code> 属性指定了盒的盒类型。</p>
+<p><code>display</code> 属性的某些值会使得源文档的元素生成一个<strong>主盒</strong> ( principal box ) ，主盒包含后代盒子和其所生成的内容，主盒也是进行定位 ( positioning scheme ) 时会用到的盒子。 除主盒外，某些元素还可能生成其他盒，比如 <code>list-item</code> 元素。 这些其他盒会相对于主盒进行放置。</p>
+<h4><span id="块级元素和块盒-block-level-elements-and-block-boxes"> 块级元素和块盒 ( Block-level elements and block boxes )</span></h4>
+<p><strong>块级元素</strong> ( block-level elements ) - 源文档中可视格式化后是块的元素 ( 例如，段落元素 )，这些元素会生成一个块级的主盒 ( block-level principal box ) 。设置 <code>display</code> 属性为下面值之一可以使一个元素变为块级元素：<code>block</code>，<code>list-item</code>，<code>table</code>。<strong>块级盒</strong> ( block-level boxes，<small><em>译者注：这里应该就是块级元素生成的主盒</em></small> ) 将会参与块格式化上下文 ( BFC, block formatting context )</p>
+<p>在 CSS 2.2 中，一个块级盒一般也是一个<strong>块容器盒</strong> ( block container box ), 除非这个块级盒是一个表格盒 ( table box ) 或者一个替换元素 ( replaced element ) 的主盒。<strong>块容器盒</strong> 要么只包含块级盒，要么建立一个<strong>行内格式化上下文</strong> ( IFC, inline formatting context )，此时这个块容器盒只包含<strong>行内级盒</strong> ( inline-level boxes )。</p>
+<p>如果一个元素的主盒是一个块容器盒，这个元素称为<strong>块容器元素</strong> ( block container element )。下面的 <code>display</code> 值使一个<strong>非替换元素</strong> ( non-replaced element ) 生成一个块盒：<code>block</code>，<code>list-item</code>，<code>inline-block</code>。</p>
+<p>并非所有的块容器盒都是块级盒：非替换行内块 ( non-replaced inline blocks ) 和非替换表格单元格 ( non-replaced table cell ) 都是块容器盒但不是块级盒。如果一个盒既是块级盒又是块容器盒则被称为<strong>块盒</strong> ( block boxes )。</p>
+<p>在不会有歧义的时候，块级盒，块容器盒和块盒有时会简写为<strong>块</strong> ( block )。</p>
+<h5><span id="匿名块盒-anonymous-block-boxes"> 匿名块盒 ( Anonymous block boxes )</span></h5>
+<p>在如下的文档中：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">DIV</span>&gt;</span></span><br><span class="line">  Some text</span><br><span class="line">  <span class="tag">&lt;<span class="name">P</span>&gt;</span>More text</span><br><span class="line"><span class="tag">&lt;/<span class="name">DIV</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>( 这里假设 DIV 和 P 都有属性 <code>display: block</code> )，DIV 同时拥有了行内内容 ( inline content ) 和块内容 ( block content )。为了方便定义格式化方式，我们假设有一个匿名块盒环绕着 “Some text”。</p>
+<p><img src="https://www.w3.org/TR/CSS22/images/anon-block.png" alt="Diagram showing the three boxes, of which one is anonymous, for the example above."></p>
+<p>换句话说，如果一个块容器盒 ( 例如上面 DIV 生成的盒 ) 里有一个块级盒 ( 例如上面的 P ) ，那我们强制这个块容器盒里只有块级盒。</p>
+<p>当一个行内盒 ( inline box, 下面定义) 包含一个在流中 ( in-flow ) 的块级盒时，这个行内盒 ( 以及在同一个行盒 ( line box ) 中的行内祖先 ( inline ancestors ) ) 会在这个块级盒 ( 以及所有 <em>连续的</em> 或者 <em>只由可折叠的空白字符和 ( 或者 ) 不在流上 ( out-of-flow ) 的元素分隔</em> 的块级兄弟 ) 两侧拆分，将这和行内盒分为两个盒 ( 即使某一侧是空的 )，分布在块级盒的两侧。拆分之后的两个行盒由匿名块盒包裹，块级盒成为这两个匿名块的兄弟。当行盒受到相对定位 ( relative positioning ) 影响时，产生的结果也会影响其包含的块级盒。</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+当下面的规则被用在下面的 HTML 文档中时，上述模型会被应用：
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span>    &#123; <span class="attribute">display</span>: inline &#125;</span><br><span class="line"><span class="selector-tag">span</span> &#123; <span class="attribute">display</span>: block &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>Anonymous text interrupted by a block<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">BODY</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">P</span>&gt;</span></span><br><span class="line">This is anonymous text before the SPAN.</span><br><span class="line"><span class="tag">&lt;<span class="name">SPAN</span>&gt;</span>This is the content of SPAN.<span class="tag">&lt;/<span class="name">SPAN</span>&gt;</span></span><br><span class="line">This is anonymous text after the SPAN.</span><br><span class="line"><span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>P 元素包含一个匿名文本块 ( C1 )，紧接着是一个块级元素再紧接着是两一个匿名文本块 ( C2 )。产生的结果盒会是一个表示 BODY 的块盒，包含一个包裹 C1 匿名块盒、SPAN 块盒和另一个包裹 C2 的匿名块盒。</p>
+</div>
+<p>匿名块的属性从包裹它的非匿名块继承 ( 对于小节 “匿名块盒” 下的例子，就是 DIV)。非继承属性拥有它们的初始值 ( inital value )。例如，匿名块的 <code>font</code> 从 DIV 继承，单是 <code>margin</code> 将会是 0。</p>
+<p>设置在发生匿名块盒生成的元素上的属性仍旧会应用在元素的盒子以及元素的内容上。例如在上面的例子上为 P 设置边框，那么边框会画在 C1 ( 在结尾不闭合 ) 和 C2 ( 在开头不闭合 ) 上。</p>
+<p>有些用户代理用其他方式实现包含块盒的行内盒的边框。例如，把其中嵌套的块盒包裹在一个匿名行盒 ( anonymous line boxes ) 中， 因此会在块盒周围绘制行内元素的边框。由于 CSS1 和 CSS2 没有定义这种行为，所以 CSS1-only 和 CSS2-only 的用户代理可能会实现这个替代模型并仍旧声称对于 CSS2.2 的这一部分一致。这并不适用于那些在本规范已经放出之后开发的用户代理。</p>
+<p>匿名块在解析百分比值需要引用它时被忽略：最近的非匿名祖先块被用来进行引用。例如，在匿名块 ( 上面例子中 DIV 中的那个 ) 中的孩子需要他的包含块 ( containing block ) 的高度来解析一个百分比值得高度，那么他就需要使用由 DIV 形成的包含块的高度，而不是匿名块的高度。</p>
+<h4><span id="行内级元素和行内盒-inline-level-elements-and-inline-boxes"> 行内级元素和行内盒 ( Inline-level elements and inline boxes )</span></h4>
+<p><strong>行内级元素</strong> ( inline-level elements ) 是源文档中其内容不会形成新块盒 ( blocks ) 的元素；其内容分布在多个行中 ( 例如，一个段落中强调的部分，行内图片等等 ) 。下面这些 <code>display</code> 值使得一个元素变为行内级：<code>inline</code>、<code>inline-table</code>、<code>inline-block</code>。行内级元素生成<strong>行内级盒</strong> ( inline-level boxes )，这些盒子参与行内格式化上下文 ( inline formatting context )。</p>
+<p>一个<strong>行内盒</strong> ( inline boxes ) 首先是一个行内级盒，且其包含的内容参与行内盒所在的行内格式化上下文 ( An inline box is one that is both inline-level and whose contents participate in its containing inline formatting context. )。一个非替换元素的 <code>display</code> 属性值为 <code>inline</code> 时生成一个行内盒。是行内级盒但不是行内盒的元素称为<strong>原子行内级盒</strong> ( atomic inline-level boxes )，因为他们在他们的行内格式化上下文中类似于一个不透明的盒子 ( single opaque box ) 。(译者注：<strong>Opaque</strong> means that the box is a singular, solid unit, and that it cannot be split across lines like an inline box can when its text cannot all fit on a single line.)</p>
+<h5><span id="匿名行内盒-anonymous-inline-boxes"> 匿名行内盒 ( Anonymous inline boxes )</span></h5>
+<p>任何直接包含在一个块容器元素中的文本 ( 即不在行内元素内 ) 必需被看做一个<strong>匿名行内盒</strong>。</p>
+<p>在下面的 HTML 文档中：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Some <span class="tag">&lt;<span class="name">em</span>&gt;</span>emphasized<span class="tag">&lt;/<span class="name">em</span>&gt;</span> text<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>&lt;p&gt;</code> 元素生成了一个块盒，其中包含了一些行内盒。“emphasized” 的盒由行内元素 <code>&lt;em&gt;</code> 生成，但是其他的盒子 ( “Some” 和 “text” ) 是由块级盒 ( <code>&lt;p&gt;</code> ) 生成的行内盒，它们叫做匿名行内盒，因为它们没有想算的行内级元素。</p>
+<p>此类匿名行内盒从其块父亲块盒继承可继承的属性。非继承属性具有其初始值。在上面的例子中，匿名行内盒的 <code>color</code> 继承自 P，但是它的 <code>background</code> 是透明的。</p>
+<p>之后，根据 <code>white-space</code> 属性折叠起来的空白不会生成任何匿名行内盒。</p>
+<p>如果从上下文中可以清楚地知道是哪种类型的匿名盒，则在本规范中，匿名行内盒和匿名块盒都简称为匿名盒。</p>
+<p>格式化<a href="https://www.w3.org/TR/CSS22/tables.html#anonymous-boxes" target="_blank" rel="noopener">表格</a>时，会出现更多类型的匿名盒。</p>
+<h4><span id="run-in-boxes"> Run-in boxes</span></h4>
+<p>[存在此部分，使编号与以前的草案中的相同。 现在，在CSS级别3中定义了<code>display: run-in</code> ( 请参阅 <a href="https://www.w3.org/TR/css3-box/" target="_blank" rel="noopener">CSS基本框模型</a> )。</p>
+<h4><span id="display-属性"> <code>display</code> 属性</span></h4>
+<p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-display" target="_blank" rel="noopener">文档</a>。属性取值的含义如下：</p>
+<p><strong>block</strong><br>
+该值是一个元素生成一个主块盒 ( principal block box ).</p>
+<p><strong>inline-block</strong><br>
+该值使得一个元素生成一个主要的行内级块容器 ( principal inline-level block container )。( inline-block 内部格式化为一个块盒，而该元素本身格式化为一个原子行内级盒 )。</p>
+<p><strong>inline</strong><br>
+该值使得一个元素生成一个或多个行内盒。</p>
+<p><strong>list-item</strong><br>
+该值使得一个元素 ( 例如 HTML 中的 LI )生成一个主要的块盒以及一个标记盒 ( marker box )。关于列表和列表的格式化的信息，参阅<a href="https://www.w3.org/TR/CSS22/generate.html#lists" target="_blank" rel="noopener">列表</a>一节。</p>
+<p><strong>none</strong><br>
+该值使得元素不在格式化结构 ( formatting structure ) 中出现 ( 即在可视化媒体中，元素不产生任何盒子因此对布局没有影响 )。后代元素也不生成任何盒。元素及其内容将从格式化结构中完全删除，在子孙元素上设置’display’属性，不能覆盖此行为。</p>
+<p>请注意，<code>display</code> 为 <code>none</code> 不会创建不可见的盒；它根本不会创建任何盒子。CSS 有使元素能够在格式化结构中生成影响格式但本身不可见的盒的机制。有关详细信息，请查阅<a href="https://www.w3.org/TR/CSS22/visufx.html#visibility" target="_blank" rel="noopener">可见性</a>部分。</p>
+<p><strong>table, inline-table, table-row-group, table-column, table-column-group, table-header-group, table-footer-group, table-row, table-cell, and table-caption</strong><br>
+这些值使元素的行为类似于表元素 ( 因此会受<a href="https://www.w3.org/TR/CSS22/tables.html" target="_blank" rel="noopener">表</a>章节所述内容的限制 )。</p>
+<p>计算值和具体设置的值一样，除了定位元素、浮动元素 ( 见 <code>display</code>、<code>position</code> 和 <code>float</code> 的关系 一节，在下方 ) 和根元素。对于根节点，其计算值会被改变，具体在 <code>display</code>、<code>position</code> 和 <code>float</code> 的关系 小节描述。</p>
+<p>注意尽管初始值是 <code>inline</code>，但用户代理的默认层叠样式可能会覆盖这个值，见附录中 HTML4 样例层叠样式。</p>
+<p>以下是一些 <code>display</code> 属性的例子：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span>   &#123; <span class="attribute">display</span>: block &#125;</span><br><span class="line"><span class="selector-tag">em</span>  &#123; <span class="attribute">display</span>: inline &#125;</span><br><span class="line"><span class="selector-tag">li</span>  &#123; <span class="attribute">display</span>: list-item &#125; </span><br><span class="line"><span class="selector-tag">img</span> &#123; <span class="attribute">display</span>: none &#125;      <span class="comment">/* Do not display images */</span></span><br></pre></td></tr></table></figure>
+<h3><span id="定位方式-positioning-schemes"> 定位方式 ( Positioning schemes )</span></h3>
+<p>在 CSS 2.2 中，一个盒子根据三种定位方式进行布局：</p>
+<ol>
+<li><strong>常规流</strong> ( Normal flow ) 。常规流包含块级盒的块格式化和行内级盒的行内格式化，以及块级盒和行内级盒的相对定位。</li>
+<li><strong>浮动</strong> ( Floats ) 。在浮动模型中，一个盒首先根据常规流进行布局，然后从流中取出并尽可能的向左或向右移动。内容流可能会在浮动元素周围。</li>
+<li><strong>绝对定位</strong> ( Absolute positioning )。 在绝对定位模型中，一个盒完全从常规流中取出 ( 它对后续兄弟节点无影响 ) 然后相对于其包含块赋予一个位置。</li>
+</ol>
+<p>如果一个元素是浮动的、绝对定位的或者根元素，那我们称这个元素在流外 ( <strong>out-of-flow</strong> )，一个元素在流内 ( <strong>in-flow</strong> ) 如果它不在流外。一个元素 A 的流 ( <strong>flow of an element</strong> A ) 是一个包含 A 和所有在流内的并且最近的流外祖先为 A 的元素</p>
+<blockquote>
+<p>**注意。**CSS 2.2的定位方式可帮助作者避免用于布局效果的标记技巧（例如，不可见的图像），从而使文档更易于访问。</p>
+</blockquote>
+<h4><span id="选择一个定位方式position-属性"> 选择一个定位方式：<code>position</code> 属性</span></h4>
+<p><code>position</code> 和 <code>float</code> 属性决定了 CSS 2.2 中那种定位算法被用来计算一个盒子的位置。</p>
+<p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-position" target="_blank" rel="noopener">文档</a>。属性取值的含义如下：</p>
+<p><strong>static</strong><br>
+一个盒为常规盒，根据常规流布局，<code>top</code>，<code>right</code>，<code>bottom</code>，<code>left</code> 不生效。</p>
+<p><strong>relative</strong><br>
+盒子的位置根据常规流进行计算 ( 这被称为常规流中的位置 ) 。接着盒子相对于自己的常规位置进行相对偏移。如果一个盒 B 是相对定位的，其后续的盒子计算位置时当做 B 没有偏移。<code>position:relative</code> 在 table-row-group, table-header-group, table-footer-group, table-row, table-column-group, table-column, table-cell, and table-caption 元素上未定义。</p>
+<p><strong>absolute</strong><br>
+盒子的位置 ( 也可能有尺寸 ) 由 <code>top</code>，<code>right</code>，<code>bottom</code>，<code>left</code> 属性确定。这些属性确定盒子相对于其包含块的偏移。绝对地定位的盒子会从常规流中取出。这意味着它不影响后续兄弟节点的布局。同时，尽管绝对地定位的盒子有外边距，但他们不和任何其他外边距折叠 ( collapse ) 。</p>
+<p><strong>fixed</strong><br>
+盒子的位置根据 <code>absolute</code> 模式计算得出，但是另外，盒子相对于某些引用 ( reference ) 是固定的。 与 <code>absolute</code> 模式一样，盒的外边距不会与其他任何外边距折叠。 对于手持设备，投影，屏幕，tty 和电视媒体类型，该盒子相对于视口是固定的，滚动时不会移动。 在打印介质类型的情况下，即使通过视口查看页面 ( 例如，在打印预览的情况下 )，该盒子也会在每个页面上呈现，并且相对于页面盒 ( page box ) 是固定的。对于其他媒体类型，显示效果是未定义的。有些人可能希望针对不同媒体指定 <code>fixed</code> 例如，作者可能希望将一个盒子保持在屏幕上视口的顶部，但不在每个打印页面的顶部出现。此时可以使用 <code>@media</code> 规则将两个规范分开，如下所示：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">media</span> screen &#123; </span><br><span class="line">  <span class="selector-tag">h1</span><span class="selector-id">#first</span> &#123; <span class="attribute">position</span>: fixed &#125; </span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> print &#123; </span><br><span class="line">  <span class="selector-tag">h1</span><span class="selector-id">#first</span> &#123; <span class="attribute">position</span>: static &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用户代理不能为 <code>fixed</code> 的盒子添加页码。<span style="border-left: 5px solid gray;border-right: 5px solid gray;padding: 3px;background:#e6e6e6">注意用户代理可能会用其他方式打印不可见的内容。见第 13 章的  <a href="https://www.w3.org/TR/CSS22/page.html#outside-page-box" target="_blank" rel="noopener">“Content outside the page box”</a>。</span></p>
+<h4><span id="盒子偏移toprightbottomleft"> 盒子偏移：<code>top</code>，<code>right</code>，<code>bottom</code>，<code>left</code></span></h4>
+<p>一个元素的 <code>position</code> 如果不是 <code>static</code> 则称其被定位了 ( positioned ) 。定位元素 ( positioned elements ) 生成定位盒 ( positioned boxes ) ，根据下面 4 个属性布局：</p>
+<p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-top" target="_blank" rel="noopener">文档: top</a>。</p>
+<p>该属性指定了一个绝对地定位盒的上外边距边缘相对于其包含块的上边缘的偏移。对于相对定位盒，这个偏移相对于自己的上边缘 ( 即，这个盒子有一个常规流中的位置，然后根据这个属性从那个位置进行偏移 ) 。</p>
+<p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-right" target="_blank" rel="noopener">文档: right</a>。</p>
+<p>与 <code>top</code> 相似，不过这里指定盒子的右外边缘相对于其包含块右边缘向左偏移多远。对于相对定位盒，这个偏移相对于自己的右边缘。</p>
+<p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-bottom" target="_blank" rel="noopener">文档: bottom</a>。</p>
+<p>与 <code>top</code> 相似，不过这里指定盒子的下外边缘相对于其包含块下边缘向上偏移多远。对于相对定位盒，这个偏移相对于自己的下边缘。</p>
+<p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-left" target="_blank" rel="noopener">文档: left</a>。</p>
+<p>与 <code>top</code> 相似，不过这里指定盒子的左外边缘相对于其包含块左边缘向右偏移多远。对于相对定位盒，这个偏移相对于自己的左边缘。</p>
+<p>四个属性取值的含义如下：</p>
+<p><strong><u>&lt;length&gt;</u></strong><br>
+相对参考的边缘偏移一个固定距离。负值也可以。</p>
+<p><strong><u>&lt;percentage&gt;</u></strong><br>
+相对参考的边缘偏移是一个相对于包含块宽度 ( <code>left</code>、<code>right</code> ) 或高度 ( <code>top</code>、<code>bottom</code> ) 的百分比。负值也可以。</p>
+<p><strong>auto</strong><br>
+对于非替换元素，该值的效果取决于哪一个相关的属性值也为 <code>auto</code>。见<a href="https://www.w3.org/TR/CSS22/visuren.html#absolutely-positioned" target="_blank" rel="noopener">绝对地定位</a>中的非替换元素的<a href="https://www.w3.org/TR/CSS22/visudet.html#abs-non-replaced-width" target="_blank" rel="noopener">宽度</a>和<a href="https://www.w3.org/TR/CSS22/visudet.html#abs-non-replaced-height" target="_blank" rel="noopener">高度</a>。对于替换元素，该值只取决于替换内容本身的尺寸，见<a href="https://www.w3.org/TR/CSS22/visuren.html#absolutely-positioned" target="_blank" rel="noopener">绝对地定位</a>中的替换元素的宽度和高度。</p>
+<h3><span id="常规流-normal-flow"> 常规流 ( Normal flow )</span></h3>
+<p>常规流中的盒子都属于一个格式化上下文，在 CSS 2.2 中这个上下文可能是 表格上下文，块上下文和行内上下文。在之后的 CSS 中，其他的格式化上下文会被介绍。块级盒参与一个块格式化上下文。行内级盒参与一个行格式化上下文。表格上下文在<a href="https://www.w3.org/TR/CSS22/tables.html" target="_blank" rel="noopener">表格章节</a>进行描述。</p>
+<h4><span id="块格式化上下文"> 块格式化上下文</span></h4>
+<p>不是块盒的比如：浮动元素、绝对地定位元素和块容器盒 ( 比如 <code>inline-block</code>、<code>table-cells</code> 和 <code>table-caption</code>)，以及且具有不是 <code>visible</code> 的 <code>overflow</code> 属性的块盒 ( 除非当这个值被传播到了视口 ( <small><em>译者注：可能是指<code>body</code>元素</em></small> ) )，会为他们的内容建立一个新的块格式化上下文。</p>
+<p>在一个块格式化上下文中，盒子垂直地一个接一个的进行布局，从包含块的开始处开始布局。两个兄弟盒子之间的垂直距离取决于他们的 <code>margin</code> 属性。一个块格式化上下文中的相邻的块级盒的垂直外边距和发生折叠 ( <a href="https://www.w3.org/TR/CSS22/box.html#collapsing-margins" target="_blank" rel="noopener">collapse</a> )。</p>
+<p>在块格式化上下文中，每一个盒子的左外边缘接触包含块的左边缘 ( 对于从右到左的格式化，接触右边缘 )。这一条即便是有浮动元素参与也成立 ( 尽管这时相关盒子的行盒可能会由于浮动变窄 )，除非相关盒子建立了一个新的块格式化上下文 ( 此时这个盒子本身会因为浮动变得更窄 )。</p>
+<p>对于分页媒体的页面分割，请查阅相关小节<a href="https://www.w3.org/TR/CSS22/page.html#allowed-page-breaks" target="_blank" rel="noopener">允许的页面分割</a>。</p>
+<h4><span id="行内格式化上下文"> 行内格式化上下文</span></h4>
+<p>行内格式化上下文由一个不包含块级盒的块容器盒建立。在一个行内格式化上下文中，盒子们水平的进行布局，从包含块的开始处一个接一个布局。盒子之间有水平方向的外边距、边框和内边距。盒子们在垂直方向上以不同的方式对齐：他们的底部或顶部可能会被对齐，或者他们内部的文本的 baseline 会被对齐。一个包含的盒子形成一条线的矩形区域称为<strong>行盒</strong> ( line box )。</p>
+<p>行盒的宽度由包含块和浮动的参与决定。行盒的高度由<a href="https://www.w3.org/TR/CSS22/visudet.html#line-height" target="_blank" rel="noopener">行高的计算</a>一节中的规则决定。</p>
+<p>行盒的高度总是足够包含其中的盒子们。但是，它有可能会比其包含的盒子中最高的盒子还要高 ( 例如，如果盒子们通过对齐使得 baseline 上移 )。当一个盒子 B 的高度小于包含它的行盒的高度，B 垂直方向上的对齐由 <code>vertical-align</code> 决定。当多个行级盒不能水平的放进一个行盒时，它们会分布在两个或更多的垂直方向以栈的方式堆叠的 ( vertically-stacked ) 行盒中。因此，一个段落就是一个行盒的垂直栈。行盒在垂直方向上堆叠且没有垂直方向的分隔 ( 除非在其他地方指定 )，并且它们从来不会重叠。</p>
+<p>通常，行盒的左边缘接触其包含块的左边缘。然而浮动盒可能会出现在它们之间。因此，尽管通常在同一个行内格式化上下文中的行盒都有相同的宽度 ( 在包含块中 )，但它们的宽度在水平空间由于浮动元素减少时也有可能变化。在同一个行内格式化上下文中的行盒通常高度不同 ( 例如，一行可能有一张很高的图片，另一行只包含文本 )。</p>
+<p>当一行中的行内级盒的整体的宽度比包含它们的行盒的宽度小时，他们在行盒中的水平分布取决于 <code>text-align</code> 属性。如果这个属性值为 <code>justify</code>，那么用户代理还应该会扩大行内盒中的空格和单词 ( 在 <code>inline-table</code> 在 <code>inline-block</code> 中不会 )。</p>
+<p>如果一个行内盒的宽度超过了行盒的宽度，他们会分为多个盒子然后这些盒子会分布在多个行盒中。如果一个行盒不能被分割 ( 例如：如果行内盒包含一个字符，或者特定语言的分割规则不允许行内盒的分割，又或者行内盒受到 <code>white-space</code> 值为 <code>nowarp</code> 或者 <code>pre</code> 的影响 )，那么行内盒会溢出行盒。</p>
+<p>如果一个行内盒被分割，外边距、边框和内边距不会在分割处有可视化的影响 ( 在所有的分割处都是如此 )。</p>
+<p>行内盒可能会在同一个行盒中被分割为数个盒子，这是由于<a href="https://www.w3.org/TR/CSS22/visuren.html#direction" target="_blank" rel="noopener">双向文字处理</a>( bidirectional text processing )。</p>
+<p>行盒在需要控制行内格式化上下文中的行内级内容时被创建。一个行盒如果没有文本，没有保留的空白符，没有外边距、内边距或边框不为零的行内元素，没有其他在流中的内容 ( 比如图像、行内块或行内表 )，并且没有以一个保留的新行结束，那么这个行盒要被看作是一个用于确定其内部元素位置的高度为零的行盒，对于其他情况，要看做它不存在。</p>
+<p>下面是一个构造行内盒的例子。下面段落 ( 由 HTML 块级元素 P 创建 ) 包含匿名文本和 EM 元素 STRONG 元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">P</span>&gt;</span>Several <span class="tag">&lt;<span class="name">EM</span>&gt;</span>emphasized words<span class="tag">&lt;/<span class="name">EM</span>&gt;</span> appear</span><br><span class="line"><span class="tag">&lt;<span class="name">STRONG</span>&gt;</span>in this<span class="tag">&lt;/<span class="name">STRONG</span>&gt;</span> sentence, dear.<span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个 P 元素创造了一个块盒包含五个行内盒，有三个是匿名的：</p>
+<ul>
+<li>匿名盒: “Several”</li>
+<li>EM: “emphasized words”</li>
+<li>匿名盒: “appear”</li>
+<li>STRONG: “in this”</li>
+<li>匿名盒: “sentence, dear.”</li>
+</ul>
+<p>为了格式化这个段落，用户代理把这五个元素放入行盒中。在这个例子中，P 元素的盒子建立了行盒的包含块。如果包含块够宽，所有的行盒会放进一个行盒中:</p>
+<p style="overflow: scroll; white-space:nowrap">Several <em>emphasized words</em> appear
+<strong>in this</strong> sentence, dear.</p>
+<p>如果不是，行内盒会被分割然后分布在几个行盒中。之前的段落可能像这样分割：</p>
+<p>Several <em>emphasized words</em> appear <br>
+<strong>in this</strong> sentence, dear.</p>
+<p>或这样：</p>
+<p>Several <em>emphasized <br> words</em> appear <br>
+<strong>in this</strong> sentence, dear.</p>
+<p>上面例子中，EM 盒被分成了两个 EM 盒 ( 称为 split1 和 split2 )。外边距，边框，内边距或者文本装饰不会在 split1 后和 split2 前有视觉影响。</p>
+<p>考虑下面例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>Example of inline flow on several lines<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">STYLE</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">      EM &#123;</span></span><br><span class="line"><span class="undefined">        padding: 2px; </span></span><br><span class="line"><span class="undefined">        margin: 1em;</span></span><br><span class="line"><span class="undefined">        border-width: medium;</span></span><br><span class="line"><span class="undefined">        border-style: dashed;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">line-height</span>: 2<span class="selector-class">.4em</span>;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">STYLE</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">BODY</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">P</span>&gt;</span>Several <span class="tag">&lt;<span class="name">EM</span>&gt;</span>emphasized words<span class="tag">&lt;/<span class="name">EM</span>&gt;</span> appear here.<span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>取决于 P 的宽度，盒子们可能会像下面这样分布：</p>
+<p><img src="https://www.w3.org/TR/CSS22/images/inline-layout.png" alt=""></p>
+<ul>
+<li>外边距在 “emphasized” 的前面和 “words” 的后面插入。</li>
+<li>内边距在 “emphasized” 的上下、前面和 “words” 的上下、后面插入。一个点划线的边框在每个部分的三面渲染。</li>
+</ul>
+<h4><span id="相对定位"> 相对定位</span></h4>
+<p>一旦一个盒子根据常规流或浮动布局后，它可能会相对于这个位置进行移动。这称为<strong>相对定位</strong> ( relative positioning ) 。以这样的方式偏移一个盒子 ( B1 )，不会对后续的盒子 ( B2 ) 产生影响：B2 的位置假设 B1 没有偏移给出并且在 B1 偏移后 B2 也不会重新定位。这暗示了相对定位可能会使盒子重叠。然而，如果相对定位导致了一个 <code>overflow: auto</code> 或者 <code>overflow: scroll</code> 的盒子溢出，用户代理必需使用户可以访问到这些内容，尽管这样会导致滚动条的创建，进而影响布局。</p>
+<p>一个相对定位的盒子保持它在常规流中的尺寸，包括断行和原来为其保留的空白。包含块一节解释了什么时候一个相对定位的盒子会建立一个新的包含块。</p>
+<p>对于相对布局的元素，<code>left</code> 和 <code>right</code> 水平地移动盒子，不会改变其尺寸。<code>left</code> 将盒子向右移动，<code>right</code> 将盒子向左移动。由于盒子不会由于 <code>left</code> 和 <code>right</code> 被分割或拉长，所以被使用的值一直是 <code>left = -right</code>。</p>
+<p>如果 <code>left</code> 和 <code>right</code> 都是 <code>auto</code> ( 即初始值 )，使用值为 <code>0</code> ( 即，盒子保持在它原来的位置 )。</p>
+<p>如果 <code>left</code> 为 <code>auto</code>，其使用值为 <code>right</code> 的负值 ( 即，盒子根据 <code>right</code> 值向左移动 )。</p>
+<p>如果 <code>right</code> 值为 <code>auto</code>，其使用值为 <code>left</code> 的负值。</p>
+<p>如果 <code>left</code> 和 <code>right</code> 都不是 <code>auto</code>，其位置被过度约束了 ( over-constrained )，因此其中一个会被忽略。如果包含块 <code>direction</code> 属性为 <code>ltr</code>，<code>left</code> 值胜出 <code>right</code> 值变为 -<code>left</code>。如果 <code>direction</code> 属性为 <code>rtl</code>，<code>right</code> 值胜出 <code>left</code> 值被忽略。</p>
+<p>例子。下面三条规则是等价的：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-class">.a8</span> &#123; <span class="attribute">position</span>: relative; <span class="attribute">direction</span>: ltr; <span class="attribute">left</span>: -<span class="number">1em</span>; <span class="attribute">right</span>: auto &#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.a8</span> &#123; <span class="attribute">position</span>: relative; <span class="attribute">direction</span>: ltr; <span class="attribute">left</span>: auto; <span class="attribute">right</span>: <span class="number">1em</span> &#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.a8</span> &#123; <span class="attribute">position</span>: relative; <span class="attribute">direction</span>: ltr; <span class="attribute">left</span>: -<span class="number">1em</span>; <span class="attribute">right</span>: <span class="number">5em</span> &#125;</span><br></pre></td></tr></table></figure>
+<p><code>top</code> 和 <code>bottom</code> 上下地移动盒子，不会改变其尺寸。<code>top</code> 将盒子向下移动，<code>bottom</code> 将盒子向上移动。由于盒子不会由于 <code>top</code> 和 <code>bottom</code> 被分割或拉长，所以被使用的值一直是 <code>top = -bottom</code>。如果两者都是 <code>auto</code>，他们的使用值都是 <code>0</code>。如果其中一个是 <code>auto</code>，它的值变为另一个的负值。如果都不是，<code>bottom</code> 会被忽略。</p>
+<blockquote>
+<p>注释：动态的移动相对定位的元素可以在脚本环境下产生动画效果 ( 又见 <code>visibility</code> 属性 )。尽管相对定位可能会用来形成上标或下标，但其行高不会考虑相对定位自动的调整。更多信息见<a href="https://www.w3.org/TR/CSS22/visudet.html#line-height" target="_blank" rel="noopener">行高的计算</a>一节。</p>
+</blockquote>
+<p>相对定位的例子在 <a href="https://www.w3.org/TR/CSS22/visuren.html#comparison" target="_blank" rel="noopener">常规流、浮动盒绝对定位的比较</a> 一节提供。</p>
+<h3><span id="浮动-floats"> 浮动 ( Floats )</span></h3>
+<p>浮动盒是被移动到当前行左边或右边的盒子。一个浮动盒 ( 或者 “浮动” ( floating ) 、“浮动的” ( floated ) 盒子 ) 最有趣的特征是内容 ( content ) 可能会在其两侧流动 ( flow ) ( 或者由于 <code>clear</code> 被禁止 )。内容在一个向左浮动的盒子右侧出现，在一个向左浮动的盒子右侧出现。下面是关于浮动定位和内容流 ( content flow ) 的导言；决定浮动行为的具体的规则在 <code>float</code> 属性的描述部分给出。</p>
+<p>一个浮动盒会向左或向右浮动直到其外边缘接触到其包含块的边缘或者两一个浮动元素的外边缘。如果此时有一个行盒，浮动盒的外上边缘会和当前行盒的上边缘对齐。</p>
+<p>如果没有足够的水平空间用于浮动，它会向下移动直到其可以放下或没有其他的浮动出现。</p>
+<p>由于一个浮动盒不在流上，在浮动盒前后的没有被定位的盒子在垂直方向上流动 ( flow ) 好像浮动盒不存在。然而，紧挨着 (next to) 浮动元素创建的当前和后续的行盒为了给浮动盒的外边距盒腾出空间会变短。</p>
+<p>一个行盒紧接着 (next to) 一个浮动元素当存在一个垂直位置满足下面四个条件：(a) 在行盒的顶部或顶部的下面，(b) 在行盒的底部或底部的上面，© 在浮动盒子上外边距的下面和 (d) 在浮动盒下外边距的上面。<small>(译者注：紧挨着就是并排)</small></p>
+<blockquote>
+<p>注释：这意味着零高度或者负高度的浮动盒不会使行盒缩短。</p>
+</blockquote>
+<p>如果一个变短的行盒太小了以致于不能容纳任何内容，那么这个行盒会向下移动 ( 同时它的宽度也会重新计算 ) 直到有内容可以放入或没有其他浮动出现。在当前行的任何在浮动盒前面的内容都会重新流动到浮动盒的另一侧。换句话说，如果一个行内级盒放置在和浮动盒同一行中的在浮动盒之前，且可以放进行盒剩余的空间，那么这个左浮动盒就放置在这一行，和行盒的顶部对齐，然后本来在这一行的行内级盒因此会移动到浮动盒的右边 ( 左浮动盒的另一侧就是右侧 )，对于 rtl 和右浮动亦然。</p>
+<p>table、块级替换元素或者常规流中建立块格式化上下文的元素 ( 例如一个 <code>overflow</code> 不是 <code>visible</code> 的元素 ) 的边框盒不能和同一个块上下文中的任何浮动元素的外边框盒重叠。如果有必要，实现需要通过把这个元素放在其前面的浮动元素的下面来清除 ( clear ) 这个元素，但如果有足够的空间，也有可能紧邻着这个浮动元素。这甚至可能使得这个元素的边框盒比 <a href="https://www.w3.org/TR/CSS22/visudet.html#blockwidth" target="_blank" rel="noopener">10.3.3 小节</a>描述的更窄。CSS2 未定义什么时候需要把这个元素紧挨着 ( next to ) 浮动元素以及元素可能会变窄多少。</p>
+<h3><span id="绝对定位-absolute-positioning"> 绝对定位 ( Absolute positioning )</span></h3>
+<h3><span id="display-position-和-float-的关系"> <code>display</code>、<code>position</code> 和 <code>float</code> 的关系</span></h3>
+<h3><span id="常规流-浮动盒绝对定位的比较"> 常规流、浮动盒绝对定位的比较</span></h3>
+<h3><span id="层表示-layered-presentation"> 层表示 ( Layered presentation )</span></h3>
+<h3><span id="文本方向-direction-和-unicode-bidi-属性"> 文本方向 <code>direction</code> 和 <code>unicode-bidi</code> 属性</span></h3>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/10/22/kmp-ituition-understand/" data-toggle="tooltip" data-placement="top" title="KMP 算法 —— 理解与实现">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/10/14/bridge-finding-algorithm/" data-toggle="tooltip" data-placement="top" title="寻找连通图中的桥">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 可视化格式模型 ( Visual Formatting Model ) 序言</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"> 视口 ( The Viewport )</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"> 包含块 ( Containing Blocks )</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 控制盒子的生成</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"> 块级元素和块盒 ( Block-level elements and block boxes )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.1.</span> <span class="toc-nav-text"> 匿名块盒 ( Anonymous block boxes )</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"> 行内级元素和行内盒 ( Inline-level elements and inline boxes )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.1.</span> <span class="toc-nav-text"> 匿名行内盒 ( Anonymous inline boxes )</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text"> Run-in boxes</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text"> display 属性</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 定位方式 ( Positioning schemes )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text"> 选择一个定位方式：position 属性</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text"> 盒子偏移：top，right，bottom，left</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 常规流 ( Normal flow )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text"> 块格式化上下文</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text"> 行内格式化上下文</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text"> 相对定位</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text"> 浮动 ( Floats )</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.</span> <span class="toc-nav-text"> 绝对定位 ( Absolute positioning )</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">7.</span> <span class="toc-nav-text"> display、position 和 float 的关系</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">8.</span> <span class="toc-nav-text"> 常规流、浮动盒绝对定位的比较</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">9.</span> <span class="toc-nav-text"> 层表示 ( Layered presentation )</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">10.</span> <span class="toc-nav-text"> 文本方向 direction 和 unicode-bidi 属性</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#CSS" title="CSS">CSS</a>
+                        
+                          <a class="tag" href="/tags/#Translation" title="Translation">Translation</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="https://www.w3.org/" target="_blank">W3C</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="https://vuejs.org" target="_blank">Vue.js</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "nicodechal";
+    var disqus_identifier = "https://nicodechal.github.io/2019/10/16/css-spec-in-chinese-visual-formatting-model/";
+    var disqus_url = "https://nicodechal.github.io/2019/10/16/css-spec-in-chinese-visual-formatting-model/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/Nicodechal">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Nicodechal 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://nicodechal.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-131241981-1';
+    var _gaDomain = 'nicodechal.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://nicodechal.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+</html>

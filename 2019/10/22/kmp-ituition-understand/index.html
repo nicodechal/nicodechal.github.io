@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-            寻找连通图中的桥 - Nicodechal
+            KMP 算法 —— 理解与实现 - Nicodechal
                 
     </title>
 
-    <link rel="canonical" href="https://nicodechal.github.io/2019/10/14/bridge-finding-algorithm/">
+    <link rel="canonical" href="https://nicodechal.github.io/2019/10/22/kmp-ituition-understand/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -87,11 +87,11 @@
                               <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
                             
                         </div>
-                        <h1>寻找连通图中的桥</h1>
+                        <h1>KMP 算法 —— 理解与实现</h1>
                         <h2 class="subheading">算法学习笔记</h2>
                         <span class="meta">
                             Posted by Nicodechal on
-                            2019-10-14
+                            2019-10-22
                         </span>
                     </div>
                 
@@ -215,27 +215,34 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>从概念上讲，<strong>连通图</strong>，就是任意两点都连通的无向图，<strong>连通</strong>，就是指两个点有路径相连。而<strong>桥</strong>，简单来讲就是图上的一条边，如果去掉这条边，原图就不再是连通图。本文考虑如何找出所有的这样的边。</p>
-<h3><span id="算法思路"> 算法思路</span></h3>
-<p>这里使用的方法思路来源于 <a href="https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm" target="_blank" rel="noopener">Tarjan 算法</a>，该算法用于求有向图中的强连通分量，这里借用其思路来寻找无向图中的桥。</p>
-<p>该算法的基本思路是，</p>
-<ol>
-<li>首先对图进行一次 DFS 搜索，并对节点按照遍历到的顺序进行编号存放在 <code>dfn</code> 数组 <code>dfn[i]</code> 是第 i 个节点的遍历顺序。</li>
-<li>然后，对于每个节点，计算其<strong>在不经过其父节点时能够达到的编号最小值</strong>。父节点就是第一次 DFS 搜索时的进入该节点的前一个节点 (也即 DFS 搜索树上的父节点)，存放在 <code>low</code> 数组中，<code>low[i]</code> 是第 i 个节点不走父节点能到的最小的 <code>dfn</code> 值。</li>
-<li>最后，对于每条边 <code>ab</code> (假设 a 节点先被遍历)，如果有 <code>dfn[a] &lt; low[b]</code> 则 <code>ab</code> 边为桥。</li>
-</ol>
-<p>这里的判断是指，如果一个节点 ( <code>a</code> ) 的子节点 ( <code>b</code> ) 无法不通过其父节点 ( <code>a</code> ) 达到父节点 (<code>dfn[a] == low[b]</code>，这里指不直接走父节点到父节点) 或达到父节点前面的节点 (<code>dfn[a] &gt; low[b]</code>) 则说明如果没有 <code>ab</code> 这条边，b 节点无法和 <code>dfn</code> 编号小于等于 <code>dfn[a]</code> 的节点相关联，于是原图不再是连通图，所以 <code>ab</code> 是一个桥。以下<a href="https://leetcode.com/problems/critical-connections-in-a-network/discuss/382473/ChineseC%2B%2B-1192.-Tarjan-O(n-%2B-e)" target="_blank" rel="noopener">图</a>为例</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> ------------</span><br><span class="line">|            |</span><br><span class="line"><span class="number">1</span> --- <span class="number">2</span> ---- <span class="number">3</span></span><br><span class="line">      |</span><br><span class="line">      |</span><br><span class="line">      |</span><br><span class="line">      <span class="number">4</span> --- <span class="number">5</span></span><br><span class="line">      |     |</span><br><span class="line">      <span class="number">7</span>---- <span class="number">6</span></span><br></pre></td></tr></table></figure>
-<p>对于边 <code>24</code>，节点 <code>4</code> 不经过节点 <code>2</code> 能达到的 <code>dfn</code> 最小节点为 <code>low[4] = 4 &gt; dfn[2]</code>( 自己 )。所以 <code>24</code> 为桥。</p>
-<h3><span id="算法实现"> 算法实现</span></h3>
-<p>下面对关键的部分进行实现，实际实现时，以上步骤可以在一次遍历中完成：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> dfn = <span class="built_in">Array</span>(n).fill(<span class="number">-1</span>), low = <span class="built_in">Array</span>(n).fill(<span class="number">-1</span>); </span><br><span class="line"><span class="keyword">let</span> stp = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> ans = [];</span><br><span class="line"><span class="keyword">const</span> dfs = <span class="function">(<span class="params">idx, fa</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 首先将当前节点的 dfn 和 low 都设为遍历序号</span></span><br><span class="line">    dfn[idx] = low[idx] = stp++;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> v <span class="keyword">of</span> g[idx]) &#123;</span><br><span class="line">        <span class="comment">// 通过 dfn 值判断是否已经遍历该点，默认值为 -1.</span></span><br><span class="line">        <span class="keyword">if</span> (dfn[v] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 向下递归，传入节点和其父节点</span></span><br><span class="line">            dfs(v, idx);</span><br><span class="line">            <span class="comment">// 到这里 low[v] 应该已经算好了</span></span><br><span class="line">            <span class="comment">// 当前节点的 low 值是子节点 low 值得最小值</span></span><br><span class="line">            low[idx] = <span class="built_in">Math</span>.min(low[idx], low[v]);</span><br><span class="line">            <span class="comment">// 到这里当前节点的 dfn 和 子节点 的 low 都更新好了，判断一下这条边是不是桥</span></span><br><span class="line">            <span class="keyword">if</span> (dfn[idx] &lt; low[v]) ans.push([idx, v]);</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                <p>这里简单介绍 KMP 算法及其实现思路。KMP 算法实现了在线性时间内完成子串的查找，下面首先介绍基本的匹配算法，在考虑如何使用 KMP 的思路加快匹配。</p>
+<h3><span id="基本的匹配算法"> 基本的匹配算法</span></h3>
+<p>基本的思路，就是使用两个指针分别指向字符串 <code>A</code> 和待查找字符串 <code>B</code>，然后比较两个指针处的字符是否相等，如果相等就同时推进两个指针，否则回退两个指针 ( 具体来说，两个指针都先回退 <code>B 指针移动的距离</code>，此时，<code>B</code> 指针回到索引为 <code>0</code> 的字符，然后 <code>A</code> 指针再向前一格，重新匹配 )。遍历完 <code>A</code> 字符串后，如果 <code>B</code> 指针值为 <code>B</code> 的长度，说明得到匹配，否则失配。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">match</span>(<span class="params">A, B</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (i &lt; A.length &amp;&amp; j &lt; B.length) &#123;</span><br><span class="line">    <span class="keyword">if</span> (A[i] == B[j]) &#123; <span class="comment">// 相等同时推进两个指针</span></span><br><span class="line">      i++;</span><br><span class="line">      j++;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">// 否则 i 退回下一次重试的索引，j重来</span></span><br><span class="line">      i = i - j + <span class="number">1</span>;</span><br><span class="line">      j = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 最后根据 j 是否为 B 长度判断匹配</span></span><br><span class="line">  <span class="keyword">return</span> j &lt; B.length ? <span class="number">-1</span> : i - j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>举个例子说明一下回退，其实就是先重置 <code>i</code>, <code>j</code>，再将 <code>i</code> 向前移一格：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">A = ababd, B = abd</span><br><span class="line"></span><br><span class="line">ababd   <span class="built_in">i</span> = <span class="number">0</span></span><br><span class="line">abd     <span class="built_in">j</span> = <span class="number">0</span></span><br><span class="line">|</span><br><span class="line"></span><br><span class="line">ababd   <span class="built_in">i</span> = <span class="number">1</span></span><br><span class="line">abd     <span class="built_in">j</span> = <span class="number">1</span></span><br><span class="line"> |</span><br><span class="line"></span><br><span class="line">ababd   <span class="built_in">i</span> = <span class="number">2</span></span><br><span class="line">abd     <span class="built_in">j</span> = <span class="number">2</span></span><br><span class="line">  |</span><br><span class="line"></span><br><span class="line">上面失配了，进行下面的回退:</span><br><span class="line"></span><br><span class="line">ababd   <span class="built_in">i</span> = <span class="built_in">i</span> - <span class="built_in">j</span> + <span class="number">1</span> = <span class="number">1</span></span><br><span class="line"> abd    <span class="built_in">j</span> = <span class="number">0</span></span><br><span class="line"> |</span><br></pre></td></tr></table></figure>
+<h3><span id="kmp-算法"> KMP 算法</span></h3>
+<p>KMP 加快匹配的方式是，使 <code>i</code> 不会回退，只改变 <code>j</code> 的位置。下面举个例子：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">A = abababc, B = ababc</span><br><span class="line"></span><br><span class="line">abababc <span class="built_in">i</span> = <span class="number">0</span></span><br><span class="line">ababc   <span class="built_in">j</span> = <span class="number">0</span></span><br><span class="line">|</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">abababc <span class="built_in">i</span> = <span class="number">4</span></span><br><span class="line">ababc   <span class="built_in">j</span> = <span class="number">4</span></span><br><span class="line">    |</span><br><span class="line"></span><br><span class="line">上面失配，如果不回退 <span class="built_in">i</span>，只改变 <span class="built_in">j</span>，变成下面:</span><br><span class="line"></span><br><span class="line">abababc   <span class="built_in">i</span> = <span class="number">4</span></span><br><span class="line">  ababc   <span class="built_in">j</span> = <span class="number">2</span></span><br><span class="line">  ^^|</span><br></pre></td></tr></table></figure>
+<p>上面最后 <code>^</code> 标记出已经匹配的部分，<code>|</code>代表现在正在匹配的位置。</p>
+<p>拿上面的例子来说，已知失配点前是匹配的，因此，失配点 <code>j = 4</code> 前一定是 <code>abab</code>，不管是 A 还是 B，说明 <code>abababc</code> 中 <code>i = 4</code> 前一定是 <code>abab</code>。</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[abab]</span>abc i = <span class="number">4</span></span><br><span class="line"><span class="string">[abab]</span>c   j = <span class="number">4</span></span><br><span class="line">      |</span><br></pre></td></tr></table></figure>
+<p>因此，这里可以直接利用<strong>失配点前的信息是已知的</strong>这一点就可以加快匹配。</p>
+<p>例如对于 <code>ababc</code>，如果在 <code>j = 2</code> 失配，那失配点前内容为 <code>ab</code>；如果在 <code>j = 3</code> 失配，那失配点前内容为 <code>aba</code>。<strong>而且注意，这里只靠 B 自己就可以知道失配点前的内容了</strong>。</p>
+<p>因此，对于 <code>ababc</code>，如果失配点是 <code>j = 4</code>，说明失配点前是 <code>abab</code>，又其后缀是 <code>ab</code>，和 <code>ababc</code> 的前缀匹配，因此此时只需把 <code>j</code> 移动到 <code>j = 2</code> 处即可，省略了 <code>ab == ab</code> 的匹配。</p>
+<p>据此，即可实现 i 指针不动，只移动 j 指针：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">A</span> = abababc, <span class="attr">B</span> = ababc</span><br><span class="line"></span><br><span class="line">abababc <span class="attr">i</span> = <span class="number">4</span></span><br><span class="line">ababc   <span class="attr">j</span> = <span class="number">4</span></span><br><span class="line">    |</span><br><span class="line"></span><br><span class="line">上面失配。</span><br><span class="line"></span><br><span class="line">abababc   <span class="attr">i</span> = <span class="number">4</span></span><br><span class="line">  ababc   <span class="attr">j</span> = <span class="number">2</span></span><br><span class="line">  ^^|</span><br></pre></td></tr></table></figure>
+<p>由上面可知，<code>j</code> 的跳转只取决于 <code>B</code> 本身，所以，对于一个给定的 <code>j</code> 值，其下一跳是固定的，使用一个 <code>next</code> 数组指明 <code>j</code> 的下一跳，即：<code>j = next[j]</code>。</p>
+<p>由于下一跳的值小于自己 <code>next[j] &lt; j</code>，因此假设 <code>next[0] = -1</code>。那么，如果已经知道 <code>j</code> 的下一跳，不后退 <code>i</code> 的匹配算法如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">KMP</span>(<span class="params">A, B</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (i &lt; A.length &amp;&amp; j &lt; B.length) &#123;</span><br><span class="line">    <span class="keyword">if</span> (j == <span class="number">-1</span> || A[i] == B[j]) &#123; <span class="comment">// change</span></span><br><span class="line">      i++;</span><br><span class="line">      j++;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      j = next[j]; <span class="comment">// change.</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> j &lt; B.length ? <span class="number">-1</span> : i - j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相较之前，两处改变，首先如果失配，<code>i</code> 值不变，<code>j</code> 变为下一跳；另一处为匹配条件增加了 <code>-1</code> 的判断。由于只有 <code>next[0] = -1</code>，因此 <code>j == -1</code> 说明<strong>在 0 处就失配了</strong>，因此需要让下一个 <code>i</code> 和 <code>j = 0</code> 匹配。代码通过让 <code>i</code> 和 <code>j = -1</code> 都加 <code>1</code> 实现这一点。</p>
+<p>接下来说明 <code>next</code> 数组的计算。</p>
+<p><code>next</code> 数组计算也利用 KMP 算法的思路，这里匹配的是 <code>i</code> 之前的子串的前缀 (j) 和后缀 (i)。</p>
+<p><code>i</code> 的索引依旧不后退，当出现 <code>A[j] == A[i]</code> 时，前后缀匹配，所以 <code>next[i + 1]</code> 可以跳到 <code>j + 1</code>，即对于 <code>ababc</code>，<code>A[1] == A[3]</code>，说明前缀 <code>A[0,1] = ab</code> 和 后缀 <code>A[2,3] = ab</code> 匹配，所以有 <code>next[4] = 2</code>。</p>
+<p>具体代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNext</span>(<span class="params">A</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i = <span class="number">0</span>, j = <span class="number">-1</span>; <span class="comment">// i = 0, 前缀从 -1 开始。</span></span><br><span class="line">  <span class="keyword">const</span> next = [<span class="number">-1</span>]; <span class="comment">// next[0] = -1;</span></span><br><span class="line">  <span class="keyword">while</span> (i &lt; A.length - <span class="number">1</span>) &#123; <span class="comment">// 之后要赋值 i + 1, 所以减 1</span></span><br><span class="line">    <span class="keyword">if</span> (j == <span class="number">-1</span> || A[j] == A[i]) &#123;</span><br><span class="line">      i++;</span><br><span class="line">      j++;</span><br><span class="line">      next[i] = j; <span class="comment">// 这里说明前后缀匹配，得到 i + 1 的 next</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      j = next[j];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3><span id="小结"> 小结</span></h3>
-<p>本文使用 Tarjan 算法的思路，在连通图中对桥边进行了搜索，总体上基于 DFS 实现，使用两个数组记录每个节点的遍历编号 <code>dfn</code> 和不经过父节点的可达最小遍历编号 <code>low</code> 再通过比较边的两端点的 <code>dfn</code> 和 <code>low</code> 值了解该边是否为桥。</p>
-<p>这个算法将条件改为 <code>dfn[idx] &lt;= low[v]</code> 即可判断<strong>割点</strong>，等号表示一个节点不经过其父节点最多可以到达父节点 ( 即不直接走父节点，通过其他点到达，且只能到达父节点，不能到达父节点前面的节点 )，此时父节点就是一个<strong>割点</strong>，因为如果去掉父节点，子节点没法和父节点前面的节点连通了。</p>
-<h3><span id="参考资料"> 参考资料</span></h3>
-<p><a href="https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm" target="_blank" rel="noopener">Tarjan 算法</a><br>
-<a href="https://leetcode.com/problems/critical-connections-in-a-network/" target="_blank" rel="noopener">Critical Connections in a Network</a></p>
+<p>本文简单介绍了 KMP 算法及其实现思路。首先说明常规的匹配方式，再对该算法进行改进引入 KMP 算法。然后说明对 KMP 算法的直观理解及具体实现。最后对 next 数组的求解进行了简要介绍。</p>
 
                 
 
@@ -243,13 +250,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2019/10/16/css-spec-in-chinese-visual-formatting-model/" data-toggle="tooltip" data-placement="top" title="[CSS 2.2 中文] 可视化格式模型 - Visual Formatting Model">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2019/10/09/cycle-finding-DFS/" data-toggle="tooltip" data-placement="top" title="环路检测的 DFS 算法">Next Post &rarr;</a>
+                            <a href="/2019/10/16/css-spec-in-chinese-visual-formatting-model/" data-toggle="tooltip" data-placement="top" title="[CSS 2.2 中文] 可视化格式模型 - Visual Formatting Model">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -279,7 +282,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 算法思路</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 算法实现</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 小结</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 参考资料</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 基本的匹配算法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> KMP 算法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 小结</span></a></li></ol>
         
         </div>
       </aside>
@@ -334,8 +337,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "nicodechal";
-    var disqus_identifier = "https://nicodechal.github.io/2019/10/14/bridge-finding-algorithm/";
-    var disqus_url = "https://nicodechal.github.io/2019/10/14/bridge-finding-algorithm/";
+    var disqus_identifier = "https://nicodechal.github.io/2019/10/22/kmp-ituition-understand/";
+    var disqus_url = "https://nicodechal.github.io/2019/10/22/kmp-ituition-understand/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

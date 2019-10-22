@@ -214,6 +214,73 @@
 
 <div class="post-preview">
 
+    <a href="/2018/06/26/react-main-concepts-summary-1/">
+        <h2 class="post-title">
+            React 基本概念总结(一)
+        </h2>
+        <h3 class="post-subtitle">
+            React 初探
+        </h3>
+        <div class="post-content-preview">
+             Hello World
+一个最小的 React 示例：
+1ReactDOM.render(&lt;h1&gt;Hello World&lt;/h1&gt;, document.getElementById("root"));
+这个例子会在页面上渲染出 Hello World 。
+ Introducing JSX
+jsx 的语法允许下面这样的变量定义：·
+1const element = &......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-06-26
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
+            
+              <a href="/tags/#React" title="React">React</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/04/15/using-of-vuegister-module/">
+        <h2 class="post-title">
+            类似 babel-register 的 Vue 单文件组件编译模块 Vuegister 插件的使用
+        </h2>
+        <h3 class="post-subtitle">
+            Parcel Vue 项目测试实践
+        </h3>
+        <div class="post-content-preview">
+             为什么使用 Vuegister
+最近，Parcel 默认支持了 Vue 单文件组件的打包，于是尝试使用 Parcel 搭建了 Vue.js 单文件组件开发环境。使用时可以开箱即用的开始 Vue.js 项目，非常方便。但是当我想尝试使用 Mocha + Chai 实现组件测试时却发现单文件组件并不能直接被测试：Parcel 直接将编译的结果进行了打包，没有独立的 Vue 组件编译，这也是为什......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-04-15
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
+            
+              <a href="/tags/#Vue.js" title="Vue.js">Vue.js</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2018/04/01/vue-sfc-compile-without-webpack/">
         <h2 class="post-title">
             如何不依赖 Webpack 编译 Vue 单文件组件
@@ -479,84 +546,6 @@ QQQ：有穷状态集
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/01/06/theory-of-computation-2/">
-        <h2 class="post-title">
-            [计算理论基础] 上下文无关文法
-        </h2>
-        <h3 class="post-subtitle">
-            计算理论基础课程总结
-        </h3>
-        <div class="post-content-preview">
-             上下文无关文法的定义
-定义3.1：上下文无关文法
-G=(V,Σ,R,S)G=(V,\Sigma, R,S)
-G=(V,Σ,R,S)
-
-VVV：有穷变元集
-Σ\SigmaΣ：有穷终结符集
-RRR：有穷规则集
-SSS：起始变元
-
-定义：
-
-一步生成：uAv⇒uwvuAv\Rightarrow uwvuAv⇒uwv，使用产生式 A→wA\to wA→w
-任意步生成：u⇒∗v=u⇒u1⇒...⇒v......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-01-06
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Computation" title="Computation">Computation</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/01/06/theory-of-computation-1/">
-        <h2 class="post-title">
-            [计算理论基础] 有穷自动机
-        </h2>
-        <h3 class="post-subtitle">
-            计算理论基础课程总结
-        </h3>
-        <div class="post-content-preview">
-             确定性有穷自动机
-定义2.1：确定性有穷自动机
-M=(Q,Σ,δ,q0,F)M=(Q,\Sigma, \delta, q_0, F)
-M=(Q,Σ,δ,q​0​​,F)
-其中：
-
-QQQ：有穷状态集
-Σ\SigmaΣ: 输入字母表
-δ:Q×Σ→Q\delta: Q \times \Sigma \to Qδ:Q×Σ→Q: 转移函数
-扩展的转移函数：δ:Q×Σ∗→Q\delta: Q \tim......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-01-06
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Computation" title="Computation">Computation</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -567,6 +556,10 @@ QQQ：有穷状态集
             <a href="/archives/2/">&larr; Newer Posts</a>
         </li>
     
+    
+        <li class="next">
+            <a href="/archives/4/">Older Posts &rarr;</a>
+        </li>
     
 </ul>
 
@@ -659,6 +652,14 @@ QQQ：有穷状态集
     <ul>
       
         <li>
+          <a href="/2019/10/22/kmp-ituition-understand/">KMP 算法 —— 理解与实现</a>
+        </li>
+      
+        <li>
+          <a href="/2019/10/16/css-spec-in-chinese-visual-formatting-model/">[CSS 2.2 中文] 可视化格式模型 - Visual Formatting Model</a>
+        </li>
+      
+        <li>
           <a href="/2019/10/14/bridge-finding-algorithm/">寻找连通图中的桥</a>
         </li>
       
@@ -668,14 +669,6 @@ QQQ：有穷状态集
       
         <li>
           <a href="/2019/10/02/skiplist-you-must-know/">跳表 ( Skiplist ) 的数据结构实现</a>
-        </li>
-      
-        <li>
-          <a href="/2019/09/26/topological-sort/">拓扑排序的应用</a>
-        </li>
-      
-        <li>
-          <a href="/2019/09/18/euler-cycle/">欧拉回路的判定和求解</a>
         </li>
       
     </ul>
