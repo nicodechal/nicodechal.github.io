@@ -406,6 +406,151 @@
 </blockquote>
 <p>如果一个变短的行盒太小了以致于不能容纳任何内容，那么这个行盒会向下移动 ( 同时它的宽度也会重新计算 ) 直到有内容可以放入或没有其他浮动出现。在当前行的任何在浮动盒前面的内容都会重新流动到浮动盒的另一侧。换句话说，如果一个行内级盒放置在和浮动盒同一行中的在浮动盒之前，且可以放进行盒剩余的空间，那么这个左浮动盒就放置在这一行，和行盒的顶部对齐，然后本来在这一行的行内级盒因此会移动到浮动盒的右边 ( 左浮动盒的另一侧就是右侧 )，对于 rtl 和右浮动亦然。</p>
 <p>table、块级替换元素或者常规流中建立块格式化上下文的元素 ( 例如一个 <code>overflow</code> 不是 <code>visible</code> 的元素 ) 的边框盒不能和同一个块上下文中的任何浮动元素的外边框盒重叠。如果有必要，实现需要通过把这个元素放在其前面的浮动元素的下面来清除 ( clear ) 这个元素，但如果有足够的空间，也有可能紧邻着这个浮动元素。这甚至可能使得这个元素的边框盒比 <a href="https://www.w3.org/TR/CSS22/visudet.html#blockwidth" target="_blank" rel="noopener">10.3.3 小节</a>描述的更窄。CSS2 未定义什么时候需要把这个元素紧挨着 ( next to ) 浮动元素以及元素可能会变窄多少。</p>
+<blockquote>
+<p>例子。在下面的文档片段中，包含块太窄所以不能容纳紧挨着浮动盒的内容，所以内容移到了浮动盒的下方同时根据 <code>text-align</code> 属性在行盒中对齐。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">p &#123; width: 10em; border: solid aqua; &#125;</span><br><span class="line">span &#123; float: left; width: 5em; height: 5em; border: solid blue; &#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span> <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  Supercalifragilisticexpialidocious</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>看起来会像下面这样：<br>
+<img src="https://www.w3.org/TR/CSS22/images/supercal.png" alt=""></p>
+</blockquote>
+<p>多个浮动盒可能会相接，此时这个模型也会对同一行的浮动盒应用。</p>
+<blockquote>
+<p>下面的例子使所有 <code>class=icon</code> 的 IMG 盒向左浮动 ( 同时左边距为 ‘0’ )</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-class">.icon</span> &#123; </span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>考虑下面的 HTML 源文件和样式表：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>Float example<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">STYLE</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-tag">IMG</span> &#123; <span class="attribute">float</span>: left &#125;</span></span><br><span class="line"><span class="css">      <span class="selector-tag">BODY</span>, <span class="selector-tag">P</span>, <span class="selector-tag">IMG</span> &#123; <span class="attribute">margin</span>: <span class="number">2em</span> &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">STYLE</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">BODY</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">P</span>&gt;</span><span class="tag">&lt;<span class="name">IMG</span> <span class="attr">src</span>=<span class="string">img.png</span> <span class="attr">alt</span>=<span class="string">"This image will illustrate floats"</span>&gt;</span></span><br><span class="line">       Some sample text that has no other...</span><br><span class="line">  <span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>IMG 向左浮动。随后的内容被格式化到了浮动的右边，和浮动盒一样的行开始。浮动盒右边的行盒由于浮动的出现变短，在浮动盒之后又还原为正常宽度 ( 由 P 元素建立的包含块 )。这个文档可能会格式化为下面：<br>
+<img src="https://www.w3.org/TR/CSS22/images/floateg.png" alt=""><br>
+下面文档格式化后和上面一样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">BODY</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">P</span>&gt;</span>Some sample text </span><br><span class="line">  <span class="tag">&lt;<span class="name">IMG</span> <span class="attr">src</span>=<span class="string">img.png</span> <span class="attr">alt</span>=<span class="string">"This image will illustrate floats"</span>&gt;</span></span><br><span class="line">           that has no other...</span><br><span class="line"><span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>因为浮动盒左侧的内容会被浮动盒替换并且移动到浮动盒的右侧。</p>
+</blockquote>
+<p>就像在 8.3.1 小节开始说的，浮动盒的外边距不会和相接的盒子的外边距折叠。因此，在之前的例子中，P 和 IMG 的垂直外边距没有发生折叠。</p>
+<p>浮动盒的内容会被堆叠 ( stacked ) 起来好像浮动盒生成了新的层叠上下文 ( stacking contexts )，除非有定位元素和产生了新的层叠上下文的元素参与了浮动盒的双亲层叠上下文。一个浮动盒可以和其他常规流中的盒子重叠 ( 例如，当一个紧挨着浮动盒的常规流盒子有负外边距 )。此时，浮动元素在非定位流内块 ( non-positioned in-flow blocks ) 之前渲染，在流内行内块 ( in-flow inlines ) 后渲染。</p>
+<blockquote>
+<p>这是另一个例子，展示了浮动盒和常规流中的元素边框的重叠。<br>
+<img src="https://www.w3.org/TR/CSS22/images/float2p.png" alt=""></p>
+</blockquote>
+<p>下面例子说明使用 <code>clear</code> 元素阻止内容紧挨着浮动盒。</p>
+<blockquote>
+<p>假设有下面规则：<br>
+<code>p { clear: left }</code><br>
+格式化如下：<br>
+<img src="https://www.w3.org/TR/CSS22/images/floatclear.png" alt=""></p>
+</blockquote>
+<h4><span id="定位浮动-float-属性"> 定位浮动： <code>float</code> 属性</span></h4>
+<p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-float" target="_blank" rel="noopener">文档</a>。</p>
+<p>该属性指明一个盒子时候向左浮动、向右浮动或者不浮动。该属性可以为任何元素设置，但只会应用在生成的盒子不是绝对地定位的元素上。属性取值的含义如下：</p>
+<p><strong>left</strong><br>
+元素生成一个块盒向左浮动。内容在盒子的右边流动，从盒子的上部开始。</p>
+<p><strong>right</strong><br>
+和 <code>left</code> 类似，除了元素生成一个块盒向右浮动。内容在盒子的左边流动，从盒子的上部开始。</p>
+<p><strong>none</strong><br>
+盒子不浮动。</p>
+<p>用户代理可能会认为根元素的 <code>float</code> 为 <code>none</code>。</p>
+<p>下面是控制浮动行为的精确规则：</p>
+<ol>
+<li>左浮动盒的左外边缘不会到其包含块左边缘的左边。右浮动盒规则相似。</li>
+<li>如果当前盒子是左浮动的，如果有在源文档中生成更早的元素的盒子，那么对于每一个更早的盒子，当前盒的左外边缘必须在之前盒的右边缘的右边，或者其顶部必需比之前盒的顶部低。右浮动盒规则相似。</li>
+<li>左浮动盒的右外边距可能不会到紧挨着它的右浮动盒左外边距的右边。右浮动盒规则相似。</li>
+<li>浮动盒的顶外边距不会比包含块的顶部高。当浮动出现在两个折叠的外边距之间时，浮动盒子像有一个其他的空匿名父亲盒参与在流中一样定位。这个父亲的定位规则根据外边距折叠一节<a href="https://www.w3.org/TR/CSS22/box.html#collapsed-through" target="_blank" rel="noopener">规则</a>给出。</li>
+<li>浮动盒的上外边缘可能不会比任何源文档中生成更早的块或浮动盒的上外边缘高。</li>
+<li>一个元素的浮动盒的上外边缘不会比包含源文档中更早生成的元素的行盒的顶部高。</li>
+<li>一个向左浮动的盒子如果有另一个向左浮动的盒子在它的左边，那么它的右外边缘不会到达其包含块的右边缘的右边。( 松散的：一个左浮动盒不会伸出 ( stick out ) 到包含块的右边缘，除非它已经足够靠左了 )。</li>
+<li>一个浮动盒子必须尽可能高的放置。</li>
+<li>一个左浮动盒必须尽可能向左放置，一个右浮动盒必须尽可能向右放置，相比于左右的位置，更偏向更高的位置。</li>
+</ol>
+<p>但是在 CSS 2.2 中，如果在一个块格式化上下文中，有一个在流中的负垂直外边距导致浮动位置在其原位置 ( 假设其负外边距设置为 0 ) 之上，浮动的位置是未定义的。</p>
+<p>本规则中引用的其他元素只会引用和浮动元素块格式化上下文相同的元素。</p>
+<blockquote>
+<p>这是 b 向右浮动的结果。<br>
+<code>&lt;P&gt;a&lt;SPAN style=&quot;float: right&quot;&gt;b&lt;/SPAN&gt;&lt;/P&gt;</code><br>
+如果 P 的宽度足够大，a 和 b 会一人一边。看起来像这样：<br>
+<img src="https://www.w3.org/TR/CSS22/images/float-right.png" alt=""></p>
+</blockquote>
+<h4><span id="控制-紧挨着-next-to-浮动盒的流clear-属性"> 控制 紧挨着 ( next to ) 浮动盒的流：<code>clear</code> 属性</span></h4>
+<p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-clear" target="_blank" rel="noopener">文档</a>。</p>
+<p>该属性说明一个元素的盒子们哪一侧不会和之前的浮动盒相邻。<code>clear</code> 属性不考虑元素内部其他块格式化上下文中的元素。</p>
+<p>当应用到非浮动块级盒时取值含义的含义如下：</p>
+<p><strong>left</strong><br>
+需要盒子的上边框边缘在文档树中更早出现的元素产生的左浮动盒的下外边缘的下面。</p>
+<p><strong>right</strong><br>
+需要盒子的上边框边缘在文档树中更早出现的元素产生的右浮动盒的下外边缘的下面。</p>
+<p><strong>both</strong><br>
+需要盒子的上边框边缘在文档树中更早出现的元素产生的浮动盒的下外边缘的下面。</p>
+<p><strong>none</strong><br>
+关于浮动，不限制盒子的位置。</p>
+<p>非 <code>none</code> 的取值可能会产生<strong>间隙</strong> ( <strong>clearance</strong> )。间隙禁止外边距折叠，作为元素的上外边距上方存在。它用来在垂直方向上将元素向下推使其越过浮动盒。</p>
+<p>计算设置了 <code>clear</code> 的元素的间隙首先需要决定元素的上边框边缘的假设位置。这个位置就是当 <code>clear</code> 为 <code>none</code> 时的上边框边缘的位置。</p>
+<p>如果元素上边框边缘的假设位置没有越过相关的浮动盒，那么间隙就会出现，同时外边距折叠根据 8.3.1 中的规则进行。</p>
+<p>接着间隙的大小 ( amount ) 设为下面较大的一个：</p>
+<ol>
+<li>使得 <code>clear</code> 的块的边框边缘放置在最低的浮动盒的下外边缘的大小。</li>
+<li>使得 <code>clear</code> 的块上边框边缘在其假设位置的大小。</li>
+</ol>
+<p>或者说，间隙恰恰使得 <code>clear</code> 的块的边框边缘放置在最低的浮动盒的下外边缘。</p>
+<blockquote>
+<p>注意：两种行为都允许其兼容性对存在的 Web 内容等待评估。未来的 CSS 标准将会要求其中一个。</p>
+</blockquote>
+<blockquote>
+<p>注意：间隙可以为 0 或 负值。</p>
+</blockquote>
+<blockquote>
+<p>例子1：假设 ( 为了简单起见 )，我们只有 3 个盒子，他们顺序如下；<br>
+块 B1 的下外边距为 M1 ( B1 没有孩子节点也没有内边距和边框 )，浮动块 F 高度为 H，块 B2 的上外边距为 M2 ( 没有内边距，边框和孩子 )。B2 的 <code>clear</code> 属性设置为 <code>both</code>。同时假设 B2 不为空。</p>
+<p>如果不考虑 B2 的 <code>clear</code> 属性，我们得到下面的状态。B1 和 B2 的外边距发生折叠。假设 B1 下边框边缘在 <code>y=0</code>，那么 F 的上边在 <code>y=M1</code> 处，B2 的上边框边缘在 <code>y=max(M1,M2)</code>，F 的下边在 <code>y=M1+H</code>。<br>
+<img src="https://www.w3.org/TR/CSS22/images/clearance.png" alt=""><br>
+我们同时假设 B2 没有在 F 下面，即，我们处在标准中说明的需要添加间隙的情况。这意味着：</p>
+<blockquote>
+<p>max(M1,M2) &lt; M1+H</p>
+</blockquote>
+<p>我们需要计算两次间隙 C，C1 和 C2，然后保留大的那一个 <code>C=max(C1,C2)</code>。第一种方式要把 B2 的上边和 F 的下边对其，即在 <code>y=M1+H</code>。这意味着，由于外边距不再和他们之间的间隙折叠，则有：</p>
+<blockquote>
+<p>F 的 bottom = B2 的上边框边缘      &lt;=&gt;<br>
+       M1 + H = M1 + C1 + M2      &lt;=&gt;<br>
+              C1 = M1 + H - M1 - M2<br>
+                    = H - M2</p>
+</blockquote>
+<p>第二种计算保持 B2 的顶部所在的位置，即 <code>y=max(M1,M2)</code>:</p>
+<blockquote>
+<p>max(M1, M2) = M1 + C2 + M2 &lt;=&gt;<br>
+C2 = max(M1, M2) - M1 - M2</p>
+</blockquote>
+<p>我们假设 max(M1, M2) &lt; M1 + H，即有：</p>
+<blockquote>
+<p>C2 = max(M1, M2) - M1 - M2 &lt; M1 + H - M1 - M2 = H - M2 =&gt;<br>
+C2 &lt; H - M2</p>
+</blockquote>
+<p>又有 C1 = H - M2，所以有：</p>
+<blockquote>
+<p>C2 &lt; C1</p>
+</blockquote>
+<p>因此：</p>
+<blockquote>
+<p>C = max(C1, C2) = C1</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>例子2：一个例子说明负的间隙的情况，此时间隙是 -1em。( 假设没有元素有边框和内边距 )：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;p <span class="attribute">style</span>=<span class="string">"margin-bottom: 4em"</span>&gt;</span><br><span class="line">  First paragraph.</span><br><span class="line"></span><br><span class="line">&lt;p <span class="attribute">style</span>=<span class="string">"float: left; height: 2em; margin: 0"</span>&gt;</span><br><span class="line">  Floating paragraph.</span><br><span class="line"></span><br><span class="line">&lt;p <span class="attribute">style</span>=<span class="string">"clear: left; margin-top: 3em"</span>&gt;</span><br><span class="line">  Last paragraph.</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>解释：如果没有 <code>clear</code>，第一段和最后一段的外边距会折叠同时最有一段的上边框边缘会和浮动元素的上边对齐。但是 <code>clear</code> 要求上边框边缘在浮动元素下方。即比现在低 2em。这意味着需要考虑间隙。据此，外边距不再折叠，间隙被设置，使得 <code>间隙 + margin-top = 2em</code>，即 <code>间隙 = 2em - margin-top = -1em</code>。</p>
+</blockquote>
+<p>如果这个属性被设置在浮动元素上，他会导致对浮动元素定位的规则的修改。一个额外的约束 ( #10 ) 被加入：</p>
+<ul>
+<li>浮动元素的上外边距必须在其之前的左浮动元素 ( 如果 <code>clear: left</code> ) 或者之前的右浮动元素 <code>clear: right</code> 或者所有浮动元素 ( <code>clear: both</code> ) 的外边距之下。</li>
+</ul>
+<blockquote>
+<p>**注意。**这个属性可以应用在所有的 CSS1 中的元素上。标准的实现因此必需在所有元素上支持这个属性。在 CSS2 和 CSS2.2 中，<code>clear</code> 属性只应用在块级元素上。因此应该只在块级盒上使用这个属性。如果有实现支持了在行内元素上的 clear 属性，不进行间隙的添加，而是强制换行同时明显的插入一个或多个空行 ( 或者像 9.5 节说的将一个新行向下移动 ) 使得清除浮动的行内的行盒在对应的浮动盒下方。</p>
+</blockquote>
 <h3><span id="绝对定位-absolute-positioning"> 绝对定位 ( Absolute positioning )</span></h3>
 <h3><span id="display-position-和-float-的关系"> <code>display</code>、<code>position</code> 和 <code>float</code> 的关系</span></h3>
 <h3><span id="常规流-浮动盒绝对定位的比较"> 常规流、浮动盒绝对定位的比较</span></h3>
@@ -454,7 +599,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 可视化格式模型 ( Visual Formatting Model ) 序言</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"> 视口 ( The Viewport )</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"> 包含块 ( Containing Blocks )</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 控制盒子的生成</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"> 块级元素和块盒 ( Block-level elements and block boxes )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.1.</span> <span class="toc-nav-text"> 匿名块盒 ( Anonymous block boxes )</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"> 行内级元素和行内盒 ( Inline-level elements and inline boxes )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.1.</span> <span class="toc-nav-text"> 匿名行内盒 ( Anonymous inline boxes )</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text"> Run-in boxes</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text"> display 属性</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 定位方式 ( Positioning schemes )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text"> 选择一个定位方式：position 属性</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text"> 盒子偏移：top，right，bottom，left</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 常规流 ( Normal flow )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text"> 块格式化上下文</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text"> 行内格式化上下文</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text"> 相对定位</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text"> 浮动 ( Floats )</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.</span> <span class="toc-nav-text"> 绝对定位 ( Absolute positioning )</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">7.</span> <span class="toc-nav-text"> display、position 和 float 的关系</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">8.</span> <span class="toc-nav-text"> 常规流、浮动盒绝对定位的比较</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">9.</span> <span class="toc-nav-text"> 层表示 ( Layered presentation )</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">10.</span> <span class="toc-nav-text"> 文本方向 direction 和 unicode-bidi 属性</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 可视化格式模型 ( Visual Formatting Model ) 序言</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"> 视口 ( The Viewport )</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"> 包含块 ( Containing Blocks )</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 控制盒子的生成</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"> 块级元素和块盒 ( Block-level elements and block boxes )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.1.</span> <span class="toc-nav-text"> 匿名块盒 ( Anonymous block boxes )</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"> 行内级元素和行内盒 ( Inline-level elements and inline boxes )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.1.</span> <span class="toc-nav-text"> 匿名行内盒 ( Anonymous inline boxes )</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text"> Run-in boxes</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text"> display 属性</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 定位方式 ( Positioning schemes )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text"> 选择一个定位方式：position 属性</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text"> 盒子偏移：top，right，bottom，left</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 常规流 ( Normal flow )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text"> 块格式化上下文</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text"> 行内格式化上下文</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text"> 相对定位</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text"> 浮动 ( Floats )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text"> 定位浮动： float 属性</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text"> 控制 紧挨着 ( next to ) 浮动盒的流：clear 属性</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.</span> <span class="toc-nav-text"> 绝对定位 ( Absolute positioning )</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">7.</span> <span class="toc-nav-text"> display、position 和 float 的关系</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">8.</span> <span class="toc-nav-text"> 常规流、浮动盒绝对定位的比较</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">9.</span> <span class="toc-nav-text"> 层表示 ( Layered presentation )</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">10.</span> <span class="toc-nav-text"> 文本方向 direction 和 unicode-bidi 属性</span></a></li></ol>
         
         </div>
       </aside>
