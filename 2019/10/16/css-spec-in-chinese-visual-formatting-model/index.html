@@ -690,6 +690,84 @@ C2 &lt; H - M2</p>
 </blockquote>
 <p>上面例子说明了透明性的概念。背景的默认行为是让其后的盒子可见。在例子中，每一个盒子都透明地覆盖在其下面的盒子上。这个行为可以用一个存在的 <code>background</code> 属性重写。</p>
 <h3><span id="文本方向-direction-和-unicode-bidi-属性"> 文本方向 <code>direction</code> 和 <code>unicode-bidi</code> 属性</span></h3>
+<p>一致的用户代理如果不支持双向文字可能会忽略 <code>direction</code> 和 <code>unicode-bidi</code> 属性。例外的情况是用户代理渲染了从右向左的符号由于系统包含这种字体，但实际上，其并不支持从右向左文本的概念。</p>
+<p>在一些特定的脚本 ( script ) 中，符号从右向左书写。某些文档中，特别是使用阿拉伯语和希伯来语的脚本书写的文档，同时，在某些混合语言的上下文中，在一个块 ( 具有可见的 <code>display</code> ) 中可能会有多种方向。这个现象叫做<strong>双向性</strong> ( bidirectionality ) ，或者 写作 “bidi”。</p>
+<p>Unicode 的标准定义了一个复杂的算法，用来决定文本合适的方向。该算法包含基于符号属性的隐含部分和一个具体控制嵌入 ( embeddings ) 和重写 ( overrides ) 的部分。CSS2.2 依赖于这个算法来实现合适的双向渲染。<code>direction</code> 和 <code>unicode-bidi</code> 属性允许作者控制文档中的语言的元素和属性如何映射到这个算法。</p>
+<p>支持双向文本的用户代理必需在每个不被强制中断 ( forced break ) 或块分割 ( block boundary ) 的行内级盒序列上应用 Unicode 双向性算法 ( Unicode bidirectional algorithm )。这个序列在算法中形成一个段落单元 ( “paragraph” unit )。段落的嵌入级 ( embedding level ) 根据包含块的 <code>direction</code> 属性确定而不是在 Unicode 算法中的 P2 和 P3 步骤启发式的获得。</p>
+<p>由于文本的方向取决于文档语言的结构和语义，这些属性多数情况下被 DTDs ( document type descriptions ) 的设计者或者特殊文档的作者使用。如果默认的样式表指定了这些属性，作者和用户不应该覆盖它们。</p>
+<p>HTML 4 标准定义了 HTML 元素的双向行为。实现双向性的样式表规则在 HTML 4 中的 <a href="https://www.w3.org/TR/CSS22/sample.html#bidi" target="_blank" rel="noopener">the sample style sheet</a> 中指定。HTML 4 标准同时也包含更多关于双向性的问题。</p>
+<p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-direction" target="_blank" rel="noopener">文档</a>。</p>
+<p>该属性指定了块中的书写方向和 Unicode 算法中嵌入和覆盖的方向 ( 见 <code>unicode-bidi</code> )。 另外，它指定了表格的列布局，水平方向的溢出，当 <code>text-align: justify</code> 时块中不完整的行的位置。</p>
+<p>取值有以下含义：</p>
+<p><strong>ltr</strong><br>
+从左向右的方向</p>
+<p><strong>rtl</strong><br>
+从右向左的方向</p>
+<p>为了让 <code>direction</code> 属性可以影响行内元素的重排，<code>unicode-bidi</code> 的取值必须为 <code>embed</code> 或 <code>override</code>。</p>
+<blockquote>
+<p><strong>注意</strong>：<code>direciton</code> 属性用来为表格列元素指定时，它不会被单元格继承因为列在文档树中不是单元格的祖先。因此，CSS不能简单地捕获 ( capture ) HTML 4 中 11.3.2.1 中描述的 <code>dir</code> 属性继承规则。</p>
+</blockquote>
+<p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-unicode-bidi" target="_blank" rel="noopener">文档</a>。</p>
+<p>取值有如下含义：</p>
+<p><strong>normal</strong><br>
+元素不会开启一个双向性算法中的新的嵌入级别。对于行内元素，隐含的重排工作会跨过元素边界。</p>
+<p><strong>embed</strong><br>
+如果一个元素是行内的，该值开启一个新的嵌入级别。该级别的方向由 <code>direction</code> 指定。在元素内，重排隐含地完成。这对应着添加一个 LRE ( U+202A; 对于 <code>direction: ltr</code> ) 或  RLE ( U+202B; 对于 <code>direction： rtl</code> ) 在元素的开始处。然后添加一个 PDF ( U+202C ) 在元素尾部。</p>
+<p><strong>bidi-override</strong><br>
+对于行内元素，创建一个覆盖。对于块容器元素为其不在其他块容器中的行内级后继创建一个覆盖。这意味元素内，严格按照 <code>direction</code> 属性指定的值进行重拍；算法的隐含部分被忽略。这对应着添加一个 LRO ( U+202D; 对于 <code>direction: ltr</code> ) 或  RLO ( U+202E; 对于 <code>direction： rtl</code> ) 在元素的开始处或者在每个匿名孩子块盒的开始处，如果有的话。然后添加一个 PDF ( U+202C ) 在元素尾部。</p>
+<p>最终每个块容器盒中的符号的顺序和添加了 bidi 控制码的之后的效果相同，标记被移除，结果的符号序列传递给了用于纯文本的 Unicode 算法，同时产生和有样式的文本相同的断行。在这个过程中，<code>display: inline</code> 的替换元素被看做中立符号 ( neutral characters )，除非 <code>unicode-bidi</code> 属性被设置为非 <code>normal</code> 的值，此时 它们被看做强 ( strong ) 符号在元素指定的 <code>direction</code> 中。其他原子行内级盒始终认为是中立符号。</p>
+<p>请注意为了使得行内盒可以按一个统一的方向流动 ( 都从左向右或从右向左 ) ，可能会有更多的行内盒被创建 ( 包括匿名行内盒 )，同时一些行内盒可能会在流动前被分割重排。</p>
+<p>由于 Unicode 算法限制了最多有 61 级的嵌入，所以要小心使用 <code>unicode-bidi</code> 取值为 <code>normal</code>，除非必要。特别的，取值 <code>inherit</code> 要特别小心使用。<strong>！！！！！！！！</strong></p>
+<p>下面的例子展示了一个有双向文本的 XML 文档。这说明了一个很重要的原则：DTD 设计者需要把 bidi 纳入考虑，无论是在语言 ( 元素和属性 ) 还是任何伴随的样式表中。bidi 规则需要被设计，使得 bidi 规则从其他样式规则中分离出来。bidi 规则不应该被其他样式表覆盖，这样使得文档的语言或 DTD 的 bidi行为可以被保护。</p>
+<blockquote>
+<p>在下面的例子中，小写字母代表继承的从左向右的符号，大写代表从右向左。</p>
+<blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">HEBREW</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>HEBREW1 HEBREW2 english3 HEBREW4 HEBREW5<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>HEBREW6 <span class="tag">&lt;<span class="name">EMPH</span>&gt;</span>HEBREW7<span class="tag">&lt;/<span class="name">EMPH</span>&gt;</span> HEBREW8<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HEBREW</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ENGLISH</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english9 english10 english11 HEBREW12 HEBREW13<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english14 english15 english16<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english17 <span class="tag">&lt;<span class="name">HE-QUO</span>&gt;</span>HEBREW18 english19 HEBREW20<span class="tag">&lt;/<span class="name">HE-QUO</span>&gt;</span><span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ENGLISH</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>由于这是 XML，样式表需要设置书写方向。下面是样式表：</p>
+<blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Rules for bidi */</span></span><br><span class="line"><span class="selector-tag">HEBREW</span>, <span class="selector-tag">HE-QUO</span>  &#123;<span class="attribute">direction</span>: rtl; <span class="attribute">unicode-bidi</span>: embed&#125;</span><br><span class="line"><span class="selector-tag">ENGLISH</span>         &#123;<span class="attribute">direction</span>: ltr; <span class="attribute">unicode-bidi</span>: embed&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">/* Rules for presentation */</span></span><br><span class="line"><span class="selector-tag">HEBREW</span>, <span class="selector-tag">ENGLISH</span>, <span class="selector-tag">PAR</span>  &#123;<span class="attribute">display</span>: block&#125;</span><br><span class="line"><span class="selector-tag">EMPH</span>                  &#123;<span class="attribute">font-weight</span>: bold&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>HEBREW 元素是一个方向为从右向左的块，ENGLISH 元素是一个方向为从左向右的块。PARs 的方向继承自它们的父节点。因此，前两个 PARs 从右上方开始读，最后三个 PARs 从左上开始读。注意 HEBREW 和 ENGLISH 只是为了更明确；通常，元素名字应该表达结构而不是引用一个语言。<br>
+EMPH 元素是一个行内级元素，而且由于其 <code>unicode-bidi</code> 值为 <code>normal</code> ( 其初始值 )，他对文本的顺序没有影响。另一方面，HE-QUO 元素创建了一个嵌入。<br>
+这个文本的格式化结果如下，如果行够长的话：</p>
+<div style="overflow: scroll;width: 600px; margin: 0 auto;font-style: normal !important">
+<div style="direction: rtl; unicode-bidi: embed">
+  <p>5WERBEH 4WERBEH english3 2WERBEH 1WERBEH</p>
+  <p>8WERBEH <strong>7WERBEH</strong> 6WERBEH</p>
+</div>
+<div style="direction: ltr; unicode-bidi: embed">
+  <p>english9 english10 english11 13WERBEH 12WERBEH</p>
+  <p>english14 english15 english16
+  </p><p>english17 <span style="direction: rtl; unicode-bidi: embed">20WERBEH english19 18WERBEH</span></p>
+</div>
+</div>
+<p>注意 HE-QUO 的嵌入使得 HEBREW18 在 english19 的右边。<br>
+如果行被打断，看起来更像这样：</p>
+<div style="overflow: scroll;width: 220px; font-style: normal !important">
+<div style="direction: rtl; unicode-bidi: embed">
+  <p>2WERBEH 1WERBEH</p>
+  <p>EH 4WERBEH english3-</p>
+  <p>5WERB</p>
+  <p>EH <strong>7WERBEH</strong> 6WERBEH-</p>
+  <p>8WERB</p>
+</div>
+<div style="direction: ltr; unicode-bidi: embed">
+  <p>english9 english10 en-</p>
+  <p>glish11 12WERBEH</p>
+  <p>13WERBEH</p>
+  <p>english14 english15</p>
+  <p>english16</>
+  </p><p>english17 18WERBEH</p>
+  <p>20WERBEH english19</p>
+</div>
+</div>
+<p>由于 HEBREW18 需要在 english19 前读取，所以它在 english19 上方。紧紧从之前的格式化结果把长的行切断是不行的。同时注意 english19 的第一个音节可能会适合上一行，但是对于从右向左上下文中的从左向右的单词或相反的情况下的连字符通常会被禁止以避免在一行中间出现连字符。</p>
+</blockquote>
 
                 
 
