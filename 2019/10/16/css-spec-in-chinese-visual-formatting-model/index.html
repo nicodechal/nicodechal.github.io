@@ -352,7 +352,8 @@
 <p>如果一个行内盒被分割，外边距、边框和内边距不会在分割处有可视化的影响 ( 在所有的分割处都是如此 )。</p>
 <p>行内盒可能会在同一个行盒中被分割为数个盒子，这是由于<a href="https://www.w3.org/TR/CSS22/visuren.html#direction" target="_blank" rel="noopener">双向文字处理</a>( bidirectional text processing )。</p>
 <p>行盒在需要控制行内格式化上下文中的行内级内容时被创建。一个行盒如果没有文本，没有保留的空白符，没有外边距、内边距或边框不为零的行内元素，没有其他在流中的内容 ( 比如图像、行内块或行内表 )，并且没有以一个保留的新行结束，那么这个行盒要被看作是一个用于确定其内部元素位置的高度为零的行盒，对于其他情况，要看做它不存在。</p>
-<p>下面是一个构造行内盒的例子。下面段落 ( 由 HTML 块级元素 P 创建 ) 包含匿名文本和 EM 元素 STRONG 元素。</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+下面是一个构造行内盒的例子。下面段落 ( 由 HTML 块级元素 P 创建 ) 包含匿名文本和 EM 元素 STRONG 元素。
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">P</span>&gt;</span>Several <span class="tag">&lt;<span class="name">EM</span>&gt;</span>emphasized words<span class="tag">&lt;/<span class="name">EM</span>&gt;</span> appear</span><br><span class="line"><span class="tag">&lt;<span class="name">STRONG</span>&gt;</span>in this<span class="tag">&lt;/<span class="name">STRONG</span>&gt;</span> sentence, dear.<span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>这个 P 元素创造了一个块盒包含五个行内盒，有三个是匿名的：</p>
 <ul>
@@ -371,8 +372,10 @@
 <p>或这样：</p>
 <p>Several <em>emphasized <br> words</em> appear <br>
 <strong>in this</strong> sentence, dear.</p>
+</div>
 <p>上面例子中，EM 盒被分成了两个 EM 盒 ( 称为 split1 和 split2 )。外边距，边框，内边距或者文本装饰不会在 split1 后和 split2 前有视觉影响。</p>
-<p>考虑下面例子：</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+考虑下面例子：
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>Example of inline flow on several lines<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">STYLE</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">      EM &#123;</span></span><br><span class="line"><span class="undefined">        padding: 2px; </span></span><br><span class="line"><span class="undefined">        margin: 1em;</span></span><br><span class="line"><span class="undefined">        border-width: medium;</span></span><br><span class="line"><span class="undefined">        border-style: dashed;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">line-height</span>: 2<span class="selector-class">.4em</span>;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">STYLE</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">BODY</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">P</span>&gt;</span>Several <span class="tag">&lt;<span class="name">EM</span>&gt;</span>emphasized words<span class="tag">&lt;/<span class="name">EM</span>&gt;</span> appear here.<span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>取决于 P 的宽度，盒子们可能会像下面这样分布：</p>
 <p><img src="https://www.w3.org/TR/CSS22/images/inline-layout.png" alt=""></p>
@@ -380,6 +383,7 @@
 <li>外边距在 “emphasized” 的前面和 “words” 的后面插入。</li>
 <li>内边距在 “emphasized” 的上下、前面和 “words” 的上下、后面插入。一个点划线的边框在每个部分的三面渲染。</li>
 </ul>
+</div>
 <h4><span id="相对定位"> 相对定位</span></h4>
 <p>一旦一个盒子根据常规流或浮动布局后，它可能会相对于这个位置进行移动。这称为<strong>相对定位</strong> ( relative positioning ) 。以这样的方式偏移一个盒子 ( B1 )，不会对后续的盒子 ( B2 ) 产生影响：B2 的位置假设 B1 没有偏移给出并且在 B1 偏移后 B2 也不会重新定位。这暗示了相对定位可能会使盒子重叠。然而，如果相对定位导致了一个 <code>overflow: auto</code> 或者 <code>overflow: scroll</code> 的盒子溢出，用户代理必需使用户可以访问到这些内容，尽管这样会导致滚动条的创建，进而影响布局。</p>
 <p>一个相对定位的盒子保持它在常规流中的尺寸，包括断行和原来为其保留的空白。包含块一节解释了什么时候一个相对定位的盒子会建立一个新的包含块。</p>
@@ -388,9 +392,11 @@
 <p>如果 <code>left</code> 为 <code>auto</code>，其使用值为 <code>right</code> 的负值 ( 即，盒子根据 <code>right</code> 值向左移动 )。</p>
 <p>如果 <code>right</code> 值为 <code>auto</code>，其使用值为 <code>left</code> 的负值。</p>
 <p>如果 <code>left</code> 和 <code>right</code> 都不是 <code>auto</code>，其位置被过度约束了 ( over-constrained )，因此其中一个会被忽略。如果包含块 <code>direction</code> 属性为 <code>ltr</code>，<code>left</code> 值胜出 <code>right</code> 值变为 -<code>left</code>。如果 <code>direction</code> 属性为 <code>rtl</code>，<code>right</code> 值胜出 <code>left</code> 值被忽略。</p>
-<p>例子。下面三条规则是等价的：</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+例子。下面三条规则是等价的：
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-class">.a8</span> &#123; <span class="attribute">position</span>: relative; <span class="attribute">direction</span>: ltr; <span class="attribute">left</span>: -<span class="number">1em</span>; <span class="attribute">right</span>: auto &#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.a8</span> &#123; <span class="attribute">position</span>: relative; <span class="attribute">direction</span>: ltr; <span class="attribute">left</span>: auto; <span class="attribute">right</span>: <span class="number">1em</span> &#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.a8</span> &#123; <span class="attribute">position</span>: relative; <span class="attribute">direction</span>: ltr; <span class="attribute">left</span>: -<span class="number">1em</span>; <span class="attribute">right</span>: <span class="number">5em</span> &#125;</span><br></pre></td></tr></table></figure>
-<p><code>top</code> 和 <code>bottom</code> 上下地移动盒子，不会改变其尺寸。<code>top</code> 将盒子向下移动，<code>bottom</code> 将盒子向上移动。由于盒子不会由于 <code>top</code> 和 <code>bottom</code> 被分割或拉长，所以被使用的值一直是 <code>top = -bottom</code>。如果两者都是 <code>auto</code>，他们的使用值都是 <code>0</code>。如果其中一个是 <code>auto</code>，它的值变为另一个的负值。如果都不是，<code>bottom</code> 会被忽略。</p>
+</div>
+`top` 和 `bottom` 上下地移动盒子，不会改变其尺寸。`top` 将盒子向下移动，`bottom` 将盒子向上移动。由于盒子不会由于 `top` 和 `bottom` 被分割或拉长，所以被使用的值一直是 `top = -bottom`。如果两者都是 `auto`，他们的使用值都是 `0`。如果其中一个是 `auto`，它的值变为另一个的负值。如果都不是，`bottom` 会被忽略。
 <blockquote>
 <p>注释：动态的移动相对定位的元素可以在脚本环境下产生动画效果 ( 又见 <code>visibility</code> 属性 )。尽管相对定位可能会用来形成上标或下标，但其行高不会考虑相对定位自动的调整。更多信息见<a href="https://www.w3.org/TR/CSS22/visudet.html#line-height" target="_blank" rel="noopener">行高的计算</a>一节。</p>
 </blockquote>
@@ -406,45 +412,39 @@
 </blockquote>
 <p>如果一个变短的行盒太小了以致于不能容纳任何内容，那么这个行盒会向下移动 ( 同时它的宽度也会重新计算 ) 直到有内容可以放入或没有其他浮动出现。在当前行的任何在浮动盒前面的内容都会重新流动到浮动盒的另一侧。换句话说，如果一个行内级盒放置在和浮动盒同一行中的在浮动盒之前，且可以放进行盒剩余的空间，那么这个左浮动盒就放置在这一行，和行盒的顶部对齐，然后本来在这一行的行内级盒因此会移动到浮动盒的右边 ( 左浮动盒的另一侧就是右侧 )，对于 rtl 和右浮动亦然。</p>
 <p>table、块级替换元素或者常规流中建立块格式化上下文的元素 ( 例如一个 <code>overflow</code> 不是 <code>visible</code> 的元素 ) 的边框盒不能和同一个块上下文中的任何浮动元素的外边框盒重叠。如果有必要，实现需要通过把这个元素放在其前面的浮动元素的下面来清除 ( clear ) 这个元素，但如果有足够的空间，也有可能紧邻着这个浮动元素。这甚至可能使得这个元素的边框盒比 <a href="https://www.w3.org/TR/CSS22/visudet.html#blockwidth" target="_blank" rel="noopener">10.3.3 小节</a>描述的更窄。CSS2 未定义什么时候需要把这个元素紧挨着 ( next to ) 浮动元素以及元素可能会变窄多少。</p>
-<blockquote>
-<p>例子。在下面的文档片段中，包含块太窄所以不能容纳紧挨着浮动盒的内容，所以内容移到了浮动盒的下方同时根据 <code>text-align</code> 属性在行盒中对齐。</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+例子。在下面的文档片段中，包含块太窄所以不能容纳紧挨着浮动盒的内容，所以内容移到了浮动盒的下方同时根据 `text-align` 属性在行盒中对齐。
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">p &#123; width: 10em; border: solid aqua; &#125;</span><br><span class="line">span &#123; float: left; width: 5em; height: 5em; border: solid blue; &#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span> <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  Supercalifragilisticexpialidocious</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
 <p>看起来会像下面这样：<br>
 <img src="https://www.w3.org/TR/CSS22/images/supercal.png" alt=""></p>
-</blockquote>
+</div>
 <p>多个浮动盒可能会相接，此时这个模型也会对同一行的浮动盒应用。</p>
-<blockquote>
-<p>下面的例子使所有 <code>class=icon</code> 的 IMG 盒向左浮动 ( 同时左边距为 ‘0’ )</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+下面的例子使所有 `class=icon` 的 IMG 盒向左浮动 ( 同时左边距为 ‘0’ )
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-class">.icon</span> &#123; </span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>考虑下面的 HTML 源文件和样式表：</p>
+</div>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+考虑下面的 HTML 源文件和样式表：
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>Float example<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">STYLE</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-tag">IMG</span> &#123; <span class="attribute">float</span>: left &#125;</span></span><br><span class="line"><span class="css">      <span class="selector-tag">BODY</span>, <span class="selector-tag">P</span>, <span class="selector-tag">IMG</span> &#123; <span class="attribute">margin</span>: <span class="number">2em</span> &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">STYLE</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">BODY</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">P</span>&gt;</span><span class="tag">&lt;<span class="name">IMG</span> <span class="attr">src</span>=<span class="string">img.png</span> <span class="attr">alt</span>=<span class="string">"This image will illustrate floats"</span>&gt;</span></span><br><span class="line">       Some sample text that has no other...</span><br><span class="line">  <span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
 <p>IMG 向左浮动。随后的内容被格式化到了浮动的右边，和浮动盒一样的行开始。浮动盒右边的行盒由于浮动的出现变短，在浮动盒之后又还原为正常宽度 ( 由 P 元素建立的包含块 )。这个文档可能会格式化为下面：<br>
 <img src="https://www.w3.org/TR/CSS22/images/floateg.png" alt=""><br>
 下面文档格式化后和上面一样：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">BODY</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">P</span>&gt;</span>Some sample text </span><br><span class="line">  <span class="tag">&lt;<span class="name">IMG</span> <span class="attr">src</span>=<span class="string">img.png</span> <span class="attr">alt</span>=<span class="string">"This image will illustrate floats"</span>&gt;</span></span><br><span class="line">           that has no other...</span><br><span class="line"><span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
 <p>因为浮动盒左侧的内容会被浮动盒替换并且移动到浮动盒的右侧。</p>
-</blockquote>
-<p>就像在 8.3.1 小节开始说的，浮动盒的外边距不会和相接的盒子的外边距折叠。因此，在之前的例子中，P 和 IMG 的垂直外边距没有发生折叠。</p>
+</div>
+就像在 8.3.1 小节开始说的，浮动盒的外边距不会和相接的盒子的外边距折叠。因此，在之前的例子中，P 和 IMG 的垂直外边距没有发生折叠。
 <p>浮动盒的内容会被堆叠 ( stacked ) 起来好像浮动盒生成了新的层叠上下文 ( stacking contexts )，除非有定位元素和产生了新的层叠上下文的元素参与了浮动盒的双亲层叠上下文。一个浮动盒可以和其他常规流中的盒子重叠 ( 例如，当一个紧挨着浮动盒的常规流盒子有负外边距 )。此时，浮动元素在非定位流内块 ( non-positioned in-flow blocks ) 之前渲染，在流内行内块 ( in-flow inlines ) 后渲染。</p>
-<blockquote>
-<p>这是另一个例子，展示了浮动盒和常规流中的元素边框的重叠。<br>
-<img src="https://www.w3.org/TR/CSS22/images/float2p.png" alt=""></p>
-</blockquote>
-<p>下面例子说明使用 <code>clear</code> 元素阻止内容紧挨着浮动盒。</p>
-<blockquote>
-<p>假设有下面规则：<br>
-<code>p { clear: left }</code><br>
-格式化如下：<br>
-<img src="https://www.w3.org/TR/CSS22/images/floatclear.png" alt=""></p>
-</blockquote>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+这是另一个例子，展示了浮动盒和常规流中的元素边框的重叠。
+![](https://www.w3.org/TR/CSS22/images/float2p.png)
+</div>
+下面例子说明使用 `clear` 元素阻止内容紧挨着浮动盒。
+<div style="border-left: 5px solid gray; padding-left: 10px">
+假设有下面规则：
+`p { clear: left }`
+格式化如下：
+![](https://www.w3.org/TR/CSS22/images/floatclear.png)
+</div>
 <h4><span id="定位浮动-float-属性"> 定位浮动： <code>float</code> 属性</span></h4>
 <p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-float" target="_blank" rel="noopener">文档</a>。</p>
 <p>该属性指明一个盒子时候向左浮动、向右浮动或者不浮动。该属性可以为任何元素设置，但只会应用在生成的盒子不是绝对地定位的元素上。属性取值的含义如下：</p>
@@ -469,12 +469,12 @@
 </ol>
 <p>但是在 CSS 2.2 中，如果在一个块格式化上下文中，有一个在流中的负垂直外边距导致浮动位置在其原位置 ( 假设其负外边距设置为 0 ) 之上，浮动的位置是未定义的。</p>
 <p>本规则中引用的其他元素只会引用和浮动元素块格式化上下文相同的元素。</p>
-<blockquote>
-<p>这是 b 向右浮动的结果。<br>
-<code>&lt;P&gt;a&lt;SPAN style=&quot;float: right&quot;&gt;b&lt;/SPAN&gt;&lt;/P&gt;</code><br>
-如果 P 的宽度足够大，a 和 b 会一人一边。看起来像这样：<br>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+这是 b 向右浮动的结果。
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">P</span>&gt;</span>a<span class="tag">&lt;<span class="name">SPAN</span> <span class="attr">style</span>=<span class="string">"float: right"</span>&gt;</span>b<span class="tag">&lt;/<span class="name">SPAN</span>&gt;</span><span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果 P 的宽度足够大，a 和 b 会一人一边。看起来像这样：<br>
 <img src="https://www.w3.org/TR/CSS22/images/float-right.png" alt=""></p>
-</blockquote>
+</div>
 <h4><span id="控制-紧挨着-next-to-浮动盒的流clear-属性"> 控制 紧挨着 ( next to ) 浮动盒的流：<code>clear</code> 属性</span></h4>
 <p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-clear" target="_blank" rel="noopener">文档</a>。</p>
 <p>该属性说明一个元素的盒子们哪一侧不会和之前的浮动盒相邻。<code>clear</code> 属性不考虑元素内部其他块格式化上下文中的元素。</p>
@@ -502,9 +502,9 @@
 <blockquote>
 <p>注意：间隙可以为 0 或 负值。</p>
 </blockquote>
-<blockquote>
-<p>例子1：假设 ( 为了简单起见 )，我们只有 3 个盒子，他们顺序如下；<br>
-块 B1 的下外边距为 M1 ( B1 没有孩子节点也没有内边距和边框 )，浮动块 F 高度为 H，块 B2 的上外边距为 M2 ( 没有内边距，边框和孩子 )。B2 的 <code>clear</code> 属性设置为 <code>both</code>。同时假设 B2 不为空。</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+例子1：假设 ( 为了简单起见 )，我们只有 3 个盒子，他们顺序如下；
+块 B1 的下外边距为 M1 ( B1 没有孩子节点也没有内边距和边框 )，浮动块 F 高度为 H，块 B2 的上外边距为 M2 ( 没有内边距，边框和孩子 )。B2 的 `clear` 属性设置为 `both`。同时假设 B2 不为空。
 <p>如果不考虑 B2 的 <code>clear</code> 属性，我们得到下面的状态。B1 和 B2 的外边距发生折叠。假设 B1 下边框边缘在 <code>y=0</code>，那么 F 的上边在 <code>y=M1</code> 处，B2 的上边框边缘在 <code>y=max(M1,M2)</code>，F 的下边在 <code>y=M1+H</code>。<br>
 <img src="https://www.w3.org/TR/CSS22/images/clearance.png" alt=""><br>
 我们同时假设 B2 没有在 F 下面，即，我们处在标准中说明的需要添加间隙的情况。这意味着：</p>
@@ -536,14 +536,12 @@ C2 &lt; H - M2</p>
 <blockquote>
 <p>C = max(C1, C2) = C1</p>
 </blockquote>
-</blockquote>
-<blockquote>
-<p>例子2：一个例子说明负的间隙的情况，此时间隙是 -1em。( 假设没有元素有边框和内边距 )：</p>
+</div>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+例子2：一个例子说明负的间隙的情况，此时间隙是 -1em。( 假设没有元素有边框和内边距 )：
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;p <span class="attribute">style</span>=<span class="string">"margin-bottom: 4em"</span>&gt;</span><br><span class="line">  First paragraph.</span><br><span class="line"></span><br><span class="line">&lt;p <span class="attribute">style</span>=<span class="string">"float: left; height: 2em; margin: 0"</span>&gt;</span><br><span class="line">  Floating paragraph.</span><br><span class="line"></span><br><span class="line">&lt;p <span class="attribute">style</span>=<span class="string">"clear: left; margin-top: 3em"</span>&gt;</span><br><span class="line">  Last paragraph.</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
 <p>解释：如果没有 <code>clear</code>，第一段和最后一段的外边距会折叠同时最有一段的上边框边缘会和浮动元素的上边对齐。但是 <code>clear</code> 要求上边框边缘在浮动元素下方。即比现在低 2em。这意味着需要考虑间隙。据此，外边距不再折叠，间隙被设置，使得 <code>间隙 + margin-top = 2em</code>，即 <code>间隙 = 2em - margin-top = -1em</code>。</p>
-</blockquote>
+</div>
 <p>如果这个属性被设置在浮动元素上，他会导致对浮动元素定位的规则的修改。一个额外的约束 ( #10 ) 被加入：</p>
 <ul>
 <li>浮动元素的上外边距必须在其之前的左浮动元素 ( 如果 <code>clear: left</code> ) 或者之前的右浮动元素 <code>clear: right</code> 或者所有浮动元素 ( <code>clear: both</code> ) 的外边距之下。</li>
@@ -556,12 +554,12 @@ C2 &lt; H - M2</p>
 <p>当说明一个元素是绝对定位元素 ( 或者其盒子 ) 时说明元素的 <code>position</code> 属性值为 <code>absoulte</code> 或 <code>fixed</code>。</p>
 <h4><span id="固定定位-fixed-positioning"> 固定定位 ( Fixed positioning )</span></h4>
 <p>固定定位是绝对定位的子类别。区别只是固定定位的盒子它的包含块由视口建立。对于连续媒体 ( continuous media )，固定盒子在文档滚动时不会移动。从这方面来说，他们和固定背景图片相似。对于分页媒体，固定定位盒子会出现在每页。这个对于在每页底部放置一个签名。如果一个固定的盒子比页面区域大则会被裁剪。在初始包含块中不可见的部分不会被打印。</p>
-<blockquote>
-<p>作者可能会用固定定位创建一个框架展示。考虑下面的框架布局；<br>
-<img src="https://www.w3.org/TR/CSS22/images/frame.png" alt=""><br>
-可以通过下面的 HTML 文档和样式规则实现：</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+作者可能会用固定定位创建一个框架展示。考虑下面的框架布局；
+![](https://www.w3.org/TR/CSS22/images/frame.png)
+可以通过下面的 HTML 文档和样式规则实现：
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>A frame document with CSS<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">STYLE</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-tag">BODY</span> &#123; <span class="attribute">height</span>: <span class="number">8.5in</span> &#125; <span class="comment">/* Required for percentage heights below */</span></span></span><br><span class="line"><span class="css">      <span class="selector-id">#header</span> &#123;</span></span><br><span class="line"><span class="undefined">        position: fixed;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        height: 15%;</span></span><br><span class="line"><span class="undefined">        top: 0;</span></span><br><span class="line"><span class="undefined">        right: 0;</span></span><br><span class="line"><span class="undefined">        bottom: auto;</span></span><br><span class="line"><span class="undefined">        left: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="css">      <span class="selector-id">#sidebar</span> &#123;</span></span><br><span class="line"><span class="undefined">        position: fixed;</span></span><br><span class="line"><span class="undefined">        width: 10em;</span></span><br><span class="line"><span class="undefined">        height: auto;</span></span><br><span class="line"><span class="undefined">        top: 15%;</span></span><br><span class="line"><span class="undefined">        right: auto;</span></span><br><span class="line"><span class="undefined">        bottom: 100px;</span></span><br><span class="line"><span class="undefined">        left: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="css">      <span class="selector-id">#main</span> &#123;</span></span><br><span class="line"><span class="undefined">        position: fixed;</span></span><br><span class="line"><span class="undefined">        width: auto;</span></span><br><span class="line"><span class="undefined">        height: auto;</span></span><br><span class="line"><span class="undefined">        top: 15%;</span></span><br><span class="line"><span class="undefined">        right: 0;</span></span><br><span class="line"><span class="undefined">        bottom: 100px;</span></span><br><span class="line"><span class="undefined">        left: 10em;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="css">      <span class="selector-id">#footer</span> &#123;</span></span><br><span class="line"><span class="undefined">        position: fixed;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        height: 100px;</span></span><br><span class="line"><span class="undefined">        top: auto;</span></span><br><span class="line"><span class="undefined">        right: 0;</span></span><br><span class="line"><span class="undefined">        bottom: 0;</span></span><br><span class="line"><span class="undefined">        left: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">STYLE</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">BODY</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DIV</span> <span class="attr">id</span>=<span class="string">"header"</span>&gt;</span> ...  <span class="tag">&lt;/<span class="name">DIV</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DIV</span> <span class="attr">id</span>=<span class="string">"sidebar"</span>&gt;</span> ...  <span class="tag">&lt;/<span class="name">DIV</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DIV</span> <span class="attr">id</span>=<span class="string">"main"</span>&gt;</span> ...  <span class="tag">&lt;/<span class="name">DIV</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DIV</span> <span class="attr">id</span>=<span class="string">"footer"</span>&gt;</span> ...  <span class="tag">&lt;/<span class="name">DIV</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</blockquote>
+</div>
 <h3><span id="display-position-和-float-的关系"> <code>display</code>、<code>position</code> 和 <code>float</code> 的关系</span></h3>
 <p>影响盒子生成和布局的三个属性 <code>display</code>、<code>position</code> 和 <code>float</code> 以下面方式交互：</p>
 <ol>
@@ -595,25 +593,29 @@ C2 &lt; H - M2</p>
 </table>
 <h3><span id="常规流-浮动盒绝对定位的比较"> 常规流、浮动盒绝对定位的比较</span></h3>
 <p>为了说明常规流、相对定位、浮动和绝对定位的区别，我们提供了一系列例子，基于下面的 HTML：</p>
-<blockquote>
+<div style="border-left: 5px solid gray; padding-left: 10px">
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>Comparison of positioning schemes<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">BODY</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">P</span>&gt;</span>Beginning of body contents.</span><br><span class="line">      <span class="tag">&lt;<span class="name">SPAN</span> <span class="attr">id</span>=<span class="string">"outer"</span>&gt;</span> Start of outer contents.</span><br><span class="line">      <span class="tag">&lt;<span class="name">SPAN</span> <span class="attr">id</span>=<span class="string">"inner"</span>&gt;</span> Inner contents.<span class="tag">&lt;/<span class="name">SPAN</span>&gt;</span></span><br><span class="line">      End of outer contents.<span class="tag">&lt;/<span class="name">SPAN</span>&gt;</span></span><br><span class="line">      End of body contents.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</blockquote>
+</div>
 <p>我们假设这个文档有下面的规则：</p>
-<blockquote>
+<div style="border-left: 5px solid gray; padding-left: 10px">
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123; <span class="attribute">display</span>: block; <span class="attribute">font-size</span>:<span class="number">12px</span>; <span class="attribute">line-height</span>: <span class="number">200%</span>; </span><br><span class="line">       <span class="attribute">width</span>: <span class="number">400px</span>; <span class="attribute">height</span>: <span class="number">400px</span> &#125;</span><br><span class="line"><span class="selector-tag">p</span>    &#123; <span class="attribute">display</span>: block &#125;</span><br><span class="line"><span class="selector-tag">span</span> &#123; <span class="attribute">display</span>: inline &#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
+</div>
 <p>由盒子内外元素生成的盒子的最终位置在每个例子中会发生变化。下面的插图中，左边的数字表示常规流中双倍空间 ( 为了更清晰 ) 的行。</p>
 <blockquote>
 <p>注意。本节的插图是说明性的，他们用来说明不同的定位方式在 CSS2.2 中的区别，并不用来给出渲染效果图。</p>
 </blockquote>
 <h4><span id="常规流"> 常规流</span></h4>
 <p>考虑下面的对 <em>outer</em> 和 <em>inner</em> 的 CSS 声明，它们不改变盒子的常规流：</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#outer</span> &#123; <span class="attribute">color</span>: red &#125;</span><br><span class="line"><span class="selector-id">#inner</span> &#123; <span class="attribute">color</span>: blue &#125;</span><br></pre></td></tr></table></figure>
+</div>
 <p>P 元素包含所有的行内内容：匿名行内文本和两个 SPAN 元素。因此，所有元素都在一个行内格式化上下文中进行布局，在一个由 P 建立的包含块中，产生的效果如下：</p>
 <p><img src="https://www.w3.org/TR/CSS22/images/flow-generic.png" alt=""></p>
 <h4><span id="相对定位"> 相对定位</span></h4>
 <p>为了观察相对定位的影响，我们指定：</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#outer</span> &#123; <span class="attribute">position</span>: relative; <span class="attribute">top</span>: -<span class="number">12px</span>; <span class="attribute">color</span>: red &#125;</span><br><span class="line"><span class="selector-id">#inner</span> &#123; <span class="attribute">position</span>: relative; <span class="attribute">top</span>: <span class="number">12px</span>; <span class="attribute">color</span>: blue &#125;</span><br></pre></td></tr></table></figure>
+</div>
 <p>文本流正常的在 <em>outer</em> 元素中流动。<em>outer</em> 文本接着根据其在常规流的位置和尺寸在第一行结尾流动。接着，包含文本的行内盒 ( 分布在三行中 ) 统一移动 <code>-12px</code> ( 向上 )。</p>
 <p><em>inner</em> 中的内容，由于是 <em>outer</em> 的孩子，会在 “of outer contents” ( 在 1.5 行 ) 之后流动。然而，<em>inner</em> 的内容自己相对于 <em>outer</em> 内容偏移了 <code>12px</code> (向下)，于是在第二行回到了自己原来的位置。</p>
 <p>注意 <em>outer</em> 之后的内容不受 <em>outer</em> 的相对定位影响。</p>
@@ -621,39 +623,49 @@ C2 &lt; H - M2</p>
 <p>同时注意如果 <em>outer</em> 的偏移为 <code>-24px</code>，<em>outer</em> 的文本会和 body 的文本发生重叠。</p>
 <h4><span id="浮动盒"> 浮动盒</span></h4>
 <p>现在考虑浮动的影响，使用下面规则使 <em>inner</em> 元素向右浮动：</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#outer</span> &#123; <span class="attribute">color</span>: red &#125;</span><br><span class="line"><span class="selector-id">#inner</span> &#123; <span class="attribute">float</span>: right; <span class="attribute">width</span>: <span class="number">130px</span>; <span class="attribute">color</span>: blue &#125;</span><br></pre></td></tr></table></figure>
+</div>
 <p>文本正常的出现在 <em>inner</em> 中，<em>inner</em> 本身被从流中取出并浮动到右边距 ( <code>width</code> 已经设置 )。浮动元素右边的行盒变短了，同时文档保持文本在其中流动。</p>
 <p><img src="https://www.w3.org/TR/CSS22/images/flow-float.png" alt=""></p>
 <p>为了展示 <code>clear</code> 属性，我们添加一个兄弟节点：</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>Comparison of positioning schemes II<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">BODY</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">P</span>&gt;</span>Beginning of body contents.</span><br><span class="line">      <span class="tag">&lt;<span class="name">SPAN</span> <span class="attr">id</span>=<span class="string">outer</span>&gt;</span> Start of outer contents.</span><br><span class="line">      <span class="tag">&lt;<span class="name">SPAN</span> <span class="attr">id</span>=<span class="string">inner</span>&gt;</span> Inner contents.<span class="tag">&lt;/<span class="name">SPAN</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">SPAN</span> <span class="attr">id</span>=<span class="string">sibling</span>&gt;</span> Sibling contents.<span class="tag">&lt;/<span class="name">SPAN</span>&gt;</span></span><br><span class="line">      End of outer contents.<span class="tag">&lt;/<span class="name">SPAN</span>&gt;</span></span><br><span class="line">      End of body contents.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</div>
 <p>下面的规则：</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#inner</span> &#123; <span class="attribute">float</span>: right; <span class="attribute">width</span>: <span class="number">130px</span>; <span class="attribute">color</span>: blue &#125;</span><br><span class="line"><span class="selector-id">#sibling</span> &#123; <span class="attribute">color</span>: red &#125;</span><br></pre></td></tr></table></figure>
+</div>
 <p>使 <em>inner</em> 像之前一样浮动到右边，同时文档保持在腾出的空间流动：</p>
 <p><img src="https://www.w3.org/TR/CSS22/images/flow-clear.png" alt=""></p>
 <p>然而，如果 <code>clear</code> 被应用在了兄弟节点并设为 <code>right</code> ( 即，兄弟盒不会紧挨着 (next to) 在它右边的一个浮动盒 )，兄弟盒的内容从浮动元素下面开始流动：</p>
 <p><img src="https://www.w3.org/TR/CSS22/images/flow-clear2.png" alt=""></p>
 <h4><span id="绝对定位"> 绝对定位</span></h4>
 <p>最后，我们考虑绝对定位的影响。考虑下面的 CSS 声明：</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#outer</span> &#123; </span><br><span class="line">    <span class="attribute">position</span>: absolute; </span><br><span class="line">    <span class="attribute">top</span>: <span class="number">200px</span>; <span class="attribute">left</span>: <span class="number">200px</span>; </span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>; </span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#inner</span> &#123; <span class="attribute">color</span>: blue &#125;</span><br></pre></td></tr></table></figure>
+</div>
 <p>这回导致 <em>outer</em> 的顶部会根据其包含块定位。绝对定位盒的包含块由最近的定位了的祖先元素建立 ( 或者如果不存在的话，为初始包含块，比如本例子 )。<em>outer</em> 的顶部在包含块的顶部下 <code>200px</code>，左侧在包含块的左侧 <code>200px</code>。<em>outer</em> 的子盒在其父节点中正常的流动。</p>
 <p><img src="https://www.w3.org/TR/CSS22/images/flow-absolute.png" alt=""></p>
 <p>下面的例子说明一个绝对定位的盒子是一个相对定位盒子的孩子节点的情况。尽管父节点 <em>outer</em> 并没有偏移，但是设置 <code>position</code> 为 <code>relative</code> 意味着这个盒子可能被作为其子定位元素的包含块。由于 <em>outer</em> 是一个有很多行的行内盒，第一个行内盒的顶部和左边缘用来设置 <code>top</code> 和 <code>left</code> 的偏移 ( 在图上用虚线表示 )。</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#outer</span> &#123; </span><br><span class="line">  <span class="attribute">position</span>: relative; </span><br><span class="line">  <span class="attribute">color</span>: red </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#inner</span> &#123; </span><br><span class="line">  <span class="attribute">position</span>: absolute; </span><br><span class="line">  <span class="attribute">top</span>: <span class="number">200px</span>; <span class="attribute">left</span>: -<span class="number">100px</span>; </span><br><span class="line">  <span class="attribute">height</span>: <span class="number">130px</span>; <span class="attribute">width</span>: <span class="number">130px</span>; </span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</div>
 <p>结果看起来像这样：</p>
 <p><img src="https://www.w3.org/TR/CSS22/images/flow-abs-rel.png" alt=""></p>
 <p>如果不对 <em>outer</em> 定位：</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#outer</span> &#123; <span class="attribute">color</span>: red &#125;</span><br><span class="line"><span class="selector-id">#inner</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute; </span><br><span class="line">  <span class="attribute">top</span>: <span class="number">200px</span>; <span class="attribute">left</span>: -<span class="number">100px</span>; </span><br><span class="line">  <span class="attribute">height</span>: <span class="number">130px</span>; <span class="attribute">width</span>: <span class="number">130px</span>; </span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</div>
 <p><strong>inner</strong> 的包含块变为初始包含块。下图说明了 <em>inner</em> 最终的位置。</p>
 <p><img src="https://www.w3.org/TR/CSS22/images/flow-static.png" alt=""></p>
-<blockquote>
-<p>相对和绝对定位可能会用来实现 change bars，就像下面例子展示的。下面的片段：</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+相对和绝对定位可能会用来实现 change bars，就像下面例子展示的。下面的片段：
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">P</span> <span class="attr">style</span>=<span class="string">"position: relative; margin-right: 10px; left: 10px;"</span>&gt;</span></span><br><span class="line">I used two red hyphens to serve as a change bar. They</span><br><span class="line">will "float" to the left of the line containing THIS</span><br><span class="line"><span class="tag">&lt;<span class="name">SPAN</span> <span class="attr">style</span>=<span class="string">"position: absolute; top: auto; left: -1em; color: red;"</span>&gt;</span>--<span class="tag">&lt;/<span class="name">SPAN</span>&gt;</span></span><br><span class="line">word.<span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
 <p>会产生下面结果：<br>
 <img src="https://www.w3.org/TR/CSS22/images/changebar.png" alt=""><br>
 首先，段落正常的流动 ( 其包含块的两侧也在图中给出 )。接着它相对于包含块的左边缘偏移了 <code>10px</code> ( 因此，段落有一个 <code>10px</code> 的右边距 )。两个连字符作为 change bar 被从流中移出同时定位在当前行 ( 由于 <code>top: auto</code> )，相对于包含块 ( 由 P 最终的位置建立 ) 的左边缘偏移 <code>-1em</code>。结果 change bar 看起来像浮动在当前行的左边。</p>
-</blockquote>
+</div>
 <h3><span id="层表示-layered-presentation"> 层表示 ( Layered presentation )</span></h3>
 <h4><span id="指定栈级别-stack-level-z-index-属性"> 指定栈级别 ( stack level )：<code>z-index</code> 属性</span></h4>
 <p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-z-index" target="_blank" rel="noopener">文档</a>。</p>
@@ -684,10 +696,10 @@ C2 &lt; H - M2</p>
 </ol>
 <p>在每个栈上下文中，栈级别为 0 的元素 ( 在第六层 )，非定位浮动元素 ( 第四层 )，行内块和行内表 ( 第五层 ) 绘制时好像这些元素生成了新的栈上下文，除非他们的定位子节点和任何将会是 ( would-be ) 子栈上下文的栈上下文参与了当前的栈上下文。</p>
 <p>绘制顺序递归地应用在每个栈上下文上。对于栈上下文的绘制顺序形成了一个细节的规范定义的概览，参见 <a href="https://www.w3.org/TR/CSS22/zindex.html" target="_blank" rel="noopener">Appendix E</a>。</p>
-<blockquote>
-<p>下面例子中，盒子的栈级别 (使用它们的 id 命名)：<code>text2=0</code>，<code>image=1</code>，<code>text3=2</code>、<code>text1=3</code>。<code>text2</code> 的栈级别从根节点继承，其他的通过 <code>z-index</code> 属性指定。</p>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+下面例子中，盒子的栈级别 (使用它们的 id 命名)：`text2=0`，`image=1`，`text3=2`、`text1=3`。`text2` 的栈级别从根节点继承，其他的通过 `z-index` 属性指定。
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>Z-order positioning<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">STYLE</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.pile</span> &#123; </span></span><br><span class="line"><span class="undefined">        position: absolute; </span></span><br><span class="line"><span class="undefined">        left: 2in; </span></span><br><span class="line"><span class="undefined">        top: 2in; </span></span><br><span class="line"><span class="undefined">        width: 3in; </span></span><br><span class="line"><span class="undefined">        height: 3in; </span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">STYLE</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">BODY</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">P</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">IMG</span> <span class="attr">id</span>=<span class="string">"image"</span> <span class="attr">class</span>=<span class="string">"pile"</span> </span></span><br><span class="line"><span class="tag">           <span class="attr">src</span>=<span class="string">"butterfly.png"</span> <span class="attr">alt</span>=<span class="string">"A butterfly image"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">style</span>=<span class="string">"z-index: 1"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">DIV</span> <span class="attr">id</span>=<span class="string">"text1"</span> <span class="attr">class</span>=<span class="string">"pile"</span> </span></span><br><span class="line"><span class="tag">         <span class="attr">style</span>=<span class="string">"z-index: 3"</span>&gt;</span></span><br><span class="line">      This text will overlay the butterfly image.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">DIV</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">DIV</span> <span class="attr">id</span>=<span class="string">"text2"</span>&gt;</span></span><br><span class="line">      This text will be beneath everything.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">DIV</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">DIV</span> <span class="attr">id</span>=<span class="string">"text3"</span> <span class="attr">class</span>=<span class="string">"pile"</span> </span></span><br><span class="line"><span class="tag">         <span class="attr">style</span>=<span class="string">"z-index: 2"</span>&gt;</span></span><br><span class="line">      This text will underlay text1, but overlay the butterfly image</span><br><span class="line">    <span class="tag">&lt;/<span class="name">DIV</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</blockquote>
+</div>
 <p>上面例子说明了透明性的概念。背景的默认行为是让其后的盒子可见。在例子中，每一个盒子都透明地覆盖在其下面的盒子上。这个行为可以用一个存在的 <code>background</code> 属性重写。</p>
 <h3><span id="文本方向-direction-和-unicode-bidi-属性"> 文本方向 <code>direction</code> 和 <code>unicode-bidi</code> 属性</span></h3>
 <p>一致的用户代理如果不支持双向文字可能会忽略 <code>direction</code> 和 <code>unicode-bidi</code> 属性。例外的情况是用户代理渲染了从右向左的符号由于系统包含这种字体，但实际上，其并不支持从右向左文本的概念。</p>
@@ -719,22 +731,17 @@ C2 &lt; H - M2</p>
 <p>请注意为了使得行内盒可以按一个统一的方向流动 ( 都从左向右或从右向左 ) ，可能会有更多的行内盒被创建 ( 包括匿名行内盒 )，同时一些行内盒可能会在流动前被分割重排。</p>
 <p>由于 Unicode 算法限制了最多有 61 级的嵌入，所以要小心使用 <code>unicode-bidi</code> 取值为 <code>normal</code>，除非必要。特别的，取值 <code>inherit</code> 要特别小心使用。<strong>！！！！！！！！</strong></p>
 <p>下面的例子展示了一个有双向文本的 XML 文档。这说明了一个很重要的原则：DTD 设计者需要把 bidi 纳入考虑，无论是在语言 ( 元素和属性 ) 还是任何伴随的样式表中。bidi 规则需要被设计，使得 bidi 规则从其他样式规则中分离出来。bidi 规则不应该被其他样式表覆盖，这样使得文档的语言或 DTD 的 bidi行为可以被保护。</p>
-<blockquote>
-<p>在下面的例子中，小写字母代表继承的从左向右的符号，大写代表从右向左。</p>
-<blockquote>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">HEBREW</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>HEBREW1 HEBREW2 english3 HEBREW4 HEBREW5<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>HEBREW6 <span class="tag">&lt;<span class="name">EMPH</span>&gt;</span>HEBREW7<span class="tag">&lt;/<span class="name">EMPH</span>&gt;</span> HEBREW8<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HEBREW</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ENGLISH</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english9 english10 english11 HEBREW12 HEBREW13<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english14 english15 english16<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english17 <span class="tag">&lt;<span class="name">HE-QUO</span>&gt;</span>HEBREW18 english19 HEBREW20<span class="tag">&lt;/<span class="name">HE-QUO</span>&gt;</span><span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ENGLISH</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</blockquote>
-<blockquote>
+<div style="border-left: 5px solid gray; padding-left: 10px">
+在下面的例子中，小写字母代表继承的从左向右的符号，大写代表从右向左。
+><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">HEBREW</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>HEBREW1 HEBREW2 english3 HEBREW4 HEBREW5<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>HEBREW6 <span class="tag">&lt;<span class="name">EMPH</span>&gt;</span>HEBREW7<span class="tag">&lt;/<span class="name">EMPH</span>&gt;</span> HEBREW8<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HEBREW</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ENGLISH</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english9 english10 english11 HEBREW12 HEBREW13<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english14 english15 english16<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english17 <span class="tag">&lt;<span class="name">HE-QUO</span>&gt;</span>HEBREW18 english19 HEBREW20<span class="tag">&lt;/<span class="name">HE-QUO</span>&gt;</span><span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ENGLISH</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>由于这是 XML，样式表需要设置书写方向。下面是样式表：</p>
 <blockquote>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Rules for bidi */</span></span><br><span class="line"><span class="selector-tag">HEBREW</span>, <span class="selector-tag">HE-QUO</span>  &#123;<span class="attribute">direction</span>: rtl; <span class="attribute">unicode-bidi</span>: embed&#125;</span><br><span class="line"><span class="selector-tag">ENGLISH</span>         &#123;<span class="attribute">direction</span>: ltr; <span class="attribute">unicode-bidi</span>: embed&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">/* Rules for presentation */</span></span><br><span class="line"><span class="selector-tag">HEBREW</span>, <span class="selector-tag">ENGLISH</span>, <span class="selector-tag">PAR</span>  &#123;<span class="attribute">display</span>: block&#125;</span><br><span class="line"><span class="selector-tag">EMPH</span>                  &#123;<span class="attribute">font-weight</span>: bold&#125;</span><br></pre></td></tr></table></figure>
 </blockquote>
-</blockquote>
-<blockquote>
 <p>HEBREW 元素是一个方向为从右向左的块，ENGLISH 元素是一个方向为从左向右的块。PARs 的方向继承自它们的父节点。因此，前两个 PARs 从右上方开始读，最后三个 PARs 从左上开始读。注意 HEBREW 和 ENGLISH 只是为了更明确；通常，元素名字应该表达结构而不是引用一个语言。<br>
 EMPH 元素是一个行内级元素，而且由于其 <code>unicode-bidi</code> 值为 <code>normal</code> ( 其初始值 )，他对文本的顺序没有影响。另一方面，HE-QUO 元素创建了一个嵌入。<br>
 这个文本的格式化结果如下，如果行够长的话：</p>
+<blockquote>
 <div style="overflow: scroll;width: 600px; margin: 0 auto;font-style: normal !important">
 <div style="direction: rtl; unicode-bidi: embed">
   <p>5WERBEH 4WERBEH english3 2WERBEH 1WERBEH</p>
@@ -766,9 +773,9 @@ EMPH 元素是一个行内级元素，而且由于其 <code>unicode-bidi</code> 
   <p>20WERBEH english19</p>
 </div>
 </div>
-<p>由于 HEBREW18 需要在 english19 前读取，所以它在 english19 上方。紧紧从之前的格式化结果把长的行切断是不行的。同时注意 english19 的第一个音节可能会适合上一行，但是对于从右向左上下文中的从左向右的单词或相反的情况下的连字符通常会被禁止以避免在一行中间出现连字符。</p>
 </blockquote>
-
+<p>由于 HEBREW18 需要在 english19 前读取，所以它在 english19 上方。紧紧从之前的格式化结果把长的行切断是不行的。同时注意 english19 的第一个音节可能会适合上一行，但是对于从右向左上下文中的从左向右的单词或相反的情况下的连字符通常会被禁止以避免在一行中间出现连字符。</p>
+</div>
                 
 
                 <hr>
