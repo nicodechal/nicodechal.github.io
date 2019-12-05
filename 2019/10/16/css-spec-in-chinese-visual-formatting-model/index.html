@@ -435,15 +435,15 @@
 就像在 8.3.1 小节开始说的，浮动盒的外边距不会和相接的盒子的外边距折叠。因此，在之前的例子中，P 和 IMG 的垂直外边距没有发生折叠。
 <p>浮动盒的内容会被堆叠 ( stacked ) 起来好像浮动盒生成了新的层叠上下文 ( stacking contexts )，除非有定位元素和产生了新的层叠上下文的元素参与了浮动盒的双亲层叠上下文。一个浮动盒可以和其他常规流中的盒子重叠 ( 例如，当一个紧挨着浮动盒的常规流盒子有负外边距 )。此时，浮动元素在非定位流内块 ( non-positioned in-flow blocks ) 之前渲染，在流内行内块 ( in-flow inlines ) 后渲染。</p>
 <div style="border-left: 5px solid gray; padding-left: 10px">
-这是另一个例子，展示了浮动盒和常规流中的元素边框的重叠。
-![](https://www.w3.org/TR/CSS22/images/float2p.png)
+<p>这是另一个例子，展示了浮动盒和常规流中的元素边框的重叠。<br>
+<img src="https://www.w3.org/TR/CSS22/images/float2p.png" alt=""></p>
 </div>
-下面例子说明使用 `clear` 元素阻止内容紧挨着浮动盒。
+<p>下面例子说明使用 <code>clear</code> 元素阻止内容紧挨着浮动盒。</p>
 <div style="border-left: 5px solid gray; padding-left: 10px">
 假设有下面规则：
-`p { clear: left }`
-格式化如下：
-![](https://www.w3.org/TR/CSS22/images/floatclear.png)
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123; <span class="attribute">clear</span>: left &#125;</span><br></pre></td></tr></table></figure>
+<p>格式化如下：<br>
+<img src="https://www.w3.org/TR/CSS22/images/floatclear.png" alt=""></p>
 </div>
 <h4><span id="定位浮动-float-属性"> 定位浮动： <code>float</code> 属性</span></h4>
 <p>表格参见<a href="https://www.w3.org/TR/CSS22/visuren.html#propdef-float" target="_blank" rel="noopener">文档</a>。</p>
@@ -508,34 +508,17 @@
 <p>如果不考虑 B2 的 <code>clear</code> 属性，我们得到下面的状态。B1 和 B2 的外边距发生折叠。假设 B1 下边框边缘在 <code>y=0</code>，那么 F 的上边在 <code>y=M1</code> 处，B2 的上边框边缘在 <code>y=max(M1,M2)</code>，F 的下边在 <code>y=M1+H</code>。<br>
 <img src="https://www.w3.org/TR/CSS22/images/clearance.png" alt=""><br>
 我们同时假设 B2 没有在 F 下面，即，我们处在标准中说明的需要添加间隙的情况。这意味着：</p>
-<blockquote>
-<p>max(M1,M2) &lt; M1+H</p>
-</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">max</span><span class="params">(M1,M2)</span></span> &lt; M1+H</span><br></pre></td></tr></table></figure>
 <p>我们需要计算两次间隙 C，C1 和 C2，然后保留大的那一个 <code>C=max(C1,C2)</code>。第一种方式要把 B2 的上边和 F 的下边对其，即在 <code>y=M1+H</code>。这意味着，由于外边距不再和他们之间的间隙折叠，则有：</p>
-<blockquote>
-<p>F 的 bottom = B2 的上边框边缘      &lt;=&gt;<br>
-       M1 + H = M1 + C1 + M2      &lt;=&gt;<br>
-              C1 = M1 + H - M1 - M2<br>
-                    = H - M2</p>
-</blockquote>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">F 的 bottom = B<span class="number">2</span> 的上边框边缘 &lt;=&gt;</span><br><span class="line"><span class="name">M1</span> + H = <span class="name">M1</span> + C<span class="number">1</span> + <span class="name">M2</span>       &lt;=&gt;</span><br><span class="line">C<span class="number">1</span> = <span class="name">M1</span> + H - <span class="name">M1</span> - <span class="name">M2</span> = H - <span class="name">M2</span></span><br></pre></td></tr></table></figure>
 <p>第二种计算保持 B2 的顶部所在的位置，即 <code>y=max(M1,M2)</code>:</p>
-<blockquote>
-<p>max(M1, M2) = M1 + C2 + M2 &lt;=&gt;<br>
-C2 = max(M1, M2) - M1 - M2</p>
-</blockquote>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">max<span class="comment">(M1, M2)</span> = <span class="name">M1</span> + C<span class="number">2</span> + <span class="name">M2</span> &lt;=&gt; </span><br><span class="line">C<span class="number">2</span> = max<span class="comment">(M1, M2)</span> - <span class="name">M1</span> - <span class="name">M2</span></span><br></pre></td></tr></table></figure>
 <p>我们假设 max(M1, M2) &lt; M1 + H，即有：</p>
-<blockquote>
-<p>C2 = max(M1, M2) - M1 - M2 &lt; M1 + H - M1 - M2 = H - M2 =&gt;<br>
-C2 &lt; H - M2</p>
-</blockquote>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C<span class="number">2</span> = max<span class="comment">(M1, M2)</span> - <span class="name">M1</span> - <span class="name">M2</span> &lt; <span class="name">M1</span> + H - <span class="name">M1</span> - <span class="name">M2</span> = H - <span class="name">M2</span> =&gt;</span><br><span class="line">C<span class="number">2</span> &lt; H - <span class="name">M2</span></span><br></pre></td></tr></table></figure>
 <p>又有 C1 = H - M2，所以有：</p>
-<blockquote>
-<p>C2 &lt; C1</p>
-</blockquote>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">C2</span> &lt; <span class="built_in">C1</span></span><br></pre></td></tr></table></figure>
 <p>因此：</p>
-<blockquote>
-<p>C = max(C1, C2) = C1</p>
-</blockquote>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C = max(<span class="built_in">C1</span>, <span class="built_in">C2</span>) = <span class="built_in">C1</span></span><br></pre></td></tr></table></figure>
 </div>
 <div style="border-left: 5px solid gray; padding-left: 10px">
 例子2：一个例子说明负的间隙的情况，此时间隙是 -1em。( 假设没有元素有边框和内边距 )：
@@ -555,9 +538,9 @@ C2 &lt; H - M2</p>
 <h4><span id="固定定位-fixed-positioning"> 固定定位 ( Fixed positioning )</span></h4>
 <p>固定定位是绝对定位的子类别。区别只是固定定位的盒子它的包含块由视口建立。对于连续媒体 ( continuous media )，固定盒子在文档滚动时不会移动。从这方面来说，他们和固定背景图片相似。对于分页媒体，固定定位盒子会出现在每页。这个对于在每页底部放置一个签名。如果一个固定的盒子比页面区域大则会被裁剪。在初始包含块中不可见的部分不会被打印。</p>
 <div style="border-left: 5px solid gray; padding-left: 10px">
-作者可能会用固定定位创建一个框架展示。考虑下面的框架布局；
-![](https://www.w3.org/TR/CSS22/images/frame.png)
-可以通过下面的 HTML 文档和样式规则实现：
+<p>作者可能会用固定定位创建一个框架展示。考虑下面的框架布局：<br>
+<img src="https://www.w3.org/TR/CSS22/images/frame.png" alt=""><br>
+可以通过下面的 HTML 文档和样式规则实现：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>A frame document with CSS<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">STYLE</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-tag">BODY</span> &#123; <span class="attribute">height</span>: <span class="number">8.5in</span> &#125; <span class="comment">/* Required for percentage heights below */</span></span></span><br><span class="line"><span class="css">      <span class="selector-id">#header</span> &#123;</span></span><br><span class="line"><span class="undefined">        position: fixed;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        height: 15%;</span></span><br><span class="line"><span class="undefined">        top: 0;</span></span><br><span class="line"><span class="undefined">        right: 0;</span></span><br><span class="line"><span class="undefined">        bottom: auto;</span></span><br><span class="line"><span class="undefined">        left: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="css">      <span class="selector-id">#sidebar</span> &#123;</span></span><br><span class="line"><span class="undefined">        position: fixed;</span></span><br><span class="line"><span class="undefined">        width: 10em;</span></span><br><span class="line"><span class="undefined">        height: auto;</span></span><br><span class="line"><span class="undefined">        top: 15%;</span></span><br><span class="line"><span class="undefined">        right: auto;</span></span><br><span class="line"><span class="undefined">        bottom: 100px;</span></span><br><span class="line"><span class="undefined">        left: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="css">      <span class="selector-id">#main</span> &#123;</span></span><br><span class="line"><span class="undefined">        position: fixed;</span></span><br><span class="line"><span class="undefined">        width: auto;</span></span><br><span class="line"><span class="undefined">        height: auto;</span></span><br><span class="line"><span class="undefined">        top: 15%;</span></span><br><span class="line"><span class="undefined">        right: 0;</span></span><br><span class="line"><span class="undefined">        bottom: 100px;</span></span><br><span class="line"><span class="undefined">        left: 10em;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="css">      <span class="selector-id">#footer</span> &#123;</span></span><br><span class="line"><span class="undefined">        position: fixed;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        height: 100px;</span></span><br><span class="line"><span class="undefined">        top: auto;</span></span><br><span class="line"><span class="undefined">        right: 0;</span></span><br><span class="line"><span class="undefined">        bottom: 0;</span></span><br><span class="line"><span class="undefined">        left: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">STYLE</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">BODY</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DIV</span> <span class="attr">id</span>=<span class="string">"header"</span>&gt;</span> ...  <span class="tag">&lt;/<span class="name">DIV</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DIV</span> <span class="attr">id</span>=<span class="string">"sidebar"</span>&gt;</span> ...  <span class="tag">&lt;/<span class="name">DIV</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DIV</span> <span class="attr">id</span>=<span class="string">"main"</span>&gt;</span> ...  <span class="tag">&lt;/<span class="name">DIV</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DIV</span> <span class="attr">id</span>=<span class="string">"footer"</span>&gt;</span> ...  <span class="tag">&lt;/<span class="name">DIV</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </div>
 <h3><span id="display-position-和-float-的关系"> <code>display</code>、<code>position</code> 和 <code>float</code> 的关系</span></h3>
@@ -733,15 +716,12 @@ C2 &lt; H - M2</p>
 <p>下面的例子展示了一个有双向文本的 XML 文档。这说明了一个很重要的原则：DTD 设计者需要把 bidi 纳入考虑，无论是在语言 ( 元素和属性 ) 还是任何伴随的样式表中。bidi 规则需要被设计，使得 bidi 规则从其他样式规则中分离出来。bidi 规则不应该被其他样式表覆盖，这样使得文档的语言或 DTD 的 bidi行为可以被保护。</p>
 <div style="border-left: 5px solid gray; padding-left: 10px">
 在下面的例子中，小写字母代表继承的从左向右的符号，大写代表从右向左。
-><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">HEBREW</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>HEBREW1 HEBREW2 english3 HEBREW4 HEBREW5<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>HEBREW6 <span class="tag">&lt;<span class="name">EMPH</span>&gt;</span>HEBREW7<span class="tag">&lt;/<span class="name">EMPH</span>&gt;</span> HEBREW8<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HEBREW</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ENGLISH</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english9 english10 english11 HEBREW12 HEBREW13<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english14 english15 english16<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english17 <span class="tag">&lt;<span class="name">HE-QUO</span>&gt;</span>HEBREW18 english19 HEBREW20<span class="tag">&lt;/<span class="name">HE-QUO</span>&gt;</span><span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ENGLISH</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">HEBREW</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>HEBREW1 HEBREW2 english3 HEBREW4 HEBREW5<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>HEBREW6 <span class="tag">&lt;<span class="name">EMPH</span>&gt;</span>HEBREW7<span class="tag">&lt;/<span class="name">EMPH</span>&gt;</span> HEBREW8<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HEBREW</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ENGLISH</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english9 english10 english11 HEBREW12 HEBREW13<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english14 english15 english16<span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PAR</span>&gt;</span>english17 <span class="tag">&lt;<span class="name">HE-QUO</span>&gt;</span>HEBREW18 english19 HEBREW20<span class="tag">&lt;/<span class="name">HE-QUO</span>&gt;</span><span class="tag">&lt;/<span class="name">PAR</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ENGLISH</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>由于这是 XML，样式表需要设置书写方向。下面是样式表：</p>
-<blockquote>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Rules for bidi */</span></span><br><span class="line"><span class="selector-tag">HEBREW</span>, <span class="selector-tag">HE-QUO</span>  &#123;<span class="attribute">direction</span>: rtl; <span class="attribute">unicode-bidi</span>: embed&#125;</span><br><span class="line"><span class="selector-tag">ENGLISH</span>         &#123;<span class="attribute">direction</span>: ltr; <span class="attribute">unicode-bidi</span>: embed&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">/* Rules for presentation */</span></span><br><span class="line"><span class="selector-tag">HEBREW</span>, <span class="selector-tag">ENGLISH</span>, <span class="selector-tag">PAR</span>  &#123;<span class="attribute">display</span>: block&#125;</span><br><span class="line"><span class="selector-tag">EMPH</span>                  &#123;<span class="attribute">font-weight</span>: bold&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
 <p>HEBREW 元素是一个方向为从右向左的块，ENGLISH 元素是一个方向为从左向右的块。PARs 的方向继承自它们的父节点。因此，前两个 PARs 从右上方开始读，最后三个 PARs 从左上开始读。注意 HEBREW 和 ENGLISH 只是为了更明确；通常，元素名字应该表达结构而不是引用一个语言。<br>
 EMPH 元素是一个行内级元素，而且由于其 <code>unicode-bidi</code> 值为 <code>normal</code> ( 其初始值 )，他对文本的顺序没有影响。另一方面，HE-QUO 元素创建了一个嵌入。<br>
 这个文本的格式化结果如下，如果行够长的话：</p>
-<blockquote>
 <div style="overflow: scroll;width: 600px; margin: 0 auto;font-style: normal !important">
 <div style="direction: rtl; unicode-bidi: embed">
   <p>5WERBEH 4WERBEH english3 2WERBEH 1WERBEH</p>
@@ -773,7 +753,6 @@ EMPH 元素是一个行内级元素，而且由于其 <code>unicode-bidi</code> 
   <p>20WERBEH english19</p>
 </div>
 </div>
-</blockquote>
 <p>由于 HEBREW18 需要在 english19 前读取，所以它在 english19 上方。紧紧从之前的格式化结果把长的行切断是不行的。同时注意 english19 的第一个音节可能会适合上一行，但是对于从右向左上下文中的从左向右的单词或相反的情况下的连字符通常会被禁止以避免在一行中间出现连字符。</p>
 </div>
                 
