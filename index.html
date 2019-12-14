@@ -130,13 +130,6 @@
 
                         
                         <li>
-                            <a href="/about/">About Me</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/archive/">Archives</a>
                         </li>
                         
@@ -144,7 +137,7 @@
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/about/">About Me</a>
                         </li>
                         
                     
@@ -152,6 +145,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
@@ -211,6 +211,36 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2019/10/22/manacher-algorithm-explanation/">
+        <h2 class="post-title">
+            马拉车算法 ( Manacher’s Algorithm ) 理解与实现
+        </h2>
+        <h3 class="post-subtitle">
+            算法学习笔记
+        </h3>
+        <div class="post-content-preview">
+            这里介绍用于计算回文子串的算法 Manacher’s Algorithm。
+ 简单的办法
+容易想到复杂度为 O(n2)O(n^2)O(n​2​​) 的算法，对于每一个字符及他们的间隔进行遍历，每个位置从中心扩展，即每次同时检查关于该点轴对称的两点，如果相等继续扩展直至无法扩展，例如对于串 “abacaba” 需要遍历下面的所有位置 ( 间隔处使用 “#” 标出，实现时，也可以先在字符串间加入......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2019-10-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -521,40 +551,6 @@ iptables 是 Linux 下的常用网络工具，可以用于对网络数据包的�
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2019/04/08/hash-funciton-sha3/">
-        <h2 class="post-title">
-            SHA-3 算法计算过程总结
-        </h2>
-        <h3 class="post-subtitle">
-            哈希算法过程分析
-        </h3>
-        <div class="post-content-preview">
-            哈希算法是信息安全领域重要的组成部分，主要包括：
-
-生成和验证数字签名
-密钥导出 (key derivation)
-伪随机位生成 (pseudorandom bit generation)
-
-SHA-3 算法是第三代标准的哈希函数，基于 Keccak 算法实现。与之前的哈希算法有所不同，SHA-3 算法是基于置换 ( permutation-based ) 的加密函数。本文主要介绍 SHA-......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2019-04-08
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Hash" title="Hash">Hash</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -657,6 +653,10 @@ SHA-3 算法是第三代标准的哈希函数，基于 Keccak 算法实现。与
     <ul>
       
         <li>
+          <a href="/2019/10/22/manacher-algorithm-explanation/">马拉车算法 ( Manacher’s Algorithm ) 理解与实现</a>
+        </li>
+      
+        <li>
           <a href="/2019/10/22/kmp-ituition-understand/">KMP 算法 —— 理解与实现</a>
         </li>
       
@@ -670,10 +670,6 @@ SHA-3 算法是第三代标准的哈希函数，基于 Keccak 算法实现。与
       
         <li>
           <a href="/2019/10/09/cycle-finding-DFS/">环路检测的 DFS 算法</a>
-        </li>
-      
-        <li>
-          <a href="/2019/10/02/skiplist-you-must-know/">跳表 ( Skiplist ) 的数据结构实现</a>
         </li>
       
     </ul>

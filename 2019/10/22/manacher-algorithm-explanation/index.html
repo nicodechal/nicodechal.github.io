@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码 - Nicodechal
+            马拉车算法 ( Manacher’s Algorithm ) 理解与实现 - Nicodechal
                 
     </title>
 
-    <link rel="canonical" href="https://nicodechal.github.io/2018/12/20/ethereum-rlp-encode/">
+    <link rel="canonical" href="https://nicodechal.github.io/2019/10/22/manacher-algorithm-explanation/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -84,16 +84,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
-                            
-                              <a class="tag" href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+                              <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
                             
                         </div>
-                        <h1>Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码</h1>
-                        <h2 class="subheading">Ethereum 学习笔记</h2>
+                        <h1>马拉车算法 ( Manacher’s Algorithm ) 理解与实现</h1>
+                        <h2 class="subheading">算法学习笔记</h2>
                         <span class="meta">
                             Posted by Nicodechal on
-                            2018-12-20
+                            2019-10-22
                         </span>
                     </div>
                 
@@ -217,108 +215,58 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="概述"> 概述</span></h2>
-<p>在 Ethereum 中，RLP 算法被用于编码任意嵌套的字节数组，下面是一个任意嵌套字节数组的例子：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"cat"</span>,[<span class="string">"puppy"</span>,<span class="string">"cow"</span>],<span class="string">"horse"</span>,[[]],<span class="string">"pig"</span>,[<span class="string">""</span>],<span class="string">"sheep"</span>]</span><br></pre></td></tr></table></figure>
-<p>RLP 算法用来编码 ( 序列化 ) 其结构，使其变为字节序列 ( 二进制串 ) 。下面是一个简单的转化例子 ( 使用 <code>&lt;</code> 和 <code>&gt;</code> 表示序列和数组区分 ) ：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ [], <span class="string">[[]]</span>, [ [], <span class="string">[[]]</span> ] ] = &lt; <span class="number">0xc7</span>, <span class="number">0xc0</span>, <span class="number">0xc1</span>, <span class="number">0xc0</span>, <span class="number">0xc3</span>, <span class="number">0xc0</span>, <span class="number">0xc1</span>, <span class="number">0xc0</span> &gt;</span><br></pre></td></tr></table></figure>
-<p>上面例子中，RLP 算法将嵌套的数组转化为一个字节序列 ( 编码 )，可以方便的进行存储和传输，同时，该字节序列还记录了原始数据的结构及其中的数据，可以方便地将数据还原出来，这个过程称为<a href="/2018/12/22/ethereum-rlp-decode/">解码</a>。本文将对编码算法进行说明。</p>
-<h2><span id="算法流程"> 算法流程</span></h2>
-<h3><span id="字符串-无嵌套的字节数组-编码"> 字符串 ( 无嵌套的字节数组 ) 编码</span></h3>
+                <p>这里介绍用于计算回文子串的算法 Manacher’s Algorithm。</p>
+<h3><span id="简单的办法"> 简单的办法</span></h3>
+<p>容易想到复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">n</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span> 的算法，对于每一个字符及他们的间隔进行遍历，每个位置从中心扩展，即每次同时检查关于该点轴对称的两点，如果相等继续扩展直至无法扩展，例如对于串 “abacaba” 需要遍历下面的所有位置 ( 间隔处使用 “#” 标出，实现时，也可以先在字符串间加入 “#” 号，这样就不用考虑字符间隔的情况 )：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># a # b # a # c # a # a # a #</span><br></pre></td></tr></table></figure>
+<p>对于每个位置都进行扩展，例如对下面的 b 进行扩展：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># a # b # a # c # a # a # a #</span><br><span class="line">      |</span><br></pre></td></tr></table></figure>
+<p>得到 ( 数字代表第几次扩展 )</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># a # b # a # c # a # a # a #</span></span><br><span class="line">4<span class="number"> 3 </span>2<span class="number"> 1 </span>2<span class="number"> 3 </span>4</span><br></pre></td></tr></table></figure>
+<p>b 向左右扩展为 “#a#b#a#”，无法继续扩展，去掉辅助的 #, 以此点为中心的回文串最大长度为 3。</p>
+<p>在比如扩展下面的间隔：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># a # b # a # c # a # a # a #</span><br><span class="line">                    |</span><br></pre></td></tr></table></figure>
+<p>得到：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># a # b # a # c # a # a # a #</span><br><span class="line">                <span class="number">3</span> <span class="number">2</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>扩展结果为 “#a#a#”，去掉 # 得到 aa 以此点为中心的回文串最长为 2</p>
+<p>对于每个点都做这样的扩展即可得到最大回文串长度。</p>
+<h3><span id="马拉车算法原理"> 马拉车算法原理</span></h3>
+<p>马拉车算法利用回文串的对称性减少字符的访问次数，使复杂度降为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>。</p>
+<p>考虑我们从左到右计算每个点的最大回文串长度，这里考虑字符串 “abacabac”, 先做间隔扩展得到：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># a # b # a # c # a # b # a # c #</span><br></pre></td></tr></table></figure>
+<p>我们假设在 c 点 (第一个) 及 c 点以前的部分已经计算，于是已知 ( 数字代表得到的结果，这里暂时把 # 也算上 )：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># a # b # a # c # a # b # a # c #</span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">1</span> <span class="number">7</span> <span class="number">1</span> <span class="number">3</span> <span class="number">1</span> <span class="number">15</span></span><br></pre></td></tr></table></figure>
+<p>对于 c 接下来的 #，在他计算时，可以知道，他被包括在 c 为中心的回文串中，这意味着，# 的回文串长度至少有其关于 c 的对称点的长度那么长：</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># a # b # a # c # a # b # a # c #</span></span><br><span class="line">            x'|<span class="string"> x</span></span><br><span class="line"><span class="string">            1   &gt;=1</span></span><br></pre></td></tr></table></figure>
+<p>当然这里也扩展不了了，所以直接的到结果为 1，同样的方法我们可以继续计算直到 b 之前：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># a # b # a #  c # a # b # a # c #</span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">1</span> <span class="number">7</span> <span class="number">1</span> <span class="number">3</span> <span class="number">1</span> <span class="number">15</span> <span class="number">1</span> <span class="number">3</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>对于 b 首先，由于它还在 第一个 c 的回文串范围内，所以根据对称性，可以知道：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># a # b # a #  c # a # b # a # c #</span><br><span class="line">      x'       |       x</span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">1</span> <span class="number">7</span> <span class="number">1</span> <span class="number">3</span> <span class="number">1</span> <span class="number">15</span> <span class="number">1</span> <span class="number">3</span> <span class="number">1</span> &gt;=<span class="number">7</span></span><br></pre></td></tr></table></figure>
+<p>所以这个 b 的回文串至少有 7 这么长，所以我们直接<strong>从长度 7 开始继续遍历</strong> ( “|” 表示一直的部分，这部分跳过，从 x 处开始)：</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># a # b # a # c # a # b # a # c #</span></span><br><span class="line">              x |<span class="string"> </span>|<span class="string"> </span>|<span class="string"> </span>|<span class="string"> </span>|<span class="string"> </span>|<span class="string"> </span>|<span class="string"> x</span></span><br></pre></td></tr></table></figure>
+<p>最终得到的串为 “#c#a#b#a#c#”，长度为 ( 包括 # ) 11。</p>
+<p>以上例子说明马拉车算法的基本原理，基本流程和简单的方法类似，但是在从左向右计算的过程中，<strong>利用已经计算的回文串的对称性，使得后续计算回文串时可以跳过一些判断来降低复杂度</strong></p>
+<h3><span id="马拉车算法实现"> 马拉车算法实现</span></h3>
+<p>这部分基于之前描述的原理说明，下面先说明算法中的一些设定：</p>
 <ol>
-<li>对于字符串中的<strong>一个字节</strong>的值，如果其值在 <code>[0x00, 0x7f]</code> 之间 ( 即 <code>[0, 127]</code>，为 ASCII 表中的字符的取值范围 )，其 RLP 编码值为其本身。</li>
+<li>算法使用 P 存储每个点的结果，这个结果是每个点的扩展长度，例如 “#a#”, a 向左右扩展了 1 次，所以 <code>P = 1</code>, 这个值正是去掉 # 后的结果字符串长度，即最终的结果。</li>
+<li>如何确定每个 i 计算时用来找对称点的中心 ( 例如前面的 c )？每次计算完后，<strong>需要把中心更新为覆盖范围离右边缘最近的那个</strong>。</li>
 </ol>
-<p>例如，对于 <code>&quot;dog&quot;</code> 中的每个字符，则有：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RLP(<span class="string">'d'</span>) = <span class="string">'d'</span></span><br><span class="line">RLP(<span class="string">'o'</span>) = <span class="string">'o'</span></span><br><span class="line">RLP(<span class="string">'g'</span>) = <span class="string">'g'</span></span><br></pre></td></tr></table></figure>
-<p><img src="ascii.jpg" alt="ASCII 码表"></p>
-<p>完成上述步骤后再考虑字符串的长度：</p>
-<ol>
-<li>如果一个字符串长度 <code>str_len</code> 在 0 到 55 字节，还需要在<em>字符串每个字符编码结束后的结果</em>前添加一个字节，这个字节的值为 <code>0x80 + str_len</code> ( 即 <code>128 + str_len</code>，128 为偏移值 )。</li>
-<li>如果一个字符串长度 <code>str_len</code> 大于 55 ( 0x37 ) 字节，则需要：
-<ol>
-<li>首先得到字符串长度十六进制表示的字节数 <code>len_of_str_len</code>。</li>
-<li>在每个字节编码结束后的结果前添加两个部分，一个是 <code>0x80 + 0x37 + len_of_str_len</code>, 另一个是 <code>str_len</code> 的字节编码形式结果。</li>
-</ol>
-</li>
-</ol>
-<p>例如，字符串 <code>&quot;dog&quot;</code>，长度为 3 ( 0x03 )，对于每个字符编码得到的结果为 <code>['d', 'o', 'g']</code>，由于其长度为 3 个字节 小于 55 字节，在其结果前添加 <code>0x80 + str_len = 0x80 + 0x03 = 0x83</code>，所以有 ( len 函数用来输出输入的字节数 )：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">len(<span class="string">"dog"</span>) = <span class="number">3</span> = <span class="number">0x03</span></span><br><span class="line">RLP(<span class="string">"dog"</span>) = <span class="xml"><span class="tag">&lt; <span class="attr">0x80</span> + <span class="attr">len</span>("<span class="attr">dog</span>"), '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>' &gt;</span></span></span><br><span class="line"><span class="xml">           = <span class="tag">&lt; <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>' &gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>另一个例子是字符串 <code>&quot;Lorem ipsum dolor sit amet, consectetur adipisicing elit&quot;</code>，其长度为 56 ( 0x38，一个字节 ) 大于 55，首先计算长度值 56 的字节数为 1:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">str_len = len(<span class="string">"Lorem ipsum dolor sit amet, consectetur adipisicing elit"</span>) </span><br><span class="line">        = <span class="number">56</span> = <span class="number">0x38</span></span><br><span class="line">len_of_str_len </span><br><span class="line">    = len(len(<span class="string">"Lorem ipsum dolor sit amet, consectetur adipisicing elit"</span>)) </span><br><span class="line">    = len(<span class="number">0x38</span>) = <span class="number">1</span> = <span class="number">0x01</span></span><br></pre></td></tr></table></figure>
-<p>然后在每个字符编码结束后的结果前添加两部分，第一部分为 <code>0x80 + 0x37 + 长度值的字节数</code> ( 占用一个字节 )，第二部分为 <code>长度值</code> ( 占 <code>长度值的字节数</code> 个字节 )，所以有：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RLP(<span class="string">"Lorem ipsum dolor sit amet, consectetur adipisicing elit"</span>) </span><br><span class="line">  = <span class="xml"><span class="tag">&lt; <span class="attr">0x80</span> + <span class="attr">0x37</span> + <span class="attr">len_of_str_len</span>, <span class="attr">str_len</span>, '<span class="attr">L</span>', '<span class="attr">o</span>', <span class="attr">...</span> , ' ', '<span class="attr">e</span>', '<span class="attr">l</span>', '<span class="attr">i</span>', '<span class="attr">t</span>' &gt;</span></span></span><br><span class="line"><span class="xml">  = <span class="tag">&lt; <span class="attr">0x80</span> + <span class="attr">0x37</span> + <span class="attr">0x01</span>, <span class="attr">0x38</span>, '<span class="attr">L</span>', '<span class="attr">o</span>', <span class="attr">...</span> , ' ', '<span class="attr">e</span>', '<span class="attr">l</span>', '<span class="attr">i</span>', '<span class="attr">t</span>' &gt;</span></span></span><br><span class="line"><span class="xml">  = <span class="tag">&lt; <span class="attr">0xb8</span>, <span class="attr">0x38</span>, '<span class="attr">L</span>', '<span class="attr">o</span>', <span class="attr">...</span> , ' ', '<span class="attr">e</span>', '<span class="attr">l</span>', '<span class="attr">i</span>', '<span class="attr">t</span>' &gt;</span></span></span><br></pre></td></tr></table></figure>
-<h3><span id="列表编码"> 列表编码</span></h3>
-<p>对于列表使用下面规则进行编码：</p>
-<ol>
-<li>首先需要对列表中的字符串和列表均进行编码 ( 字符串编码使用上一节的规则 ) 得到的列表是内部无嵌套的字节数组。</li>
-<li>如果列表长度(字节数) <code>list_len</code> 在 0 到 55 字节，在列表中内容的 RLP 编码结果前添加一个字节，其值为 <code>0xc0 + list_len</code>。</li>
-<li>如果列表长度 <code>list_len</code> 大于 55 字节，则需要：
-<ol>
-<li>首先得到列表长度十六进制表示的字节数 <code>len_of_list_len</code>。</li>
-<li>在每个字节编码结束后的结果前添加两个部分，一个是 <code>0xc0 + 0x37 + len_of_list_len</code>, 另一个是 <code>list_len</code> 的字节编码形式结果。</li>
-</ol>
-</li>
-</ol>
-<p>以字符串数组 <code>[&quot;dog&quot;, &quot;dog&quot;]</code> 举例，先对 dog 进行编码得到：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RLP(<span class="string">"dog"</span>) = <span class="xml"><span class="tag">&lt; <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>' &gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>当前的字符串转化结果为：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"dog"</span>, <span class="string">"dog"</span>] -&gt; <span class="xml"><span class="tag">&lt; <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>', <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>' &gt;</span></span></span><br><span class="line"><span class="xml">len(<span class="tag">&lt; <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>', <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>' &gt;</span>) = 8</span></span><br></pre></td></tr></table></figure>
-<p>此时编码字节数为 8 ( 0x08 ) 个字节，小于 55 个字节，因此只需添加一个字节，其内容为 <code>0xc0 + list_len</code>，所以有：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RLP([<span class="string">"dog"</span>, <span class="string">"dog"</span>]) = RLP([RLP(<span class="string">"dog"</span>), RLP(<span class="string">"dog"</span>)])</span><br><span class="line">                    = RLP([<span class="number">0x83</span>, <span class="string">'d'</span>, <span class="string">'o'</span>, <span class="string">'g'</span>, <span class="number">0x83</span>, <span class="string">'d'</span>, <span class="string">'o'</span>, <span class="string">'g'</span>])</span><br><span class="line">                    = <span class="xml"><span class="tag">&lt; <span class="attr">0xc0</span> + <span class="attr">0x08</span>, <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>', <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>' &gt;</span></span></span><br><span class="line"><span class="xml">                    = <span class="tag">&lt; <span class="attr">0xc8</span>, <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>', <span class="attr">0x83</span>, '<span class="attr">d</span>', '<span class="attr">o</span>', '<span class="attr">g</span>' &gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>对于较长的数组操作相似使用 3 中描述的方式添加前缀，不再赘述。</p>
-<h2><span id="总结"> 总结</span></h2>
-<p>对于字符串使用下面规则进行编码：</p>
-<ol>
-<li>对于字符串中的<strong>一个字节</strong>的值，如果其值在 <code>[0x00, 0x7f]</code> 之间 ( 即 <code>[0, 127]</code>，为 ASCII 表中的字符的取值范围 )，其 RLP 编码值为其本身。</li>
-<li>如果一个字符串长度 <code>str_len</code> 在 0 到 55 字节，还需要在<em>字符串每个字符编码结束后的结果</em>前添加一个字节，这个字节的值为 <code>0x80 + str_len</code> ( 即 <code>128 + str_len</code>，128 为偏移值 )。</li>
-<li>如果一个字符串长度 <code>str_len</code> 大于 55 ( 0x37 ) 字节，则需要：
-<ol>
-<li>首先得到字符串长度十六进制表示的字节数 <code>len_of_str_len</code>。</li>
-<li>在每个字节编码结束后的结果前添加两个部分，一个是 <code>0x80 + 0x37 + len_of_str_len</code>, 另一个是 <code>str_len</code> 的字节编码形式结果。</li>
-</ol>
-</li>
-</ol>
-<p>对于列表使用下面规则进行编码：</p>
-<ol>
-<li>首先需要对列表中的字符串和列表均进行编码 ( 字符串编码使用上一节的规则 ) 得到的列表是内部无嵌套的字节数组。</li>
-<li>如果列表长度(字节数) <code>list_len</code> 在 0 到 55 字节，在列表中内容的 RLP 编码结果前添加一个字节，其值为 <code>0xc0 + list_len</code>。</li>
-<li>如果列表长度 <code>list_len</code> 大于 55 字节，则需要：
-<ol>
-<li>首先得到列表长度十六进制表示的字节数 <code>len_of_list_len</code>。</li>
-<li>在每个字节编码结束后的结果前添加两个部分，一个是 <code>0xc0 + 0x37 + len_of_list_len</code>, 另一个是 <code>list_len</code> 的字节编码形式结果。</li>
-</ol>
-</li>
-</ol>
-<h2><span id="参考资料"> 参考资料</span></h2>
-<p><a href="https://github.com/ethereum/wiki/wiki/RLP" target="_blank" rel="noopener">RLP · ethereum/wiki Wiki</a></p>
-<!-- Input str:
-- byte_val in [0x00, 0x7f] -> <str>
-- len in [0, 55] -> <0x80+len, str>
-- len > 55 -> <0x80 + 55 + len_of_len, len, str>
-Output raw_arr;
-↓
-Input raw_arr:
-- raw_len in [0, 55] -> [0xc0+raw_len, ...raw_arr]
-- raw_len > 55 -> [0xc0 + 55 + len_of_raw_len, raw_len, ...raw_arr]
-Output arr;
+<p>下面是参考 <a href="https://medium.com/hackernoon/manachers-algorithm-explained-longest-palindromic-substring-22cb27a5e96f" target="_blank" rel="noopener">Manacher’s Algorithm Explained— Longest Palindromic Substring</a> 实现的 js 版本算法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">LPS</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 这里扩展间隔</span></span><br><span class="line">  <span class="keyword">const</span> nstr = <span class="string">'#'</span> + str.split(<span class="string">''</span>).join(<span class="string">'#'</span>) + <span class="string">'#'</span>;</span><br><span class="line">  <span class="comment">// 使用 P 存结果</span></span><br><span class="line">  <span class="keyword">const</span> sz = nstr.length, P = <span class="built_in">Array</span>(sz).fill(<span class="number">0</span>);</span><br><span class="line">  <span class="comment">// c: 参考中心，r：中心覆盖到的最右边的点，max：存储最大长度。</span></span><br><span class="line">  <span class="keyword">let</span> c = <span class="number">0</span>, r = <span class="number">0</span>, max = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; sz; i++) &#123;</span><br><span class="line">    <span class="comment">// 计算镜像点</span></span><br><span class="line">    <span class="keyword">const</span> mirror = (<span class="number">2</span> * c) - i;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果 i 在参考中心的范围内，把 P 值直接扩展，这步是重点</span></span><br><span class="line">    <span class="keyword">if</span> (i &lt; r) &#123;</span><br><span class="line">      P[i] = <span class="built_in">Math</span>.min(P[mirror], r - i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从已经扩展的结果之后接着尝试扩展</span></span><br><span class="line">    <span class="keyword">let</span> a = i + (<span class="number">1</span> + P[i]), b = i - (<span class="number">1</span> + P[i]);</span><br><span class="line">    <span class="keyword">while</span> (a &lt; sz &amp;&amp; b &gt;= <span class="number">0</span> &amp;&amp; nstr[a] == nstr[b]) &#123;</span><br><span class="line">      P[i]++;</span><br><span class="line">      a++;</span><br><span class="line">      b--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果新的结果的边缘更靠近有边缘，那就更新中心各新的右边缘。</span></span><br><span class="line">    <span class="keyword">if</span> (i + P[i] &gt; r) &#123;</span><br><span class="line">      c = i;</span><br><span class="line">      r = i + P[i];</span><br><span class="line">      <span class="comment">// 更新返回值</span></span><br><span class="line">      <span class="keyword">if</span> (P[i] &gt; max) &#123;</span><br><span class="line">        max = P[i];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="参考资料"> 参考资料</span></h3>
+<p><a href="https://medium.com/hackernoon/manachers-algorithm-explained-longest-palindromic-substring-22cb27a5e96f" target="_blank" rel="noopener">Manacher’s Algorithm Explained— Longest Palindromic Substring</a><br>
+<a href="https://www.geeksforgeeks.org/manachers-algorithm-linear-time-longest-palindromic-substring-part-2/" target="_blank" rel="noopener">Manacher’s Algorithm – Linear Time Longest Palindromic Substring – Part 2</a></p>
 
-55   = 0x37
-0x7f = 127
-0x80 = 128
-0xc0 = 192 -->
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/12/22/ethereum-rlp-decode/" data-toggle="tooltip" data-placement="top" title="Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2018/11/17/data-mining-basic/" data-toggle="tooltip" data-placement="top" title="数据挖掘基础知识">Next Post &rarr;</a>
+                            <a href="/2019/10/22/kmp-ituition-understand/" data-toggle="tooltip" data-placement="top" title="KMP 算法 —— 理解与实现">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -348,7 +296,7 @@ Output arr;
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 概述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 算法流程</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"> 字符串 ( 无嵌套的字节数组 ) 编码</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"> 列表编码</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 总结</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 参考资料</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 简单的办法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 马拉车算法原理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 马拉车算法实现</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 参考资料</span></a></li></ol>
         
         </div>
       </aside>
@@ -368,9 +316,7 @@ Output arr;
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
-                        
-                          <a class="tag" href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+                          <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
                         
                     </div>
                 </section>
@@ -405,8 +351,8 @@ Output arr;
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "nicodechal";
-    var disqus_identifier = "https://nicodechal.github.io/2018/12/20/ethereum-rlp-encode/";
-    var disqus_url = "https://nicodechal.github.io/2018/12/20/ethereum-rlp-encode/";
+    var disqus_identifier = "https://nicodechal.github.io/2019/10/22/manacher-algorithm-explanation/";
+    var disqus_url = "https://nicodechal.github.io/2019/10/22/manacher-algorithm-explanation/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
