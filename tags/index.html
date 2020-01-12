@@ -137,7 +137,7 @@
 
                         
                         <li>
-                            <a href="/about/">About Me</a>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
@@ -151,7 +151,7 @@
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/about/">About Me</a>
                         </li>
                         
                     
@@ -201,19 +201,19 @@
             <!-- 标签云 -->
             <div id="tag_cloud" class="tags">
                 
-                    <a href="#Algorithm" title="Algorithm" rel="6">Algorithm</a>
+                    <a href="#Algorithm" title="Algorithm" rel="7">Algorithm</a>
                 
                     <a href="#CSS" title="CSS" rel="2">CSS</a>
+                
+                    <a href="#Data-Mining" title="Data-Mining" rel="1">Data-Mining</a>
                 
                     <a href="#Ethereum" title="Ethereum" rel="4">Ethereum</a>
                 
                     <a href="#Blockchain" title="Blockchain" rel="4">Blockchain</a>
                 
-                    <a href="#Data-Mining" title="Data-Mining" rel="1">Data-Mining</a>
+                    <a href="#CI/CD" title="CI/CD" rel="1">CI/CD</a>
                 
                     <a href="#Hash" title="Hash" rel="1">Hash</a>
-                
-                    <a href="#CI/CD" title="CI/CD" rel="1">CI/CD</a>
                 
                     <a href="#Network" title="Network" rel="1">Network</a>
                 
@@ -227,11 +227,11 @@
                 
                     <a href="#Data-Structure" title="Data-Structure" rel="1">Data-Structure</a>
                 
-                    <a href="#Computation" title="Computation" rel="8">Computation</a>
-                
                     <a href="#Spark" title="Spark" rel="1">Spark</a>
                 
                     <a href="#Big-Data" title="Big-Data" rel="1">Big-Data</a>
+                
+                    <a href="#Computation" title="Computation" rel="8">Computation</a>
                 
                     <a href="#AI" title="AI" rel="2">AI</a>
                 
@@ -351,6 +351,25 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
+                     <a href="/2020/01/12/quick-sort-and-quick-selection/">
+                        <h2 class="post-title">
+                            快速排序 ( QuickSort ) 和快速选择 ( QuickSelection )
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                算法学习笔记
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
                      <a href="/2019/09/26/topological-sort/">
                         <h2 class="post-title">
                             拓扑排序的应用
@@ -409,172 +428,6 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Ethereum">
-                    <span class="tag-text">Ethereum</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/12/22/ethereum-rlp-decode/">
-                        <h2 class="post-title">
-                            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                Ethereum 学习笔记
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/12/23/ethereum-mpt-1/">
-                        <h2 class="post-title">
-                            Ethereum 中的 MPT ( Merkle Patricia Tree )（一）
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                Ethereum 学习笔记
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2019/03/03/ethereum-mpt-2/">
-                        <h2 class="post-title">
-                            Ethereum 中的 MPT ( Merkle Patricia Tree )（二）
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                Ethereum 学习笔记
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/12/20/ethereum-rlp-encode/">
-                        <h2 class="post-title">
-                            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                Ethereum 学习笔记
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Blockchain">
-                    <span class="tag-text">Blockchain</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/12/22/ethereum-rlp-decode/">
-                        <h2 class="post-title">
-                            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                Ethereum 学习笔记
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/12/23/ethereum-mpt-1/">
-                        <h2 class="post-title">
-                            Ethereum 中的 MPT ( Merkle Patricia Tree )（一）
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                Ethereum 学习笔记
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2019/03/03/ethereum-mpt-2/">
-                        <h2 class="post-title">
-                            Ethereum 中的 MPT ( Merkle Patricia Tree )（二）
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                Ethereum 学习笔记
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/12/20/ethereum-rlp-encode/">
-                        <h2 class="post-title">
-                            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                Ethereum 学习笔记
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="Data-Mining">
                     <span class="tag-text">Data-Mining</span>
                 </span>
@@ -601,8 +454,8 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Hash">
-                    <span class="tag-text">Hash</span>
+                <span class="fa fa-tag listing-seperator" id="Ethereum">
+                    <span class="tag-text">Ethereum</span>
                 </span>
                 
                   <!-- <li class="listing-item">
@@ -610,13 +463,153 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2019/04/08/hash-funciton-sha3/">
+                     <a href="/2019/03/03/ethereum-mpt-2/">
                         <h2 class="post-title">
-                            SHA-3 算法计算过程总结
+                            Ethereum 中的 MPT ( Merkle Patricia Tree )（二）
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                哈希算法过程分析
+                                Ethereum 学习笔记
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/12/20/ethereum-rlp-encode/">
+                        <h2 class="post-title">
+                            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                Ethereum 学习笔记
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/12/22/ethereum-rlp-decode/">
+                        <h2 class="post-title">
+                            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                Ethereum 学习笔记
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/12/23/ethereum-mpt-1/">
+                        <h2 class="post-title">
+                            Ethereum 中的 MPT ( Merkle Patricia Tree )（一）
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                Ethereum 学习笔记
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Blockchain">
+                    <span class="tag-text">Blockchain</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2019/03/03/ethereum-mpt-2/">
+                        <h2 class="post-title">
+                            Ethereum 中的 MPT ( Merkle Patricia Tree )（二）
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                Ethereum 学习笔记
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/12/20/ethereum-rlp-encode/">
+                        <h2 class="post-title">
+                            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                Ethereum 学习笔记
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/12/22/ethereum-rlp-decode/">
+                        <h2 class="post-title">
+                            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                Ethereum 学习笔记
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/12/23/ethereum-mpt-1/">
+                        <h2 class="post-title">
+                            Ethereum 中的 MPT ( Merkle Patricia Tree )（一）
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                Ethereum 学习笔记
                             </h3>
                         
                     </a>
@@ -640,6 +633,32 @@
                         <h2 class="post-title">
                             Gitlab-CI 使用初探
                         </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Hash">
+                    <span class="tag-text">Hash</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2019/04/08/hash-funciton-sha3/">
+                        <h2 class="post-title">
+                            SHA-3 算法计算过程总结
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                哈希算法过程分析
+                            </h3>
                         
                     </a>
                     <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
@@ -736,25 +755,6 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/06/26/react-main-concepts-summary-1/">
-                        <h2 class="post-title">
-                            React 基本概念总结(一)
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                React 初探
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
                      <a href="/2018/06/27/react-main-concepts-summary-2/">
                         <h2 class="post-title">
                             React 基本概念总结(二)
@@ -774,13 +774,13 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/04/01/vue-sfc-compile-without-webpack/">
+                     <a href="/2018/06/26/react-main-concepts-summary-1/">
                         <h2 class="post-title">
-                            如何不依赖 Webpack 编译 Vue 单文件组件
+                            React 基本概念总结(一)
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                vueify 体验记录
+                                React 初探
                             </h3>
                         
                     </a>
@@ -807,6 +807,25 @@
                 </div>
                 <hr>
                 
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/04/01/vue-sfc-compile-without-webpack/">
+                        <h2 class="post-title">
+                            如何不依赖 Webpack 编译 Vue 单文件组件
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                vueify 体验记录
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
             </div>
             
             <div class="one-tag-list">
@@ -819,9 +838,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/06/26/react-main-concepts-summary-1/">
+                     <a href="/2018/06/27/react-main-concepts-summary-2/">
                         <h2 class="post-title">
-                            React 基本概念总结(一)
+                            React 基本概念总结(二)
                         </h2>
                         
                             <h3 class="post-subtitle">
@@ -838,9 +857,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/06/27/react-main-concepts-summary-2/">
+                     <a href="/2018/06/26/react-main-concepts-summary-1/">
                         <h2 class="post-title">
-                            React 基本概念总结(二)
+                            React 基本概念总结(一)
                         </h2>
                         
                             <h3 class="post-subtitle">
@@ -871,165 +890,6 @@
                         
                             <h3 class="post-subtitle">
                                 数据结构的学习与实现
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Computation">
-                    <span class="tag-text">Computation</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/01/06/theory-of-computation-1/">
-                        <h2 class="post-title">
-                            [计算理论基础] 有穷自动机
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                计算理论基础课程总结
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/01/07/theory-of-computation-3/">
-                        <h2 class="post-title">
-                            [计算理论基础] 图灵机
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                计算理论基础课程总结
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/01/06/theory-of-computation-2/">
-                        <h2 class="post-title">
-                            [计算理论基础] 上下文无关文法
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                计算理论基础课程总结
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/01/07/theory-of-computation-4/">
-                        <h2 class="post-title">
-                            [计算理论基础] 可计算问题
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                计算理论基础课程总结
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/01/10/theory-of-computation-5/">
-                        <h2 class="post-title">
-                            [计算理论基础] 时间复杂性
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                计算理论基础课程总结
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/01/11/theory-of-computation-7/">
-                        <h2 class="post-title">
-                            [计算理论基础] 层次定理
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                计算理论基础课程总结
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/01/11/theory-of-computation-6/">
-                        <h2 class="post-title">
-                            [计算理论基础] 空间复杂性
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                计算理论基础课程总结
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/01/12/theory-of-computation-8/">
-                        <h2 class="post-title">
-                            [计算理论基础] 完全问题
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                计算理论基础课程总结
                             </h3>
                         
                     </a>
@@ -1092,6 +952,165 @@
             </div>
             
             <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Computation">
+                    <span class="tag-text">Computation</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/01/06/theory-of-computation-1/">
+                        <h2 class="post-title">
+                            [计算理论基础] 有穷自动机
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                计算理论基础课程总结
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/01/06/theory-of-computation-2/">
+                        <h2 class="post-title">
+                            [计算理论基础] 上下文无关文法
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                计算理论基础课程总结
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/01/07/theory-of-computation-3/">
+                        <h2 class="post-title">
+                            [计算理论基础] 图灵机
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                计算理论基础课程总结
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/01/07/theory-of-computation-4/">
+                        <h2 class="post-title">
+                            [计算理论基础] 可计算问题
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                计算理论基础课程总结
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/01/11/theory-of-computation-7/">
+                        <h2 class="post-title">
+                            [计算理论基础] 层次定理
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                计算理论基础课程总结
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/01/11/theory-of-computation-6/">
+                        <h2 class="post-title">
+                            [计算理论基础] 空间复杂性
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                计算理论基础课程总结
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/01/10/theory-of-computation-5/">
+                        <h2 class="post-title">
+                            [计算理论基础] 时间复杂性
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                计算理论基础课程总结
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/01/12/theory-of-computation-8/">
+                        <h2 class="post-title">
+                            [计算理论基础] 完全问题
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                计算理论基础课程总结
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="AI">
                     <span class="tag-text">AI</span>
                 </span>
@@ -1101,9 +1120,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2019/01/04/uncertain-knowledge-1/">
+                     <a href="/2019/01/04/uncertain-knowledge-2/">
                         <h2 class="post-title">
-                            基本概念符号 - 不确定性的量化（1）
+                            使用完全联合分布进行推理 — 不确定性的量化（2）
                         </h2>
                         
                             <h3 class="post-subtitle">
@@ -1120,9 +1139,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2019/01/04/uncertain-knowledge-2/">
+                     <a href="/2019/01/04/uncertain-knowledge-1/">
                         <h2 class="post-title">
-                            使用完全联合分布进行推理 — 不确定性的量化（2）
+                            基本概念符号 - 不确定性的量化（1）
                         </h2>
                         
                             <h3 class="post-subtitle">
@@ -1146,9 +1165,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2019/01/04/uncertain-knowledge-1/">
+                     <a href="/2019/01/04/uncertain-knowledge-2/">
                         <h2 class="post-title">
-                            基本概念符号 - 不确定性的量化（1）
+                            使用完全联合分布进行推理 — 不确定性的量化（2）
                         </h2>
                         
                             <h3 class="post-subtitle">
@@ -1165,9 +1184,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2019/01/04/uncertain-knowledge-2/">
+                     <a href="/2019/01/04/uncertain-knowledge-1/">
                         <h2 class="post-title">
-                            使用完全联合分布进行推理 — 不确定性的量化（2）
+                            基本概念符号 - 不确定性的量化（1）
                         </h2>
                         
                             <h3 class="post-subtitle">
@@ -1191,13 +1210,13 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/04/01/vue-sfc-compile-without-webpack/">
+                     <a href="/2018/04/15/using-of-vuegister-module/">
                         <h2 class="post-title">
-                            如何不依赖 Webpack 编译 Vue 单文件组件
+                            类似 babel-register 的 Vue 单文件组件编译模块 Vuegister 插件的使用
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                vueify 体验记录
+                                Parcel Vue 项目测试实践
                             </h3>
                         
                     </a>
@@ -1210,13 +1229,13 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/04/15/using-of-vuegister-module/">
+                     <a href="/2018/04/01/vue-sfc-compile-without-webpack/">
                         <h2 class="post-title">
-                            类似 babel-register 的 Vue 单文件组件编译模块 Vuegister 插件的使用
+                            如何不依赖 Webpack 编译 Vue 单文件组件
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                Parcel Vue 项目测试实践
+                                vueify 体验记录
                             </h3>
                         
                     </a>
@@ -1316,7 +1335,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Nicodechal 2019 
+                    Copyright &copy; Nicodechal 2020 
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">

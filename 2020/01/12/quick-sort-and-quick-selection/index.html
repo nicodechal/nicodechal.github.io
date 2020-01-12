@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="4tFU9sK3wCTQTsGRhI4e0yTz0w1tO8HIP42wXGRN5Is">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="This is a blog for myself writing what I&#39;m learning, what I enjoy or what I think is important.">
+    <meta name="keyword" content="Web,Big-Data,CSS,Vue,Javascript">
+    <link rel="shortcut icon" href="/img/title.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+            快速排序 ( QuickSort ) 和快速选择 ( QuickSelection ) - Nicodechal
+                
+    </title>
+
+    <link rel="canonical" href="https://nicodechal.github.io/2020/01/12/quick-sort-and-quick-selection/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/beantech.min.css">
+                <!-- Pygments Highlight CSS -->
+                <link rel="stylesheet" href="/css/highlight.css">
+
+                    <link rel="stylesheet" href="/css/widget.css">
+
+                        <link rel="stylesheet" href="/css/rocket.css">
+
+                            <link rel="stylesheet" href="/css/signature.css">
+
+                                <link rel="stylesheet" href="/css/toc.css">
+
+                                    <!-- Custom Fonts -->
+                                    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+                                    <!-- Hux change font-awesome CDN to qiniu -->
+                                    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+                                    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+                                    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+                                    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+                                    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+                                    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+                                    <!-- ga & ba script hoook -->
+                                    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
+                            
+                        </div>
+                        <h1>快速排序 ( QuickSort ) 和快速选择 ( QuickSelection )</h1>
+                        <h2 class="subheading">算法学习笔记</h2>
+                        <span class="meta">
+                            Posted by Nicodechal on
+                            2020-01-12
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Blog is A Room</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/links/">links</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>这里介绍快速排序 ( QuickSort ) 算法及其衍生算法快速选择 ( QuickSelection ) 算法，并以 LeetCode.324 为例说明快速选择算法的应用。</p>
+<h3><span id="快速排序算法-quicksort"> 快速排序算法 ( QuickSort )</span></h3>
+<p>快排是一个经典的排序算法，其时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>, 其基本流程如下，对于以个数组 <code>nums</code>：</p>
+<ol>
+<li>首先选定一个轴心值 <code>p</code>。</li>
+<li>将数组中小于 <code>p</code> 的值移到数组左端，其他移动到数组右端。</li>
+<li>递归分别处理数组中 <code>p</code> 左右两边的子数组。</li>
+</ol>
+<p>大致代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">nums, s, e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> i = s, j = e;</span><br><span class="line">    <span class="comment">// move random chosen value to index s.</span></span><br><span class="line">    <span class="keyword">const</span> rk = <span class="built_in">Math</span>.floor(s + <span class="built_in">Math</span>.random() * (e - s + <span class="number">1</span>));</span><br><span class="line">    [nums[s], nums[rk]] = [nums[rk], nums[s]];</span><br><span class="line">    <span class="keyword">const</span> p = nums[s]; </span><br><span class="line">    <span class="comment">// start move i, j until i &gt;= j, and after loop, i will be filled with p value.</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; nums[j] &gt;= p) j--;</span><br><span class="line">        nums[i] = nums[j];</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; nums[i] &lt;= p) i++;</span><br><span class="line">        nums[j] = nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    nums[i] = p;</span><br><span class="line">    <span class="comment">// recursion do quick sort.</span></span><br><span class="line">    quickSort(nums, s, i - <span class="number">1</span>);</span><br><span class="line">    quickSort(nums, i + <span class="number">1</span>, e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码实现使用 <code>[i, j]</code> 表示未调整的范围，首先，算法随机选择一个轴心值所在坐标 <code>rk</code>，并将该值换到数组开头。然后进入循环运行直到为调整范围长度为 0。<br>
+循环中，每次讲 <code>j</code> 移动到第一个小于 <code>p</code> 的坐标，然后将该值移动到左边 ( 目前 <code>i</code> 指向的位置，此时 <code>i</code> 的值会被覆盖，不过这个值要么原本是 <code>p</code>，要么已经移到别的地方，所以可以直接覆盖 )，然后移动 <code>i</code> 直到第一个大于 <code>p</code> 的值，将该值移到右边 ( 目前 <code>j</code> 指向的地方，这个值已经移到了 <code>i</code> 之前的位置 )。<br>
+总的来说，循环就是在将小于等于 <code>p</code> 的值移到左边，大于等于 <code>p</code> 的值移到右边。<br>
+然后，<code>i</code> 所在的地方就是需要将 <code>p</code> 填入的位置  ( 这个位置同时也将数组分为了左右两个子数组 ) 。<br>
+最后，递归处理子数组。</p>
+<p>快排是原地排序，所以最后无需返回，<code>nums</code> 已经有序。</p>
+<p>快排理论复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>，实际操作时，需要结合各种优化才能快速运行，本例实现使用了两种优化：1. 随机选择轴心，2. 循环使用移位代替交换，来提高效率。</p>
+<h3><span id="快速选择算法-quickselection"> 快速选择算法 ( QuickSelection )</span></h3>
+<p>快速排序算法基于快排的思想衍生，其可以使某些需要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> 时间复杂度的问题，在平均复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> 下完成。常见的例子是求数组的第 <code>k</code> 小的数，运用快速选择算法的基本流程如下：</p>
+<ol>
+<li>首先选定一个轴心值 <code>p</code>。</li>
+<li>将数组中小于 <code>p</code> 的值移到数组左端，其他移动到数组右端。</li>
+<li>计算轴心左端的数 (包括轴心自己) 有多少，记为 <code>count</code></li>
+<li>如果 <code>count</code> 正好为 <code>k</code>，则返回此时轴心值，此值即为第 <code>k</code> 小的数。</li>
+<li>如果左端的数 <code>count</code> 大于 <code>k</code>，说明在左端，所以只递归左边即可。</li>
+<li>如果不在左端，只递归在右边寻找。</li>
+</ol>
+<p>大致代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSelection</span>(<span class="params">nums, s, e, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> i = s, j = e;</span><br><span class="line">    <span class="comment">// move random chosen value to index s.</span></span><br><span class="line">    <span class="keyword">const</span> rk = <span class="built_in">Math</span>.floor(s + <span class="built_in">Math</span>.random() * (e - s + <span class="number">1</span>));</span><br><span class="line">    [nums[s], nums[rk]] = [nums[rk], nums[s]];</span><br><span class="line">    <span class="keyword">const</span> p = nums[s]; </span><br><span class="line">    <span class="comment">// start move i, j until i &gt;= j, and after loop, i will be filled with p value.</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; nums[j] &gt;= p) j--;</span><br><span class="line">        nums[i] = nums[j];</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; nums[i] &lt;= p) i++;</span><br><span class="line">        nums[j] = nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    nums[i] = p;</span><br><span class="line">    <span class="keyword">const</span> pk = i - s + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (pk == k) <span class="keyword">return</span> nums[i];</span><br><span class="line">    <span class="keyword">if</span> (pk &gt; k) <span class="keyword">return</span> quickSelection(nums, s, i - <span class="number">1</span>, k);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> quickSelection(nums, i + <span class="number">1</span>, e, k - pk);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与前面的快排几乎一样，只在后面有所不同，当完成分半以后，计算左边有多少个数记为 <code>pk</code>，如果其值正好为 <code>k</code>，则所求数已经找到，直接返回所求数，如果大于 <code>k</code> 则在左边寻找，否则在右边寻找。</p>
+<p>算法可以的到平均复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>。</p>
+<h3><span id="一个例子"> 一个例子</span></h3>
+<p>LeetCode.324 要求在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> 时间复杂度和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> 空间复杂度将数组整理至：<code>nums[0] &lt; nums[1] &gt; nums[2] &lt; nums[3]...</code> 的形式。</p>
+<p>首先考虑数组有序的情况如何解决问题，如果数组已经有序 (降序) 则可以将数组分为两半 <code>[left, right]</code>，令左边的数都按顺序放在奇数位，右边的数按顺序放在偶数位即可。</p>
+<p>此时每一个奇数位上的数一定大于它两边的数 ( 两边的数都来自右边，一定小于它，偶数位同理 )。</p>
+<p>上面没有说明有数相等的情况。由于题目确认一定有解，所以相同的数不会超过一半，因此，可以将左右两半根据是否等于中位数 ( 只有中位数可能跨过左右的界限 ) 再细分为两部分：<code>[left(&gt;mid, =mid), right(=mid, &lt;mid)]</code>。</p>
+<p>此时，可以看到，由于相等的数不会超过一半，所以如果按顺序将左右的数字分别放入奇数偶数位，则不会出现一个数左右有和它相等的数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">right: [=mid, &lt;mid] <span class="comment">//相等的部分不会相交</span></span><br><span class="line"> left: [&gt;mid, =mid]</span><br></pre></td></tr></table></figure>
+<p>举例来说：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">before: <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">2</span> <span class="number">1</span> <span class="number">2</span></span><br><span class="line">sorted: <span class="number">3</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">1</span> <span class="number">1</span></span><br><span class="line">   cut: <span class="number">3</span> <span class="number">2</span> <span class="number">2</span> - <span class="number">2</span> <span class="number">1</span> <span class="number">1</span></span><br><span class="line">  fill:   <span class="number">3</span>   <span class="number">2</span>   <span class="number">2</span></span><br><span class="line">        <span class="number">2</span>   <span class="number">1</span>   <span class="number">1</span></span><br><span class="line">result: <span class="number">2</span> <span class="number">3</span> <span class="number">1</span> <span class="number">2</span> <span class="number">1</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>即使刚好有一半的数相等，也不会出现冲突 (注意交界处，奇数位的数组中位数 2 会靠 “右”，偶数位的 2 会靠 “左”)。</p>
+<p>当然，如果直接排序，时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>。考虑上面的分半，其实不需要使整个数组有序，只要得到一个数组，使得其可以分为三部分：<code>[&gt;mid, =mid, &lt; mid]</code>，此时，将数组平分，即可得到：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">right: [=mid, &lt;mid] <span class="comment">//相等的部分不会相交</span></span><br><span class="line"> left: [&gt;mid, =mid]</span><br></pre></td></tr></table></figure>
+<p>接着就可以按照之前的做法得到结果。</p>
+<p>这里，使用前面提到的快速选择算法来在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> 内完成该问题。使用快速选择来找到中位数，然后，依据得到的中位数，将数组划分为 <code>[&gt;mid, =mid, &lt; mid]</code> 的形式，这里使用三路合并的方法 ( 和两路合并的区别在于还要单独考虑等于中位数的部分 )。</p>
+<p>得到 <code>[&gt;mid, =mid, &lt; mid]</code> 后，使用之前描述的算法得到最终的结果，下面给出大致实现:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> wiggleSort = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> n = nums.length;</span><br><span class="line">    <span class="keyword">const</span> geti = <span class="function"><span class="params">i</span> =&gt;</span> (<span class="number">1</span> + <span class="number">2</span> * i) % (n | <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">const</span> mid = qs(nums, <span class="number">0</span>, n - <span class="number">1</span>, (n + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">0</span>, j = <span class="number">0</span>, k = n - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (j &lt;= k) &#123;</span><br><span class="line">        <span class="keyword">const</span> ii = geti(i), ji = geti(j), ki = geti(k);</span><br><span class="line">        <span class="keyword">if</span> (nums[ji] &gt; mid) &#123;</span><br><span class="line">            [nums[ii], nums[ji]] = [nums[ji], nums[ii]];</span><br><span class="line">            i++; j++;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[ji] &lt; mid) &#123;</span><br><span class="line">            [nums[ji], nums[ki]] = [nums[ki], nums[ji]];</span><br><span class="line">            k--;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">qs</span>(<span class="params">nums, s, e, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> i = s, j = e;</span><br><span class="line">    <span class="keyword">const</span> rk = <span class="built_in">Math</span>.floor(s + <span class="built_in">Math</span>.random() * (e - s + <span class="number">1</span>));</span><br><span class="line">    [nums[s], nums[rk]] = [nums[rk], nums[s]];</span><br><span class="line">    <span class="keyword">const</span> p = nums[s]; </span><br><span class="line">    <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; nums[j] &gt;= p) j--;</span><br><span class="line">        nums[i] = nums[j];</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; nums[i] &lt;= p) i++;</span><br><span class="line">        nums[j] = nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    nums[i] = p;</span><br><span class="line">    <span class="keyword">const</span> pk = i - s + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (pk == k) <span class="keyword">return</span> nums[i];</span><br><span class="line">    <span class="keyword">if</span> (pk &gt; k) <span class="keyword">return</span> qs(nums, s, i - <span class="number">1</span>, k);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> qs(nums, i + <span class="number">1</span>, e, k - pk);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里为了实现 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> 的空间复杂度，使用了评论区学到的所谓 虚拟索引 的技术，即将数组的一个索引映射为实际数组中的两一个索引，</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span></span><br><span class="line"><span class="number">5</span>  <span class="number">0</span>  <span class="number">6</span>  <span class="number">1</span>  <span class="number">7</span>  <span class="number">2</span>  <span class="number">8</span>  <span class="number">3</span>  <span class="number">9</span>  <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>即对 0 索引操作时，实际上对数组的 5 索引数据进行操作，这样我们在虚拟空间将数组整理为 <code>[&gt;mid, =mid, &lt; mid]</code> 形式后，同时也将较小的数放在了偶数位，加大的数放在了奇数位。当然这不是本文的重点，这里不再展开。</p>
+<h3><span id="小结"> 小结</span></h3>
+<p>本文介绍了快速排序 ( QuickSort ) 算法及其衍生算法快速选择 ( QuickSelection ) 算法，并以 LeetCode.324 为例说明了快速选择算法的应用。使用快速选择算法，可以使一些需要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> 实现的算法可以在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>v</mi><mi>g</mi><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">avg O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> 下实现，例如本文提到的，求第 k 小的数等问题。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/10/22/manacher-algorithm-explanation/" data-toggle="tooltip" data-placement="top" title="马拉车算法 ( Manacher’s Algorithm ) 理解与实现">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 快速排序算法 ( QuickSort )</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 快速选择算法 ( QuickSelection )</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 一个例子</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 小结</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="https://www.w3.org/" target="_blank">W3C</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="https://vuejs.org" target="_blank">Vue.js</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "nicodechal";
+    var disqus_identifier = "https://nicodechal.github.io/2020/01/12/quick-sort-and-quick-selection/";
+    var disqus_url = "https://nicodechal.github.io/2020/01/12/quick-sort-and-quick-selection/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/Nicodechal">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Nicodechal 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://nicodechal.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-131241981-1';
+    var _gaDomain = 'nicodechal.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://nicodechal.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+</html>
