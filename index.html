@@ -137,7 +137,7 @@
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/about/">About Me</a>
                         </li>
                         
                     
@@ -151,7 +151,7 @@
 
                         
                         <li>
-                            <a href="/about/">About Me</a>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
@@ -211,6 +211,39 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2020/01/14/bidirectional-breadth-first-search/">
+        <h2 class="post-title">
+            双向广度优先遍历
+        </h2>
+        <h3 class="post-subtitle">
+            算法学习笔记
+        </h3>
+        <div class="post-content-preview">
+            
+本文说明双向广度优先遍历算法，并以 LeetCode.127 说明双向广度优先遍历的使用方式。
+
+ 常规的广度优先遍历
+常规的广度优先遍历通常会使用队列实现，首先将起点加入队列，然后不停遍历队列直到队列为空或找到结果，每次取出队头进行处理，处理完毕后，如果还未得到结果，则将和队头相关连的未被访问过的节点加入到队列中。
+例如，求一个节点到另一个节点的最短路径的代码可能如下 (不是完整代码)：......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2020-01-14
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -512,44 +545,6 @@ BLACK: 节点已经访问
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2019/07/05/iptables-usage/">
-        <h2 class="post-title">
-            Iptables 命令学习总结
-        </h2>
-        <h3 class="post-subtitle">
-            网络相关工具学习
-        </h3>
-        <div class="post-content-preview">
-             介绍
-iptables 是 Linux 下的常用网络工具，可以用于对网络数据包的过滤、修改和管理。
- 基本概念
- 链的概念
-链是 iptables 中的基本组成，每个链上都包含着一系列用于控制数据包的规则：
-
-每个链在数据包流转的不同环节中发挥作用，流转图和链的关系如下：
-
-图中红色的代表的是 iptables 中的规则链。
- 表的概念
-表是我们操作这些链的接口，每个链上的规则都被分到不同......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2019-07-05
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Network" title="Network">Network</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -652,6 +647,10 @@ iptables 是 Linux 下的常用网络工具，可以用于对网络数据包的�
     <ul>
       
         <li>
+          <a href="/2020/01/14/bidirectional-breadth-first-search/">双向广度优先遍历</a>
+        </li>
+      
+        <li>
           <a href="/2020/01/12/quick-sort-and-quick-selection/">快速排序 ( QuickSort ) 和快速选择 ( QuickSelection )</a>
         </li>
       
@@ -665,10 +664,6 @@ iptables 是 Linux 下的常用网络工具，可以用于对网络数据包的�
       
         <li>
           <a href="/2019/10/16/css-spec-in-chinese-visual-formatting-model/">[CSS 2.2 中文] 可视化格式模型 - Visual Formatting Model</a>
-        </li>
-      
-        <li>
-          <a href="/2019/10/14/bridge-finding-algorithm/">寻找连通图中的桥</a>
         </li>
       
     </ul>
