@@ -144,14 +144,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -211,6 +211,45 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2019/09/18/euler-cycle/">
+        <h2 class="post-title">
+            欧拉回路的判定和求解
+        </h2>
+        <h3 class="post-subtitle">
+            算法学习笔记
+        </h3>
+        <div class="post-content-preview">
+            
+本文考虑无向图下的欧拉回路，基于 Leetcode.753 对应的一个例子进行解释
+
+ 欧拉回路的判定
+一个图上的 欧拉回路 指一条首尾相连的路径，该路径经过图上每条边，且只经过每条边一次。
+一个图如果有欧拉回路，必需满足：
+
+每个顶点的度为偶数 ( 每个顶点的边有偶数条 )。
+
+ 欧拉回路的求解
+ 深度优先搜索 ( DFS )
+确定一个图有欧拉回路后，取一个顶点开始进行 DFS，搜索时，......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2019-09-18
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -522,39 +561,6 @@ RLP 算法能够将任意嵌套字节数组编码为字节序列，也能够将�
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/12/20/ethereum-rlp-encode/">
-        <h2 class="post-title">
-            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码
-        </h2>
-        <h3 class="post-subtitle">
-            Ethereum 学习笔记
-        </h3>
-        <div class="post-content-preview">
-             概述
-在 Ethereum 中，RLP 算法被用于编码任意嵌套的字节数组，下面是一个任意嵌套字节数组的例子：
-1["cat",["puppy","cow"],"horse",[[]],"pig",[""],"sheep"]
-RLP 算法用来编码 ( 序列化 ) 其结构，使其变为字节序列 ( 二进制串 ) 。下面是一个简单的转化例子 ( 使用 &lt; 和 &gt; 表示序列和数组区分 ) ......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-12-20
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
-            
-              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -661,6 +667,10 @@ RLP 算法用来编码 ( 序列化 ) 其结构，使其变为字节序列 ( 二�
     <ul>
       
         <li>
+          <a href="/2020/01/14/all-paths-in-webpack/">对于 Webpack 中的路径的理解</a>
+        </li>
+      
+        <li>
           <a href="/2020/01/14/bidirectional-breadth-first-search/">双向广度优先遍历</a>
         </li>
       
@@ -674,10 +684,6 @@ RLP 算法用来编码 ( 序列化 ) 其结构，使其变为字节序列 ( 二�
       
         <li>
           <a href="/2019/10/22/kmp-ituition-understand/">KMP 算法 —— 理解与实现</a>
-        </li>
-      
-        <li>
-          <a href="/2019/10/16/css-spec-in-chinese-visual-formatting-model/">[CSS 2.2 中文] 可视化格式模型 - Visual Formatting Model</a>
         </li>
       
     </ul>

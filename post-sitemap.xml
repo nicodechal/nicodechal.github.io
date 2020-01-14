@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://nicodechal.github.io/2020/01/14/all-paths-in-webpack/</loc>
+        <lastmod>2020-01-14T08:41:40.157Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://nicodechal.github.io/2020/01/14/bidirectional-breadth-first-search/</loc>
         <lastmod>2020-01-14T05:04:17.800Z</lastmod>
         <changefreq>weekly</changefreq>
