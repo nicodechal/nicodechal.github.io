@@ -130,13 +130,6 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/about/">About Me</a>
                         </li>
                         
@@ -144,7 +137,7 @@
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -152,6 +145,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
@@ -211,6 +211,42 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2019/09/26/topological-sort/">
+        <h2 class="post-title">
+            拓扑排序的应用
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+这是一篇关于拓扑排序的总结，以 LeetCode.1203 为例
+
+例子的问题不再复述，总的来说，就是需要进行两次拓扑排序，第一次对组内的元素进行排序，第二次对组之间进行排序。
+拓扑排序的大概过程：
+
+取出所有入度为 0 的点放入队列 qqq.
+取出一个点 ttt，将其加入结果 ansansans 数组中，并遍历其出边指向的点集 SSS.
+对于每个点 sis_is​i​​ ，入度减 1，如......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2019-09-26
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -526,41 +562,6 @@ P(Y)=∑z∈ZP(Y,z)=∑zP......
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/12/22/ethereum-rlp-decode/">
-        <h2 class="post-title">
-            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码
-        </h2>
-        <h3 class="post-subtitle">
-            Ethereum 学习笔记
-        </h3>
-        <div class="post-content-preview">
-             概述
-RLP 算法能够将任意嵌套字节数组编码为字节序列，也能够将其还原为字节数组，这个过程相对于编码过程的逆过程，称为 RLP 算法的解码。下面是一个具体示例。
-1&lt; 0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0 &gt; = [ [], [[]], [ [], [[]] ] ]
-本文对于 RLP 算法解码过程进行说明。
- 算法流程
-相......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-12-22
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
-            
-              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -667,6 +668,10 @@ RLP 算法能够将任意嵌套字节数组编码为字节序列，也能够将�
     <ul>
       
         <li>
+          <a href="/2020/02/16/css-specificity/">CSS Specificity 计算</a>
+        </li>
+      
+        <li>
           <a href="/2020/01/14/all-paths-in-webpack/">对于 Webpack 中的路径的理解</a>
         </li>
       
@@ -676,10 +681,6 @@ RLP 算法能够将任意嵌套字节数组编码为字节序列，也能够将�
       
         <li>
           <a href="/2020/01/12/quick-sort-and-quick-selection/">快速排序 ( QuickSort ) 和快速选择 ( QuickSelection )</a>
-        </li>
-      
-        <li>
-          <a href="/2019/10/22/manacher-algorithm-explanation/">马拉车算法 ( Manacher’s Algorithm ) 理解与实现</a>
         </li>
       
         <li>

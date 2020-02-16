@@ -130,13 +130,6 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/about/">About Me</a>
                         </li>
                         
@@ -144,7 +137,7 @@
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -152,6 +145,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
@@ -211,6 +211,37 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2020/02/16/css-specificity/">
+        <h2 class="post-title">
+            CSS Specificity 计算
+        </h2>
+        <h3 class="post-subtitle">
+            深入 CSS
+        </h3>
+        <div class="post-content-preview">
+            Specificity 用于决定那一条 CSS 属性和一个元素最相关，并将该属性应用到该元素上。Specificity 基于匹配规则进行计算，匹配规则由一系列 CSS 选择器合成。
+ 一个例子
+下面首先通过一个例子来说明 Specificity 的使用方式。假设有如下的 html 文档：
+123&lt;div id="test"&gt;  &lt;span&gt;Text&lt;/span&......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2020-02-16
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#CSS" title="CSS">CSS</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -317,17 +348,17 @@ output.path
 
 <div class="post-preview">
 
-    <a href="/2019/10/22/manacher-algorithm-explanation/">
+    <a href="/2019/10/22/kmp-ituition-understand/">
         <h2 class="post-title">
-            马拉车算法 ( Manacher’s Algorithm ) 理解与实现
+            KMP 算法 —— 理解与实现
         </h2>
         <h3 class="post-subtitle">
             算法学习笔记
         </h3>
         <div class="post-content-preview">
-            这里介绍用于计算回文子串的算法 Manacher’s Algorithm。
- 简单的办法
-容易想到复杂度为 O(n2)O(n^2)O(n​2​​) 的算法，对于每一个字符及他们的间隔进行遍历，每个位置从中心扩展，即每次同时检查关于该点轴对称的两点，如果相等继续扩展直至无法扩展，例如对于串 “abacaba” 需要遍历下面的所有位置 ( 间隔处使用 “#” 标出，实现时，也可以先在字符串间加入......
+            这里简单介绍 KMP 算法及其实现思路。KMP 算法实现了在线性时间内完成子串的查找，下面首先介绍基本的匹配算法，在考虑如何使用 KMP 的思路加快匹配。
+ 基本的匹配算法
+基本的思路，就是使用两个指针分别指向字符串 A 和待查找字符串 B，然后比较两个指针处的字符是否相等，如果相等就同时推进两个指针，否则回退两个指针 ( 具体来说，两个指针都先回退 B 指针移动的距离，此时，B 指针回到索......
         </div>
     </a>
     
@@ -347,17 +378,17 @@ output.path
 
 <div class="post-preview">
 
-    <a href="/2019/10/22/kmp-ituition-understand/">
+    <a href="/2019/10/22/manacher-algorithm-explanation/">
         <h2 class="post-title">
-            KMP 算法 —— 理解与实现
+            马拉车算法 ( Manacher’s Algorithm ) 理解与实现
         </h2>
         <h3 class="post-subtitle">
             算法学习笔记
         </h3>
         <div class="post-content-preview">
-            这里简单介绍 KMP 算法及其实现思路。KMP 算法实现了在线性时间内完成子串的查找，下面首先介绍基本的匹配算法，在考虑如何使用 KMP 的思路加快匹配。
- 基本的匹配算法
-基本的思路，就是使用两个指针分别指向字符串 A 和待查找字符串 B，然后比较两个指针处的字符是否相等，如果相等就同时推进两个指针，否则回退两个指针 ( 具体来说，两个指针都先回退 B 指针移动的距离，此时，B 指针回到索......
+            这里介绍用于计算回文子串的算法 Manacher’s Algorithm。
+ 简单的办法
+容易想到复杂度为 O(n2)O(n^2)O(n​2​​) 的算法，对于每一个字符及他们的间隔进行遍历，每个位置从中心扩展，即每次同时检查关于该点轴对称的两点，如果相等继续扩展直至无法扩展，例如对于串 “abacaba” 需要遍历下面的所有位置 ( 间隔处使用 “#” 标出，实现时，也可以先在字符串间加入......
         </div>
     </a>
     
@@ -507,42 +538,6 @@ BLACK: 节点已经访问
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2019/09/26/topological-sort/">
-        <h2 class="post-title">
-            拓扑排序的应用
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-这是一篇关于拓扑排序的总结，以 LeetCode.1203 为例
-
-例子的问题不再复述，总的来说，就是需要进行两次拓扑排序，第一次对组内的元素进行排序，第二次对组之间进行排序。
-拓扑排序的大概过程：
-
-取出所有入度为 0 的点放入队列 qqq.
-取出一个点 ttt，将其加入结果 ansansans 数组中，并遍历其出边指向的点集 SSS.
-对于每个点 sis_is​i​​ ，入度减 1，如......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2019-09-26
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -645,6 +640,10 @@ BLACK: 节点已经访问
     <ul>
       
         <li>
+          <a href="/2020/02/16/css-specificity/">CSS Specificity 计算</a>
+        </li>
+      
+        <li>
           <a href="/2020/01/14/all-paths-in-webpack/">对于 Webpack 中的路径的理解</a>
         </li>
       
@@ -654,10 +653,6 @@ BLACK: 节点已经访问
       
         <li>
           <a href="/2020/01/12/quick-sort-and-quick-selection/">快速排序 ( QuickSort ) 和快速选择 ( QuickSelection )</a>
-        </li>
-      
-        <li>
-          <a href="/2019/10/22/manacher-algorithm-explanation/">马拉车算法 ( Manacher’s Algorithm ) 理解与实现</a>
         </li>
       
         <li>
