@@ -128,13 +128,6 @@
     </url>
 
     <url>
-        <loc>https://nicodechal.github.io/tags/Front-End/</loc>
-        <lastmod>2020-01-14T08:41:40.157Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://nicodechal.github.io/tags/Webpack/</loc>
         <lastmod>2020-01-14T08:41:40.157Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -144,6 +137,13 @@
     <url>
         <loc>https://nicodechal.github.io/tags/CSS/</loc>
         <lastmod>2020-02-16T15:17:54.746Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/tags/Front-End/</loc>
+        <lastmod>2020-03-08T14:02:44.085Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

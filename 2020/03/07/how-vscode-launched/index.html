@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="4tFU9sK3wCTQTsGRhI4e0yTz0w1tO8HIP42wXGRN5Is">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="This is a blog for myself writing what I&#39;m learning, what I enjoy or what I think is important.">
+    <meta name="keyword" content="Web,Big-Data,CSS,Vue,Javascript">
+    <link rel="shortcut icon" href="/img/title.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+            [VSCode 源码阅读笔记] VSCode 的启动流程 - Nicodechal
+                
+    </title>
+
+    <link rel="canonical" href="https://nicodechal.github.io/2020/03/07/how-vscode-launched/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/beantech.min.css">
+                <!-- Pygments Highlight CSS -->
+                <link rel="stylesheet" href="/css/highlight.css">
+
+                    <link rel="stylesheet" href="/css/widget.css">
+
+                        <link rel="stylesheet" href="/css/rocket.css">
+
+                            <link rel="stylesheet" href="/css/signature.css">
+
+                                <link rel="stylesheet" href="/css/toc.css">
+
+                                    <!-- Custom Fonts -->
+                                    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+                                    <!-- Hux change font-awesome CDN to qiniu -->
+                                    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+                                    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+                                    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+                                    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+                                    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+                                    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+                                    <!-- ga & ba script hoook -->
+                                    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Front-End" title="Front-End">Front-End</a>
+                            
+                        </div>
+                        <h1>[VSCode 源码阅读笔记] VSCode 的启动流程</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Nicodechal on
+                            2020-03-07
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Blog is A Room</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/links/">links</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>本文总结 VSCode 的大致启动过程，即从启动到打开第一个界面之间的过程。阅读版本为官方当前 <a href="https://github.com/microsoft/vscode" target="_blank" rel="noopener">最新代码</a> 的 master 分支。</p>
+</blockquote>
+<h2><span id="启动-codemain"> 启动 <code>CodeMain</code></span></h2>
+<p>下面介绍从启动到运行 <code>CodeMain</code> 的过程。</p>
+<p>VSCode 的启动脚本为 <code>src/main.js</code>。其在完成一些必要的设置后 （包括启用 ASAR、设置一些路径和缓存、注册 Scheme、启动全局监听器以及解析启动的命令行参数和配置本地化），等待 app 的 <code>ready</code> 触发运行 <code>onReady</code> 加载 VSCode 的代码 ( 之后的代码均经过精简 )：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.once(<span class="string">'ready'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  onReady();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>onReady</code> 函数在缓存和本地化完成后用得到的缓存目录 <code>cachedDataDir</code> 和本地化配置 <code>nlsConfig</code> 作为参数运行 <code>startup</code>：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">onReady</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [cachedDataDir, nlsConfig] = <span class="keyword">await</span> <span class="built_in">Promise</span>.all([</span><br><span class="line">    nodeCachedDataDir.ensureExists(), </span><br><span class="line">    resolveNlsConfiguration()</span><br><span class="line">  ]);</span><br><span class="line">  startup(cachedDataDir, nlsConfig);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>startup</code> 继续做一些缓存和本地化的工作后，使用 AMD 方式加载文件 <code>vs/code/electron-main/main</code>，该文件即为 <code>CodeMain</code> 所在文件。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">startup</span>(<span class="params">cachedDataDir, nlsConfig</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// do some work for nls &amp; cache</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="comment">// Load main in AMD</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'./bootstrap-amd'</span>).load(<span class="string">'vs/code/electron-main/main'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进入该文件以后，会直接执行文件底部的启动代码创建一个 <code>CodeMain</code> 实例并调用它的 <code>main</code> 方法。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Main Startup</span></span><br><span class="line"><span class="keyword">const</span> code = <span class="keyword">new</span> CodeMain();</span><br><span class="line">code.main();</span><br></pre></td></tr></table></figure>
+<h2><span id="启动-codeapplication"> 启动 <code>CodeApplication</code></span></h2>
+<p><code>main</code> 方法主要调用实例方法 <code>startup</code> 来继续启动过程</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> CodeMain &#123;</span><br><span class="line">  main(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="comment">// Launch</span></span><br><span class="line">    <span class="keyword">this</span>.startup(args);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">async</span> startup(args: ParsedArgs): <span class="built_in">Promise</span>&lt;<span class="built_in">void</span>&gt; &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="创建-instantiationservice"> 创建 <code>instantiationService</code></span></h3>
+<p><code>startup</code> 需要进行一个比较重要的步骤，即启动实例化服务 <code>instantiationService</code>。</p>
+<p>VSCode 中，将有独立功能的可复用的基础代码作为服务 ( Service ) 提供给需要这些功能的实例，实例化服务 <code>instantiationService</code> 也是其中之一。这一步中，需要对其实例化，用于对程序中实例尤其是服务进行管理。</p>
+<p><code>startup</code> 首先会调用 <code>createServices</code> 来得到 <code>instantiationService</code> 和一个实例坏境 <code>instanceEnvironment</code>。<code>instantiationService</code> 用于管理服务们，因此其实例化时需要提供一个服务列表<code>services</code>，<code>createServices</code> 主要就是完成 <code>services</code> 的构建并使用得到的 <code>services</code> 去构造 <code>instantiationService</code>。</p>
+<h4><span id="构造-services"> 构造 <code>services</code></span></h4>
+<p><code>services</code> 是一个 <code>ServiceCollection</code> 的实例，<code>ServiceCollection</code> 在内部使用一个 <code>Map</code> 保存服务标识符 ( <code>ServiceIdentifier</code> ) 和服务实例或描述符 ( <code>SyncDescriptor</code> ) 的映射：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> ServiceCollection &#123;</span><br><span class="line">  <span class="keyword">private</span> _entries = <span class="keyword">new</span> Map&lt;ServiceIdentifier&lt;<span class="built_in">any</span>&gt;, <span class="built_in">any</span>&gt;();</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对外提供 <code>get</code>、<code>set</code> 等方法对这个 <code>Map</code> 进行操作。</p>
+<div style="border: 1px solid #404040; padding: 0 20px; border-radius: 5px;">
+<p>下面对 <code>ServiceIdentifier</code> 和 <code>SyncDescriptor</code> 进行说明。</p>
+<p><strong><code>ServiceIdentifier</code></strong></p>
+<p>服务标识符用来唯一表示一个服务，只能使用 <code>createDecorator</code> 创建。该函数接受一个唯一的服务ID ( serviceId ) 创建一个标识符，该标识符同时也是一个装饰器，该装饰器用于实现依赖注入。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">createDecorator</span>&lt;<span class="title">T</span>&gt;(<span class="params">serviceId: <span class="built_in">string</span></span>): <span class="title">ServiceIdentifier</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 这里根据 id 直接查找标识符，如果 Map 中已经存在直接返回</span></span><br><span class="line">  <span class="keyword">if</span> (_util.serviceIds.has(serviceId)) &#123;</span><br><span class="line">    <span class="keyword">return</span> _util.serviceIds.get(serviceId)!;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 这里实现装饰器</span></span><br><span class="line">  <span class="keyword">const</span> id = &lt;<span class="built_in">any</span>&gt;<span class="function"><span class="keyword">function</span> (<span class="params">target: <span class="built_in">Function</span>, key: <span class="built_in">string</span>, index: <span class="built_in">number</span></span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 确保是 parameter decorator</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">arguments</span>.length !== <span class="number">3</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'@IServiceName-decorator can only be used to decorate a parameter'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 记录服务依赖</span></span><br><span class="line">    storeServiceDependency(id, target, index, <span class="literal">false</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 这里确保 toString 返回 serviceId</span></span><br><span class="line">  id.toString = <span class="function"><span class="params">()</span> =&gt;</span> serviceId;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 用 Map 记录该服务</span></span><br><span class="line">  _util.serviceIds.set(serviceId, id);</span><br><span class="line">  <span class="keyword">return</span> id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">storeServiceDependency</span>(<span class="params">id: <span class="built_in">Function</span>, target: <span class="built_in">Function</span>, index: <span class="built_in">number</span>, optional: <span class="built_in">boolean</span></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 已经初始化过直接添加新的依赖到 target 函数上 (一般就是构造函数)</span></span><br><span class="line">  <span class="keyword">if</span> ((target <span class="keyword">as</span> <span class="built_in">any</span>)[_util.DI_TARGET] === target) &#123;</span><br><span class="line">    (target <span class="keyword">as</span> <span class="built_in">any</span>)[_util.DI_DEPENDENCIES].push(&#123; id, index, optional &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 初始化</span></span><br><span class="line">    (target <span class="keyword">as</span> <span class="built_in">any</span>)[_util.DI_DEPENDENCIES] = [&#123; id, index, optional &#125;];</span><br><span class="line">    <span class="comment">// 这里可以标志已经初始化过</span></span><br><span class="line">    (target <span class="keyword">as</span> <span class="built_in">any</span>)[_util.DI_TARGET] = target;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><code>SyncDescriptor</code></strong></p>
+<p><code>SyncDescriptor</code> 用于保存创建一个实例所需参数，包括构造函数和一些参数等。主要用于延迟实例化某些服务，之后如果需要使用该服务时，再根据 <code>SyncDescriptor</code> 中的参数进行实例化。</p>
+</div>
+<p>综上，<code>instantiationService</code> 中使用一个 <code>ServiceCollection</code> 实例 <code>services</code> 保存了一个 <code>ServiceIdentifier</code> 到 <code>SyncDescriptor</code> 或服务实例的映射。因此通过 <code>instantiationService</code> 即可访问到所有服务的实例 (如果是 <code>SyncDescriptor</code> 会在访问时创建实例)。</p>
+<p><code>services</code> 创建后，它会用来实例化 <code>instantiationService</code>，此时使用已经注册的服务继续进行启动。接下来的目标是启动 <code>CodeApplication</code></p>
+<h3><span id="运行-codeapplication"> 运行 <code>CodeApplication</code></span></h3>
+<p>启动前需要进行两个主要的准备工作：</p>
+<ol>
+<li>初始化需要初始化的服务，这里主要是 <code>EnvironmentService</code> 、<code>ConfigurationService</code>、<code>StateService</code>。</li>
+<li>创建用于实例化 <code>CodeApplication</code> 的 IPC 服务器 <code>mainIpcServer</code></li>
+</ol>
+<p>上面两步都使用 <code>instantiationService</code> 提供的 <code>invokeFunction</code> 方法获得对实例的访问能力，该方法需传入一个回调函数，通过函数的参数 <code>accessor</code> 的 <code>get</code> 的方法可以得到受其管理的实例，此时如果还未创建的实例也会创建。</p>
+<p>完成后，再使用 <code>instantiationService</code> 的 <code>createInstance</code> 方法传入 <code>mainIpcServer</code> 和 <code>instanceEnvironment</code> 创建 <code>CodeApplication</code> 实例，并调用其 <code>startup</code> 方法启动 <code>CodeApplication</code>。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">instantiationService.createInstance(CodeApplication, mainIpcServer, instanceEnvironment).startup();</span><br></pre></td></tr></table></figure>
+<h3><span id="codeapplication-的构造"> CodeApplication 的构造</span></h3>
+<p>上面创建 <code>CodeApplication</code> 时，只传递了两个参数，但其构造函数来看，远不止需要两个参数：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> CodeApplication <span class="keyword">extends</span> Disposable &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> readonly mainIpcServer: Server,</span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> readonly userEnv: IProcessEnvironment,</span></span><br><span class="line"><span class="params">    <span class="meta">@IInstantiationService</span> <span class="keyword">private</span> readonly instantiationService: IInstantiationService,</span></span><br><span class="line"><span class="params">    <span class="meta">@ILogService</span> <span class="keyword">private</span> readonly logService: ILogService,</span></span><br><span class="line"><span class="params">    <span class="meta">@IEnvironmentService</span> <span class="keyword">private</span> readonly environmentService: IEnvironmentService,</span></span><br><span class="line"><span class="params">    <span class="meta">@ILifecycleMainService</span> <span class="keyword">private</span> readonly lifecycleMainService: ILifecycleMainService,</span></span><br><span class="line"><span class="params">    <span class="meta">@IConfigurationService</span> <span class="keyword">private</span> readonly configurationService: IConfigurationService,</span></span><br><span class="line"><span class="params">    <span class="meta">@IStateService</span> <span class="keyword">private</span> readonly stateService: IStateService</span></span><br><span class="line"><span class="params">  </span>) &#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">this</span>.registerListeners();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之所以不需要传递所有的参数，是因为其他有装饰器的参数将通过依赖注入得到。</p>
+<h4><span id="依赖注入"> 依赖注入</span></h4>
+<p>前面提到过，使用 <code>createDecorator</code> 可以创建一个装饰器，装饰器可以装饰函数参数 ( 此处是类的构造函数 ) ，同时记录该参数对应的类为该类的依赖项。因此，利用这个信息，我们就可以在创建一个对象时，查询并创建所有该类对象构建时所需的对象们，并将这些参数传递到该类的构造函数中创建对象。下面举例说明 <code>instantiationService</code> 是如何注入 <code>CodeApplication</code> 的。</p>
+<p>首先，<code>CodeMain</code> 会使用下面语句创建 <code>CodeApplication</code>：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">instantiationService.createInstance(CodeApplication, mainIpcServer, instanceEnvironment);</span><br></pre></td></tr></table></figure>
+<p>这里首先调用了 <code>instantiationService.createInstance</code>，然后该函数调用私有函数 <code>instantiationService._createInstance</code> 创建对象：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">createInstance(ctorOrDescriptor: <span class="built_in">any</span> | SyncDescriptor&lt;<span class="built_in">any</span>&gt;, ...rest: <span class="built_in">any</span>[]): <span class="built_in">any</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> _trace: Trace, result: <span class="built_in">any</span>;</span><br><span class="line">  _trace = Trace.traceCreation(ctorOrDescriptor);</span><br><span class="line">  result = <span class="keyword">this</span>._createInstance(ctorOrDescriptor, rest, _trace);</span><br><span class="line">  _trace.stop();</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> _createInstance&lt;T&gt;(ctor: <span class="built_in">any</span>, args: <span class="built_in">any</span>[] = [], _trace: Trace): T &#123;</span><br><span class="line">  <span class="comment">// arguments defined by service decorators</span></span><br><span class="line">  <span class="comment">// 从构造函数和取到之前记录的依赖并按参数顺序排序</span></span><br><span class="line">  <span class="keyword">let</span> serviceDependencies = _util.getServiceDependencies(ctor).sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.index - b.index);</span><br><span class="line">  <span class="keyword">let</span> serviceArgs: <span class="built_in">any</span>[] = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> dependency of serviceDependencies) &#123;</span><br><span class="line">    <span class="comment">// 创建或者直接拿到 ( 如果已经创建过了 ) 服务的实例</span></span><br><span class="line">    <span class="keyword">let</span> service = <span class="keyword">this</span>._getOrCreateServiceInstance(dependency.id, _trace);</span><br><span class="line">    <span class="comment">// 没找到</span></span><br><span class="line">    <span class="keyword">if</span> (!service &amp;&amp; <span class="keyword">this</span>._strict &amp;&amp; !dependency.optional) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`[createInstance] <span class="subst">$&#123;ctor.name&#125;</span> depends on UNKNOWN service <span class="subst">$&#123;dependency.id&#125;</span>.`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 加入参数表</span></span><br><span class="line">    serviceArgs.push(service);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 找到注入参数前的其他非注入参数的结束位置，用于确保参数对应正确。</span></span><br><span class="line">  <span class="keyword">let</span> firstServiceArgPos = serviceDependencies.length &gt; <span class="number">0</span> ? serviceDependencies[<span class="number">0</span>].index : args.length;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// check for argument mismatches, adjust static args if needed</span></span><br><span class="line">  <span class="keyword">if</span> (args.length !== firstServiceArgPos) &#123;</span><br><span class="line">    <span class="comment">// 参数数量不对报警</span></span><br><span class="line">    <span class="built_in">console</span>.warn(<span class="string">`[createInstance] First service dependency of <span class="subst">$&#123;ctor.name&#125;</span> at position <span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">      firstServiceArgPos + 1&#125;</span> conflicts with <span class="subst">$&#123;args.length&#125;</span> static arguments`</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里强行补齐</span></span><br><span class="line">    <span class="keyword">let</span> delta = firstServiceArgPos - args.length;</span><br><span class="line">    <span class="keyword">if</span> (delta &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      args = args.concat(<span class="keyword">new</span> <span class="built_in">Array</span>(delta));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      args = args.slice(<span class="number">0</span>, firstServiceArgPos);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 向构造函数中按顺序传入1. 需要填写的参数和 2. 通过注入得到的参数得到对象</span></span><br><span class="line">  <span class="keyword">return</span> &lt;T&gt;<span class="keyword">new</span> ctor(...[...args, ...serviceArgs]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里做的事：</p>
+<ol>
+<li>取得注入项参数表 <code>serviceArgs</code>，这里主要使用 <code>instantiationService</code> 的 <code>_getOrCreateServiceInstance</code> 得到这些注入项 <code>serviceArgs</code>。</li>
+<li>将传入 <code>_createInstance</code> 的 <code>args</code> 补齐长度，确保注入项作为正确的参数传入构造函数。</li>
+</ol>
+<p>构造一个对象需要构造函数 <code>ctor</code> 和参数表，这里的参数表分为两类一类是传递给 <code>_createInstance</code> 的参数 <code>args</code>，另一类就是注入的服务 <code>serviceArgs</code>。</p>
+<p>得到这些后就可以构造对象：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> &lt;T&gt;<span class="keyword">new</span> ctor(...[...args, ...serviceArgs]);</span><br></pre></td></tr></table></figure>
+<p>这样就完成了 <code>CodeApplication</code> 的构建，并且实现了对构造函数中的服务的注入。这里也能看到，注入的参数放在构造函数的参数表尾部。</p>
+<p>总结依赖注入构建对象的过程：</p>
+<ol>
+<li>对象首先使用参数中需要注入的对象对应的装饰器注解该参数，该注解完成依赖记录用于之后根据依赖图创建依赖对象。</li>
+<li>所有对象使用 <code>instantiationService</code> 的 <code>createInstance</code> 方法构建，此时需要传入构造函数 <code>ctor</code> 和非注入项的参数 <code>args</code>。</li>
+<li>根据之前记录的依赖情况，分析注入项依赖，取得或构建该对象的依赖，得到注入参数表 <code>serviceArgs</code>。</li>
+<li>使用构造函数 <code>ctor</code> 、非注入项的参数 <code>args</code> 和注入参数表 <code>serviceArgs</code> 构造对象。</li>
+</ol>
+<h2><span id="创建-codewindow"> 创建 <code>CodeWindow</code></span></h2>
+<h3><span id="准备"> 准备</span></h3>
+<p><code>CodeApplication</code> 构造完成立即调用其 <code>startup</code> 方法。该方法做了三件主要的事：</p>
+<ol>
+<li>创建 Electron 的 IPC 服务器 <code>electronIpcServer</code>。</li>
+<li>启动和共享进程通信的客户端 <code>sharedProcessClient</code>。</li>
+<li>创建自己的实例化服务 <code>appInstantiationService</code>，该服务是 <code>instantiationService</code> 的子服务，之后打开窗口时需要访问这些服务。</li>
+</ol>
+<p>完成上面步骤和一些其他的准备后，使用下面语句打开窗口：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获得 appInstantiationService 的访问能力并传入相关参数来打开一个窗口</span></span><br><span class="line"><span class="keyword">const</span> windows = appInstantiationService.invokeFunction(<span class="function"><span class="params">accessor</span> =&gt;</span> <span class="keyword">this</span>.openFirstWindow(accessor, electronIpcServer, sharedProcessClient));</span><br></pre></td></tr></table></figure>
+<h3><span id="openfirstwindow"> <code>openFirstWindow</code></span></h3>
+<p><code>openFirstWindow</code> 在注册了一系列 IPC 服务后，使用 <code>windowsMainService</code> 的 <code>open</code> 方法打开窗口。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = <span class="keyword">this</span>;</span><br><span class="line">urlService.registerHandler(&#123;</span><br><span class="line">  <span class="keyword">async</span> handleURL(uri: URI): <span class="built_in">Promise</span>&lt;<span class="built_in">boolean</span>&gt; &#123;</span><br><span class="line">    <span class="comment">// Check for URIs to open in window，解析 URI。</span></span><br><span class="line">    <span class="keyword">const</span> windowOpenableFromProtocolLink = app.getWindowOpenableFromProtocolLink(uri);</span><br><span class="line">    <span class="keyword">if</span> (windowOpenableFromProtocolLink) &#123;</span><br><span class="line">      <span class="comment">// 调用 windowsMainService 的 open 方法</span></span><br><span class="line">      windowsMainService.open(&#123;</span><br><span class="line">        context: OpenContext.API,</span><br><span class="line">        cli: &#123; ...environmentService.args &#125;,</span><br><span class="line">        urisToOpen: [windowOpenableFromProtocolLink],</span><br><span class="line">        gotoLineMode: <span class="literal">true</span></span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>windowsMainService</code> 位于 <code>src/vs/platform/windows/electron-main/windowsMainService.ts</code>。</p>
+<p><code>windowsMainService</code> 首先收集所有需要打开的工作区、文件夹和文件，然后调用 <code>doOpen</code> 进行下一步操作，这步会返回一个 <code>CodeWindow</code> 实例数组。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> usedWindows = <span class="keyword">this</span>.doOpen(openConfig, workspacesToOpen, foldersToOpen, emptyToRestore, emptyToOpen, fileInputs, foldersToAdd);</span><br></pre></td></tr></table></figure>
+<p>这里考虑在一个新的窗口打开文件的过程，这里会调用 <code>windowsMainService.openInBrowserWindow</code> 实现新窗口的打开。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">usedWindows.push(<span class="keyword">this</span>.openInBrowserWindow(&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<p><code>usedWindows</code> 是该函数返回的 <code>CodeWindow</code> 实例数组，这里使用 <code>openInBrowserWindow</code> 创建新的窗口并放入返回的数组中。</p>
+<p><code>openInBrowserWindow</code> 同样使用 <code>instantiationService</code> 来实例化一个 <code>CodeWindow</code> 对象，并将该对象加入 <code>WindowsMainService</code> 的窗口数组中且绑定相关事件。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create the window</span></span><br><span class="line"><span class="keyword">const</span> createdWindow = <span class="built_in">window</span> = <span class="keyword">this</span>.instantiationService.createInstance(CodeWindow, &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>创建好窗口后，使用 <code>doOpenInBrowserWindow</code> 在 <code>BrowserWindow</code> 打开窗口，<code>doOpenInBrowserWindow</code> 主要调用 <code>CodeWindow</code> 的 <code>load</code> 方法进行加载。</p>
+<p><code>CodeWindow</code> 在创建的时候会首先创建一个 <code>BrowserWindow</code> 对象 <code>_win</code>，调用 <code>load</code> 时，该函数调用 <code>_win.loadURL</code> 来加载指定文件。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>._win.loadURL(<span class="keyword">this</span>.getUrl(configuration));</span><br></pre></td></tr></table></figure>
+<p><code>getUrl</code> 在设置相关的配置以后，调用 <code>doGetUrl</code> 得到真正打开的 URL。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> CodeWindow &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">private</span> doGetUrl(config: object): <span class="built_in">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;require.toUrl('vs/code/electron-browser/workbench/workbench.html')&#125;</span>?config=<span class="subst">$&#123;encodeURIComponent(JSON.stringify(config))&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此，成功加载了第一个页面，该页面位于 <code>src/vs/code/electron-browser/workbench/workbench.html</code>。</p>
+<h2><span id="小结"> 小结</span></h2>
+<p>本文总结了从启动到加载第一个页面的大致过程，大概总结如下：</p>
+<ol>
+<li>进入 <code>main.js</code>，使用异步方式加载 <code>CodeMain</code></li>
+<li><code>CodeMain</code> 创建各种服务尤其是实例化服务 <code>instantiationService</code>，并使用 <code>instantiationService</code> 使用依赖注入构造 <code>CodeApplication</code>。</li>
+<li><code>CodeApplication</code> 创建 IPC 服务器等进程通讯功能然后使用 <code>windowsMainService</code> 创建 <code>CodeWindow</code></li>
+<li><code>CodeWindow</code> 最终创建 <code>BrowserWindow</code> 并加载页面。</li>
+</ol>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/02/16/css-specificity/" data-toggle="tooltip" data-placement="top" title="CSS Specificity 计算">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 启动 CodeMain</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 启动 CodeApplication</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"> 创建 instantiationService</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.1.</span> <span class="toc-nav-text"> 构造 services</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"> 运行 CodeApplication</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text"> CodeApplication 的构造</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.1.</span> <span class="toc-nav-text"> 依赖注入</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 创建 CodeWindow</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text"> 准备</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text"> openFirstWindow</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 小结</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Front-End" title="Front-End">Front-End</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="https://www.w3.org/" target="_blank">W3C</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="https://vuejs.org" target="_blank">Vue.js</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "nicodechal";
+    var disqus_identifier = "https://nicodechal.github.io/2020/03/07/how-vscode-launched/";
+    var disqus_url = "https://nicodechal.github.io/2020/03/07/how-vscode-launched/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/Nicodechal">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Nicodechal 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://nicodechal.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-131241981-1';
+    var _gaDomain = 'nicodechal.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://nicodechal.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+</html>
