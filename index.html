@@ -130,14 +130,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About Me</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About Me</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -211,6 +211,38 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2020/03/10/how-vscode-fire-events/">
+        <h2 class="post-title">
+            [VSCode 源码阅读笔记] VSCode 的事件处理
+        </h2>
+        <h3 class="post-subtitle">
+            以日志服务 BufferLogService 为例
+        </h3>
+        <div class="post-content-preview">
+            
+本文从 VSCode 的日志服务了解 VSCode 的事件分发和处理。阅读版本为官方当前最新代码的 master 分支。
+
+ AbstractLogService
+我们已经知道，VSCode 启动后，会从 src/main.js 异步加载并运行 CodeMain 实例的 .main() 方法并开始启动第一个页面。但是，在 startup(args) 一开始执行时，会先创建一个 buffer......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2020-03-10
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -505,42 +537,6 @@ output.path
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2019/10/09/cycle-finding-DFS/">
-        <h2 class="post-title">
-            环路检测的 DFS 算法
-        </h2>
-        <h3 class="post-subtitle">
-            算法学习笔记
-        </h3>
-        <div class="post-content-preview">
-            传统的 DFS 算法比较简单，这里考虑可以进行环路检测的 DFS 算法, 该算法也称为 “White-Gray-Black” DFS。
- 算法思路
-对于访问的节点，相比于以往使用 visited 数组记录一个点是否访问，这里使用一个 color 数组，将状态分为三种：
-
-WHITE: 节点还未访问
-GRAY: 节点正在被访问
-BLACK: 节点已经访问
-
-可以看到，节点正在访问的情况也被记录......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2019-10-09
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -643,6 +639,10 @@ BLACK: 节点已经访问
     <ul>
       
         <li>
+          <a href="/2020/03/10/how-vscode-fire-events/">[VSCode 源码阅读笔记] VSCode 的事件处理</a>
+        </li>
+      
+        <li>
           <a href="/2020/03/07/how-vscode-launched/">[VSCode 源码阅读笔记] VSCode 的启动流程（ 一 ）</a>
         </li>
       
@@ -656,10 +656,6 @@ BLACK: 节点已经访问
       
         <li>
           <a href="/2020/01/14/bidirectional-breadth-first-search/">双向广度优先遍历</a>
-        </li>
-      
-        <li>
-          <a href="/2020/01/12/quick-sort-and-quick-selection/">快速排序 ( QuickSort ) 和快速选择 ( QuickSelection )</a>
         </li>
       
     </ul>
