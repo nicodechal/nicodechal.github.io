@@ -214,6 +214,39 @@
 
 <div class="post-preview">
 
+    <a href="/2020/03/16/vscode-ipc-outline/">
+        <h2 class="post-title">
+            [VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 一 )
+        </h2>
+        <h3 class="post-subtitle">
+            从 mainIpcServer 开始
+        </h3>
+        <div class="post-content-preview">
+            
+本文从 mainIpcServer 相关源码出发了解 VSCode 中的进程间通讯的大致过程
+
+ mainIpcServer 的产生
+mainIpcServer 在 CodeMain 中的 startup() 中产生：
+1234567891011121314class CodeMain &#123;  private async startup(args: ParsedArgs): Pro......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2020-03-16
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2020/03/10/how-vscode-fire-events/">
         <h2 class="post-title">
             [VSCode 源码阅读笔记] VSCode 的事件处理
@@ -223,10 +256,10 @@
         </h3>
         <div class="post-content-preview">
             
-本文从 VSCode 的日志服务了解 VSCode 的事件分发和处理。阅读版本为官方当前最新代码的 master 分支。
+本文从 VSCode 的日志服务之一了解 VSCode 的事件分发和处理。阅读版本为官方当前最新代码的 master 分支。
 
  AbstractLogService
-我们已经知道，VSCode 启动后，会从 src/main.js 异步加载并运行 CodeMain 实例的 .main() 方法并开始启动第一个页面。但是，在 startup(args) 一开始执行时，会先创建一个 buffer......
+我们已经知道，VSCode 启动后，会从 src/main.js 异步加载并运行 CodeMain 实例的 .main() 方法并开始启动第一个页面。但是，在 startup(args) 一开始执行时，会先创建一个 buff......
         </div>
     </a>
     
@@ -248,7 +281,7 @@
 
     <a href="/2020/03/07/how-vscode-launched/">
         <h2 class="post-title">
-            [VSCode 源码阅读笔记] VSCode 的启动流程（ 一 ）
+            [VSCode 源码阅读笔记] VSCode 的启动流程
         </h2>
         <h3 class="post-subtitle">
             
@@ -504,39 +537,6 @@ output.path
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2019/10/14/bridge-finding-algorithm/">
-        <h2 class="post-title">
-            寻找连通图中的桥
-        </h2>
-        <h3 class="post-subtitle">
-            算法学习笔记
-        </h3>
-        <div class="post-content-preview">
-            从概念上讲，连通图，就是任意两点都连通的无向图，连通，就是指两个点有路径相连。而桥，简单来讲就是图上的一条边，如果去掉这条边，原图就不再是连通图。本文考虑如何找出所有的这样的边。
- 算法思路
-这里使用的方法思路来源于 Tarjan 算法，该算法用于求有向图中的强连通分量，这里借用其思路来寻找无向图中的桥。
-该算法的基本思路是，
-
-首先对图进行一次 DFS 搜索，并对节点按照遍历到的顺序进行编......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2019-10-14
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -639,11 +639,15 @@ output.path
     <ul>
       
         <li>
+          <a href="/2020/03/16/vscode-ipc-outline/">[VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 一 )</a>
+        </li>
+      
+        <li>
           <a href="/2020/03/10/how-vscode-fire-events/">[VSCode 源码阅读笔记] VSCode 的事件处理</a>
         </li>
       
         <li>
-          <a href="/2020/03/07/how-vscode-launched/">[VSCode 源码阅读笔记] VSCode 的启动流程（ 一 ）</a>
+          <a href="/2020/03/07/how-vscode-launched/">[VSCode 源码阅读笔记] VSCode 的启动流程</a>
         </li>
       
         <li>
@@ -652,10 +656,6 @@ output.path
       
         <li>
           <a href="/2020/01/14/all-paths-in-webpack/">对于 Webpack 中的路径的理解</a>
-        </li>
-      
-        <li>
-          <a href="/2020/01/14/bidirectional-breadth-first-search/">双向广度优先遍历</a>
         </li>
       
     </ul>

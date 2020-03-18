@@ -7,16 +7,24 @@
     </url>
 
     <url>
-        <loc>https://nicodechal.github.io/2020/03/10/how-vscode-fire-events/</loc>
-        <lastmod>2020-03-10T06:04:15.929Z</lastmod>
+        <loc>https://nicodechal.github.io/2020/03/07/how-vscode-launched/</loc>
+        <lastmod>2020-03-18T04:55:34.420Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
     </url>
 
     <url>
-        <loc>https://nicodechal.github.io/2020/03/07/how-vscode-launched/</loc>
-        <lastmod>2020-03-08T17:18:04.496Z</lastmod>
+        <loc>https://nicodechal.github.io/2020/03/16/vscode-ipc-outline/</loc>
+        <lastmod>2020-03-18T04:55:07.641Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/2020/03/10/how-vscode-fire-events/</loc>
+        <lastmod>2020-03-16T14:01:34.387Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

@@ -216,7 +216,7 @@
                 post-container">
 
                 <blockquote>
-<p>本文从 VSCode 的日志服务了解 VSCode 的事件分发和处理。阅读版本为官方当前最新代码的 master 分支。</p>
+<p>本文从 VSCode 的日志服务之一了解 VSCode 的事件分发和处理。阅读版本为官方当前最新代码的 master 分支。</p>
 </blockquote>
 <h3><span id="abstractlogservice"> <code>AbstractLogService</code></span></h3>
 <p>我们已经知道，VSCode 启动后，会从 <code>src/main.js</code> 异步加载并运行 <code>CodeMain</code> 实例的 <code>.main()</code> 方法并开始启动第一个页面。但是，在 <code>startup(args)</code> 一开始执行时，会先创建一个 <code>bufferLogService</code>，该服务用于避免在 Windows 下出现的并发访问 LOG 文件的问题 ( <a href="https://github.com/Microsoft/vscode/issues/41218" target="_blank" rel="noopener">issue 41218</a> ) ，解决方式是先把产生的 LOG 信息缓冲，直到确认自己是唯一运行的实例再产生日志。</p>
@@ -266,9 +266,13 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
+                        <li class="previous">
+                            <a href="/2020/03/16/vscode-ipc-outline/" data-toggle="tooltip" data-placement="top" title="[VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 一 )">&larr; Previous Post</a>
+                        </li>
+                    
                     
                         <li class="next">
-                            <a href="/2020/03/07/how-vscode-launched/" data-toggle="tooltip" data-placement="top" title="[VSCode 源码阅读笔记] VSCode 的启动流程（ 一 ）">Next Post &rarr;</a>
+                            <a href="/2020/03/07/how-vscode-launched/" data-toggle="tooltip" data-placement="top" title="[VSCode 源码阅读笔记] VSCode 的启动流程">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
