@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="4tFU9sK3wCTQTsGRhI4e0yTz0w1tO8HIP42wXGRN5Is">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="This is a blog for myself writing what I&#39;m learning, what I enjoy or what I think is important.">
+    <meta name="keyword" content="Web,Big-Data,CSS,Vue,Javascript">
+    <link rel="shortcut icon" href="/img/title.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+            [VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 二 ) - Nicodechal
+                
+    </title>
+
+    <link rel="canonical" href="https://nicodechal.github.io/2020/04/03/vscode-ipc-channel/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/beantech.min.css">
+                <!-- Pygments Highlight CSS -->
+                <link rel="stylesheet" href="/css/highlight.css">
+
+                    <link rel="stylesheet" href="/css/widget.css">
+
+                        <link rel="stylesheet" href="/css/rocket.css">
+
+                            <link rel="stylesheet" href="/css/signature.css">
+
+                                <link rel="stylesheet" href="/css/toc.css">
+
+                                    <!-- Custom Fonts -->
+                                    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+                                    <!-- Hux change font-awesome CDN to qiniu -->
+                                    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+                                    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+                                    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+                                    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+                                    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+                                    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+                                    <!-- ga & ba script hoook -->
+                                    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Front-End" title="Front-End">Front-End</a>
+                            
+                        </div>
+                        <h1>[VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 二 )</h1>
+                        <h2 class="subheading">ChannelClient 和 ChannelServer</h2>
+                        <span class="meta">
+                            Posted by Nicodechal on
+                            2020-04-03
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Blog is A Room</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/links/">links</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About Me</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>本文介绍 VSCode 中的 ChannelServer 和 ChannelClient。</p>
+</blockquote>
+<p>前面提到，VSCode 中 <code>Server</code> 对象维护了一个 <code>Channel</code> 的列表，客户端连接 <code>Server</code> 时可以会创建一个连接 <code>Connection</code>，<code>Connection</code> 中的 <code>channelClient</code> 可以发起请求调用方法或监听事件，请求打包成一条消息发送给 <code>channelServer</code>，<code>channelServer</code> 负责和 <code>Server</code> 的 <code>Channel</code> 交互得到响应的结果，再通过消息将结果返回给 <code>channelClient</code>。本文主要介绍 <code>channelClient</code> 和 <code>channelServer</code> 之间的通讯细节。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">              <span class="keyword">call</span> / <span class="keyword">listen</span>         <span class="keyword">call</span> / <span class="keyword">listen</span></span><br><span class="line">              result                response</span><br><span class="line">              &lt;<span class="comment">------------         &lt;------------</span></span><br><span class="line">channelClient               Message               channelServer</span><br><span class="line">              <span class="comment">------------&gt;         ------------&gt;</span></span><br><span class="line">              <span class="keyword">call</span> / <span class="keyword">listen</span>         <span class="keyword">do</span>  </span><br><span class="line">              request               <span class="keyword">call</span> / <span class="keyword">listen</span></span><br></pre></td></tr></table></figure>
+<h3><span id="channelclient-进行-call-和-listen"> <code>channelClient</code> 进行 <code>call</code> 和 <code>listen</code></span></h3>
+<p>调用 <code>channelClient</code> 的 <code>getChannel</code> 方法可以得到一个<strong>可以调用 <code>channelServer</code> 中的 <code>Channel</code> 的本地 <code>Channel</code> ( 或者说客户端 <code>Channel</code> )</strong>。调用该 <code>Channel</code> 的 <code>call</code> 方法，会调用 <code>channelServer</code> 中对应的 <code>Channel</code> 的 <code>call</code> 方法 ( 向 <code>ChannelServer</code> 发起请求 )，<code>channelServer</code> 中对应的 <code>Channel</code> 的 <code>call</code> 执行后会将结果返回给本地 <code>Channel</code>，最终由本地 <code>Channel</code> 返回包含调用结果的 <code>Promise</code>。</p>
+<p>事件处理类似，调用本地 <code>Channel</code> 的 <code>listen</code> 方法，会得到一个本地的监听器，当 <code>channelServer</code> 中对应的事件触发时，会触发该监听器并带上响应的数据。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> ChannelClient &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  getChannel&lt;T <span class="keyword">extends</span> IChannel&gt;(channelName: <span class="built_in">string</span>): T &#123;</span><br><span class="line">    <span class="keyword">const</span> that = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      call(command: <span class="built_in">string</span>, arg?: <span class="built_in">any</span>, cancellationToken?: CancellationToken) &#123;</span><br><span class="line">        <span class="keyword">return</span> that.requestPromise(channelName, command, arg, cancellationToken);</span><br><span class="line">      &#125;,</span><br><span class="line">      listen(event: <span class="built_in">string</span>, arg: <span class="built_in">any</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> that.requestEvent(channelName, event, arg);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">as</span> T;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4><span id="发起-call-请求"> 发起 <code>call</code> 请求</span></h4>
+<p>发起 <code>call</code> 请求使用 <code>requestPromise</code> 实现。<code>requestPromise</code> 先为本次请求计算一个请求 ID，然后为本次请求注册一个 <code>handler</code> ( 和 ID 相关联 )，当 <code>channelServer</code> 返回结果时，会触发 <code>protocol</code> 的 <code>onMessage</code> ( 此时会调用 <code>onBuffer</code> 方法，该方法又会调用 <code>onResponse</code> 方法)，此时根据请求 ID 调用对应的 <code>handler</code>，最终 <code>handler</code> 将结果包裹在 <code>Promise</code> 中返回。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> requestPromise(channelName: <span class="built_in">string</span>, name: <span class="built_in">string</span>, arg?: <span class="built_in">any</span>, cancellationToken = CancellationToken.None): <span class="built_in">Promise</span>&lt;<span class="built_in">any</span>&gt; &#123;</span><br><span class="line">  <span class="comment">// 得到 ID</span></span><br><span class="line">  <span class="keyword">const</span> id = <span class="keyword">this</span>.lastRequestId++;</span><br><span class="line">  <span class="comment">// 返回的 Promise</span></span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">c, e</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (cancellationToken.isCancellationRequested) &#123;</span><br><span class="line">      <span class="keyword">return</span> e(errors.canceled());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> uninitializedPromise: CancelablePromise&lt;<span class="built_in">void</span>&gt; | <span class="literal">null</span> = createCancelablePromise(_ =&gt; <span class="keyword">this</span>.whenInitialized());</span><br><span class="line">    uninitializedPromise.then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      uninitializedPromise = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 建立本消息的 handler，在 onResponse 中调用</span></span><br><span class="line">      <span class="keyword">const</span> handler: IHandler = <span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> (response.type) &#123;</span><br><span class="line">          <span class="keyword">case</span> ResponseType.PromiseSuccess:</span><br><span class="line">            <span class="keyword">this</span>.handlers.delete(id);</span><br><span class="line">            <span class="comment">// 执行成功 resolve 结果</span></span><br><span class="line">            c(response.data);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">          <span class="comment">// ...</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">      <span class="comment">// 这里把 handler 注册到消息监听器列表，得到响应时会调用。</span></span><br><span class="line">      <span class="keyword">this</span>.handlers.set(id, handler);</span><br><span class="line">      <span class="comment">// 发送请求</span></span><br><span class="line">      <span class="keyword">this</span>.sendRequest(request);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 返回包含结果的 Promise</span></span><br><span class="line">  <span class="keyword">return</span> result.finally(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.activeRequests.delete(disposable));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> onResponse(response: IRawResponse): <span class="built_in">void</span> &#123;</span><br><span class="line">  <span class="comment">// 得到相应的 handler 并执行</span></span><br><span class="line">  <span class="keyword">const</span> handler = <span class="keyword">this</span>.handlers.get(response.id);</span><br><span class="line">  <span class="keyword">if</span> (handler) &#123;</span><br><span class="line">    handler(response);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4><span id="发起-listen-请求"> 发起 <code>listen</code> 请求</span></h4>
+<p><code>listen</code> 原理和 <code>call</code> 类似：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> requestEvent(channelName: <span class="built_in">string</span>, name: <span class="built_in">string</span>, arg?: <span class="built_in">any</span>): Event&lt;<span class="built_in">any</span>&gt; &#123;</span><br><span class="line">  <span class="comment">// 请求 ID</span></span><br><span class="line">  <span class="keyword">const</span> id = <span class="keyword">this</span>.lastRequestId++;</span><br><span class="line">  <span class="comment">// 本地的 emitter</span></span><br><span class="line">  <span class="keyword">const</span> emitter = <span class="keyword">new</span> Emitter&lt;<span class="built_in">any</span>&gt;(<span class="comment">/*  */</span>);</span><br><span class="line">  <span class="comment">// onResponse 调用该方法触发事件</span></span><br><span class="line">  <span class="keyword">const</span> handler: IHandler = <span class="function">(<span class="params">res: IRawResponse</span>) =&gt;</span> emitter.fire((res <span class="keyword">as</span> IRawEventFireResponse).data);</span><br><span class="line">  <span class="comment">// 注册 handler</span></span><br><span class="line">  <span class="keyword">this</span>.handlers.set(id, handler);</span><br><span class="line">  <span class="comment">// 返回本地事件监听器</span></span><br><span class="line">  <span class="keyword">return</span> emitter.event;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="channelserver-处理-call-和-listen-请求"> <code>channelServer</code> 处理 <code>call</code> 和 <code>listen</code> 请求</span></h3>
+<p><code>channelServer</code> 处理 <code>call</code> 和 <code>listen</code> 请求从得到请求开始，<code>channelServer</code> 通过 <code>protocol</code> 的 <code>onMessage</code> 事件得到请求，并使用 <code>onRawMessage</code> 对不同类型的消息进行处理 ( 使用 <code>onPromise</code> 处理函数调用请求，使用 <code>onEventListen</code> 处理事件监听请求 )。</p>
+<h4><span id="处理-call-请求"> 处理 <code>call</code> 请求</span></h4>
+<p><code>onPromise</code> 首先从 <code>Channel</code> 列表中取出请求的 <code>Channel</code>，如果有相应的 <code>Channel</code> 直接调用相应的 <code>call</code> 方法。得到的结果使用 <code>sendResponse</code> 直接发给客户端：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> onPromise(request: IRawPromiseRequest): <span class="built_in">void</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> channel = <span class="keyword">this</span>.channels.get(request.channelName);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> promise: <span class="built_in">Promise</span>&lt;<span class="built_in">any</span>&gt;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 这里调用相应的方法</span></span><br><span class="line">    promise = channel.call(<span class="keyword">this</span>.ctx, request.name, request.arg, cancellationTokenSource.token);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    promise = <span class="built_in">Promise</span>.reject(err);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> id = request.id;</span><br><span class="line"></span><br><span class="line">  promise.then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 将得到的结果发给客户端</span></span><br><span class="line">    <span class="keyword">this</span>.sendResponse(&lt;IRawResponse&gt;&#123; id, data, <span class="keyword">type</span>: ResponseType.PromiseSuccess &#125;);</span><br><span class="line">  &#125;, <span class="function"><span class="params">err</span> =&gt;</span> &#123;<span class="comment">/*  */</span>&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4><span id="处理-listen-请求"> 处理 <code>listen</code> 请求</span></h4>
+<p>过程与 <code>call</code> 类似，当事件触发时，向客户端发送事件触发消息，并带上相应的数据：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> onEventListen(request: IRawEventListenRequest): <span class="built_in">void</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> channel = <span class="keyword">this</span>.channels.get(request.channelName);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> id = request.id;</span><br><span class="line">  <span class="comment">// 根据参数的到相应的 Event</span></span><br><span class="line">  <span class="keyword">const</span> event = channel.listen(<span class="keyword">this</span>.ctx, request.name, request.arg);</span><br><span class="line">  <span class="comment">// 当事件触发时发送事件出发的数据给客户端</span></span><br><span class="line">  event(<span class="function"><span class="params">data</span> =&gt;</span> <span class="keyword">this</span>.sendResponse(&lt;IRawResponse&gt;&#123; id, data, <span class="keyword">type</span>: ResponseType.EventFire &#125;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="小结"> 小结</span></h3>
+<p>总的来说，<code>channelServer</code> 负责维护一组 <code>Channel</code>，接收请求调用 <code>Channel</code> 并响应相应的结果。<code>channelClient</code> 则对外提供 <code>getChannel</code> 接口，用于取得一个可以调用 <code>channelServer</code> 上的指定 <code>Channel</code> 的 <code>Channel</code>，用户直接调用这个 <code>Channel</code> 的方法 ( <code>call</code> 和 <code>listen</code> ) 相当于直接调用对应的 <code>channelServer</code> 上的 <code>Channel</code>。总结如图：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">              <span class="keyword">call</span> / <span class="keyword">listen</span>         <span class="keyword">call</span> / <span class="keyword">listen</span></span><br><span class="line">              result                response</span><br><span class="line">              &lt;<span class="comment">------------         &lt;------------</span></span><br><span class="line">channelClient               Message               channelServer</span><br><span class="line">              <span class="comment">------------&gt;         ------------&gt;</span></span><br><span class="line">              <span class="keyword">call</span> / <span class="keyword">listen</span>         <span class="keyword">do</span>  </span><br><span class="line">              request               <span class="keyword">call</span> / <span class="keyword">listen</span></span><br></pre></td></tr></table></figure>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/03/16/vscode-ipc-outline/" data-toggle="tooltip" data-placement="top" title="[VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 一 )">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> channelClient 进行 call 和 listen</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"> 发起 call 请求</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"> 发起 listen 请求</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> channelServer 处理 call 和 listen 请求</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"> 处理 call 请求</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"> 处理 listen 请求</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 小结</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Front-End" title="Front-End">Front-End</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="https://www.w3.org/" target="_blank">W3C</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="https://vuejs.org" target="_blank">Vue.js</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "nicodechal";
+    var disqus_identifier = "https://nicodechal.github.io/2020/04/03/vscode-ipc-channel/";
+    var disqus_url = "https://nicodechal.github.io/2020/04/03/vscode-ipc-channel/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/N">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/Nicodechal">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Nicodechal 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://nicodechal.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-131241981-1';
+    var _gaDomain = 'nicodechal.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://nicodechal.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+</html>

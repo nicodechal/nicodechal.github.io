@@ -7,6 +7,22 @@
     </url>
 
     <url>
+        <loc>https://nicodechal.github.io/2020/04/03/vscode-ipc-channel/</loc>
+        <lastmod>2020-04-04T02:26:59.712Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/2020/01/14/all-paths-in-webpack/</loc>
+        <lastmod>2020-03-19T05:52:03.185Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://nicodechal.github.io/2020/03/07/how-vscode-launched/</loc>
         <lastmod>2020-03-18T04:55:34.420Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -33,14 +49,6 @@
     <url>
         <loc>https://nicodechal.github.io/2020/02/16/css-specificity/</loc>
         <lastmod>2020-02-16T15:17:54.746Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://nicodechal.github.io/2020/01/14/all-paths-in-webpack/</loc>
-        <lastmod>2020-01-14T08:41:40.157Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
