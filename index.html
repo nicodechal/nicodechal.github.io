@@ -214,15 +214,17 @@
 
 <div class="post-preview">
 
-    <a href="/2020/05/22/acorn-identifier-tokenize/">
+    <a href="/2020/05/22/acorn-tokenize-1/">
         <h2 class="post-title">
-            Acorn 中对标识符 ( Identifier ) 的处理
+            Acorn 的 Tokenizer 工作流程（ 一 ）
         </h2>
         <h3 class="post-subtitle">
             Acorn 源码阅读笔记
         </h3>
         <div class="post-content-preview">
-            ...
+            Acorn 的 Tokenizer 是解析器对象 Parser 上的一个静态方法，该方法可以根据输入的字符串和相关选项对输入进行处理得到 Token：
+123export function tokenizer(input, options) &#123;  return Parser.tokenizer(input, options)&#125;
+而 Parser.tokenizer 直接返......
         </div>
     </a>
     
@@ -635,7 +637,7 @@ output.path
     <ul>
       
         <li>
-          <a href="/2020/05/22/acorn-identifier-tokenize/">Acorn 中对标识符 ( Identifier ) 的处理</a>
+          <a href="/2020/05/22/acorn-tokenize-1/">Acorn 的 Tokenizer 工作流程（ 一 ）</a>
         </li>
       
         <li>
