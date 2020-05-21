@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-            Ethereum 中的 MPT ( Merkle Patricia Tree )（一） - Nicodechal
+            acorn.js 中标识符 ( identifier ) 的 tokenize - Nicodechal
                 
     </title>
 
-    <link rel="canonical" href="https://nicodechal.github.io/2018/12/23/ethereum-mpt-1/">
+    <link rel="canonical" href="https://nicodechal.github.io/2020/05/21/acorn-identifier-tokenize/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -84,16 +84,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
-                            
-                              <a class="tag" href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+                              <a class="tag" href="/tags/#Front-End" title="Front-End">Front-End</a>
                             
                         </div>
-                        <h1>Ethereum 中的 MPT ( Merkle Patricia Tree )（一）</h1>
-                        <h2 class="subheading">Ethereum 学习笔记</h2>
+                        <h1>acorn.js 中标识符 ( identifier ) 的 tokenize</h1>
+                        <h2 class="subheading">acorn.js 源码阅读笔记</h2>
                         <span class="meta">
                             Posted by Nicodechal on
-                            2018-12-23
+                            2020-05-21
                         </span>
                     </div>
                 
@@ -217,60 +215,16 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="概述"> 概述</span></h2>
-<p>本系列文章分为两部分，第一部分介绍介绍以太坊中使用到的 MPT ( Merkle Patricia Tree ) 的相关背景知识，基本的前缀树，及其改进基数树，以及哈希树。第二部分介绍以太坊中的 Merkle Patricia Tree。</p>
-<h2><span id="前缀树-tire-prefix-tree"> 前缀树 (Tire / Prefix Tree)</span></h2>
-<p>先给出一个前缀树的例子：</p>
-<p><img src="tire.png" alt=""></p>
-<p>前缀树一种树结构，可以用于存储 <code>(key, value)</code> 对集合。对于树中的每一个节点 <code>node</code>，其形式如下：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[i0, i1 ... in, value]</span><br></pre></td></tr></table></figure>
-<p>其中 <code>i0 ... in</code> 为 <code>key</code> 取值的字母表中的符号，例如，如果使用二进制，其字母表为 <code>{0, 1}</code>，使用十六进制，字母表为 <code>{0, 1, 2, ..., f}</code>。<code>value</code> 为该节点携带的值，该值可以为空，之后对 <code>value</code> 值进行说明。</p>
-<p>前面的例子中，由于是英文单词为 <code>key</code> 其字母表为 <code>{a, b, ..., y, z}</code> (只考虑小写)，因此每个节点的形式为：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[a, b, c, ..., x, y, z, value]</span><br></pre></td></tr></table></figure>
-<p><code>i0 ... in</code> 中的<strong>每个值</strong>对应一个指向其子孙节点 <code>child</code> 的指针 ( 或者为空指针 <code>NULL</code> )。因此<strong>一个节点</strong>最多有 <code>n + 1</code> 个子孙节点 ( <code>i0 ... in</code> 各一个 )。例子中根节点有 3 个值包含指向子孙节点的指针，分别为 <code>a, b, z</code>，其余指针值为 <code>NULL</code>。这个指针可以认为是节点之间的边，这个边的值为起始端对应的字母表中的符号。</p>
-<p>树中的每一个节点 <code>node</code> 的<strong>所有子孙</strong>都有相同的前缀，对与任一个子孙节点 <code>child</code>，其前缀值 <code>prefix</code> 为从根节点到 <code>child</code> 节点<strong>路径上的所有指针</strong>对应的值 ( 也即经过的边的值 ) 按顺序连接的结果。如果 <code>child</code> 节点的的 <code>value</code> 值不为空，则树中便包含 <code>(prefix, value)</code> 的键值对。</p>
-<p>上面例子中的前缀树包含的键值对如下：</p>
-<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">a</span>    -&gt;</span> v1</span><br><span class="line"><span class="function"><span class="title">b</span>    -&gt;</span> v2</span><br><span class="line"><span class="function"><span class="title">ab</span>   -&gt;</span> v3</span><br><span class="line"><span class="function"><span class="title">ba</span>   -&gt;</span> v4</span><br><span class="line"><span class="function"><span class="title">baa</span>  -&gt;</span> v5</span><br><span class="line"><span class="function"><span class="title">zaab</span> -&gt;</span> v6</span><br></pre></td></tr></table></figure>
-<p>下面说明从前缀树查找 <code>key = 'zaab'</code> 对应值的方法。</p>
-<p>由于使用的前缀树以单个字母为符号，所以整个过程需要按顺序遍历 <code>key</code> 中的每一个符号 <code>z, a, a, b</code>，从树中查找指定 <code>key</code> 需要从根节点开始：</p>
-<ol>
-<li>当前位于根节点，第一个字符为 <code>z</code>，跳到 <code>z</code> 的指针指向的节点。</li>
-<li>第二个字符为 <code>a</code>，从当前节点跳到 <code>a</code> 的指针指向的节点。</li>
-<li>第三个字符为 <code>a</code>，从当前节点跳到 <code>a</code> 的指针指向的节点。</li>
-<li>第四个字符为 <code>b</code>，从当前节点跳到 <code>b</code> 的指针指向的节点。</li>
-<li>返回当前节点的 <code>value</code> 值。</li>
-</ol>
-<p>示意图如下：</p>
-<p><img src="tire_ex.png" alt=""></p>
-<h2><span id="基数树-patricia-trie-radix-tire-radix-tree"> 基数树 (Patricia Trie / Radix Tire / Radix Tree)</span></h2>
-<p>拿上一小节的例子来说，对于查找示意图中的路径 ( <code>zaab</code> )，尽管只存储了一个键值对 <code>('zaab', v6)</code>，但却使整个树增加到了 5 层，基数树在这种情况合并一些子节点来减少空间开销，例如，将 <code>a</code>、<code>a</code>、<code>b</code> 合并成一个节点 <code>aab</code>，当 <code>key</code> 值为 <code>zaab</code> 时，经过 <code>z</code> 节点后直接进入 <code>aab</code> 节点取出 <code>value</code>即可。不但加快了取操作，还减少了空间使用。</p>
-<p>正式的说，基数树是空间优化后的前缀树，简单来说就是当一个节点是其父节点的唯一子节点，则将该节点与其父节点合并来减少空间消耗。相对于常规的前缀树，基数树的边可以是字母表中的单个元素也可以是字母序列，这使得基数树相对来说在小的集合上或共享前缀长的字符串集合上更高效。下面是一个基数树的例子：</p>
-<p><img src="patricia_trie.svg.png" alt=""></p>
-<h2><span id="哈希树-merkle-tree-hash-tree"> 哈希树 (Merkle tree / hash tree)</span></h2>
-<p><img src="hash_tree.png" alt=""></p>
-<p>在密码学和计算机科学中，哈希树或 Merkle 树是一种树，其中每个叶节点是数据块的哈希值，并且每个非叶节点的值为其子节点的值的哈希值 (哈希的哈希)。即，Merkle 树是哈希列表的二叉树，父节点的值的是其子节点值的哈希值，叶节点值原始数据块的哈希值。哈希树可以用于有效、安全地验证大型数据结构的内容。</p>
-<p>上图是一个哈希树的例子。其中四个数据块 <code>L1, L2, L3, L4</code> 的哈希值被存放在哈希树的叶节点中，之后每两个节点值合并后取哈希得到这两个节点的父节点，以此类推直到只剩下一个节点作为根节点。</p>
-<h2><span id="参考资料"> 参考资料</span></h2>
-<p><a href="https://github.com/ethereum/wiki/wiki/Patricia-Tree" target="_blank" rel="noopener">Patricia Tree · ethereum/wiki Wiki</a><br>
-<a href="https://blog.csdn.net/ITleaks/article/details/79992072" target="_blank" rel="noopener">以太坊MPT原理，你最值得看的一篇</a><br>
-<a href="https://en.wikipedia.org/wiki/Trie" target="_blank" rel="noopener">Tire</a><br>
-<a href="https://en.wikipedia.org/wiki/Radix_tree" target="_blank" rel="noopener">Radix tree</a><br>
-<a href="https://en.wikipedia.org/wiki/Merkle_tree" target="_blank" rel="noopener">Merkle tree</a><br>
-<a href="https://www.cnblogs.com/fengzhiwu/p/5524324.html" target="_blank" rel="noopener">Merkle Tree学习</a></p>
-
+                
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/12/26/mlp/" data-toggle="tooltip" data-placement="top" title="计算智能总结 - 多层感知器">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2018/12/22/ethereum-rlp-decode/" data-toggle="tooltip" data-placement="top" title="Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码">Next Post &rarr;</a>
+                            <a href="/2020/04/03/vscode-ipc-channel/" data-toggle="tooltip" data-placement="top" title="[VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 二 )">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -300,7 +254,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"> 概述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"> 前缀树 (Tire / Prefix Tree)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"> 基数树 (Patricia Trie / Radix Tire / Radix Tree)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"> 哈希树 (Merkle tree / hash tree)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text"> 参考资料</span></a></li></ol>
+          <ol class="nav">none</ol>
         
         </div>
       </aside>
@@ -320,9 +274,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
-                        
-                          <a class="tag" href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+                          <a class="tag" href="/tags/#Front-End" title="Front-End">Front-End</a>
                         
                     </div>
                 </section>
@@ -357,8 +309,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "nicodechal";
-    var disqus_identifier = "https://nicodechal.github.io/2018/12/23/ethereum-mpt-1/";
-    var disqus_url = "https://nicodechal.github.io/2018/12/23/ethereum-mpt-1/";
+    var disqus_identifier = "https://nicodechal.github.io/2020/05/21/acorn-identifier-tokenize/";
+    var disqus_url = "https://nicodechal.github.io/2020/05/21/acorn-identifier-tokenize/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
