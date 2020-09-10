@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading</title>
+  <style>
+    .loading {
+      position: relative;
+    }
+
+    .dot {
+      border-radius: 50%;
+      background-color: #333666;
+      display: inline-block;
+      margin: 20px;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+    }
+
+    .dot1 {
+      animation: change1 1s infinite ease-out;
+      left: 25px;
+    }
+
+    .dot2 {
+      animation: change2 1s infinite ease-out;
+      left: 50px;
+    }
+
+    .dot3 {
+      animation: change3 1s infinite ease-out;
+      left: 75px;
+    }
+
+    @keyframes change1 {
+      0% {
+        transform: scale(0);
+      }
+
+      50% {
+        transform: scale(1);
+      }
+
+      100% {
+        transform: scale(0);
+      }
+    }
+
+    @keyframes change2 {
+      0% {
+        transform: scale(0.5);
+      }
+
+      25% {
+        transform: scale(0);
+      }
+
+      75% {
+        transform: scale(1);
+      }
+
+      100% {
+        transform: scale(0.5);
+      }
+    }
+
+    @keyframes change3 {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(0);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="loading">
+    <span class="dot dot1"></span>
+    <span class="dot dot2"></span>
+    <span class="dot dot3"></span>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLIP</title>
+  <style>
+    .box,
+    .new-box {
+      margin: 10px;
+      width: 100px;
+      height: 100px;
+      background-color: #666699;
+      display: inline-block;
+    }
+
+    .new-box {
+      background-color: #336699;
+    }
+  </style>
+</head>
+
+<body>
+  <button onclick="handleClick()">Add</button>
+  <div class="container">
+    <div class="box"></div>
+  </div>
+  <script>
+    function prepend(box, child) {
+      const first = box.children[0];
+      box.insertBefore(child, first);
+    }
+
+    function create(type, { classes }) {
+      const el = document.createElement(type);
+      for (const c of classes) {
+        el.classList.add(c);
+      }
+      return el;
+    }
+
+    const getRects = (els) =>
+      [].slice.apply(els).map(el => el.getBoundingClientRect());
+
+    function handleClick() {
+      const container = document.querySelector('.container');
+      const box = create('div', { classes: ['new-box'] });
+
+      const brects = getRects(container.querySelectorAll('.box'));
+      prepend(container, box);
+      const arects = getRects(container.querySelectorAll('.box'));
+
+      const boxes =
+        [].slice.apply(container.querySelectorAll('.box'));
+      boxes.forEach((box, i) => {
+        const left = brects[i].left - arects[i].left;
+        const top = brects[i].top - arects[i].top;
+        box.style.transition = 'none';
+        box.style.transform = `translate(${left}px, ${top}px)`;
+      });
+
+      setTimeout(() => {
+        boxes.forEach((box, i) => {
+          box.style.transform = `translate(0, 0)`;
+          box.style.transition = 'all .3s';
+        });
+        box.classList.add('box');
+      }, 0);
+    }
+  </script>
+</body>
+
+</html>
