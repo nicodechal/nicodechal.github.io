@@ -130,14 +130,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About Me</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -151,7 +151,7 @@
 
                         
                         <li>
-                            <a href="/about/">About Me</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -211,6 +211,36 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2020/10/18/ethereum-yellow-paper-1/">
+        <h2 class="post-title">
+            以太坊 Yellow Paper 学习笔记（一）
+        </h2>
+        <h3 class="post-subtitle">
+            以太坊世界状态转移概览
+        </h3>
+        <div class="post-content-preview">
+            以太坊可以看做基于交易的状态机，任意时刻，使用 σ\sigmaσ 表示以太坊的当前状态，即为任意时刻以太坊中各个账户信息的一个表，包含了以太坊中所有账户的剩余以太币数量等和账户相关的信息，可以使用 σ[a]\sigma[a]σ[a] 的方式取到账户 aaa 的相关信息，每个账户包含下面 4 个字段：
+
+nonce: σ[a]n\mathbf{\sigma}[a]_nσ[a]​n​​ 一个普通......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2020-10-18
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -506,39 +536,6 @@ output.path
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2020/01/14/bidirectional-breadth-first-search/">
-        <h2 class="post-title">
-            双向广度优先遍历
-        </h2>
-        <h3 class="post-subtitle">
-            算法学习笔记
-        </h3>
-        <div class="post-content-preview">
-            
-本文说明双向广度优先遍历算法，并以 LeetCode.127 说明双向广度优先遍历的使用方式。
-
- 常规的广度优先遍历
-常规的广度优先遍历通常会使用队列实现，首先将起点加入队列，然后不停遍历队列直到队列为空或找到结果，每次取出队头进行处理，处理完毕后，如果还未得到结果，则将和队头相关连的未被访问过的节点加入到队列中。
-例如，求一个节点到另一个节点的最短路径的代码可能如下 (不是完整代码)：......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2020-01-14
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -641,6 +638,10 @@ output.path
     <ul>
       
         <li>
+          <a href="/2020/10/18/ethereum-yellow-paper-1/">以太坊 Yellow Paper 学习笔记（一）</a>
+        </li>
+      
+        <li>
           <a href="/2020/09/06/flip-animation-first-step/">FLIP 动画初步</a>
         </li>
       
@@ -654,10 +655,6 @@ output.path
       
         <li>
           <a href="/2020/04/03/vscode-ipc-channel/">[VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 二 )</a>
-        </li>
-      
-        <li>
-          <a href="/2020/03/16/vscode-ipc-outline/">[VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 一 )</a>
         </li>
       
     </ul>

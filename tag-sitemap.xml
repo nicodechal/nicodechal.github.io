@@ -44,13 +44,6 @@
     </url>
 
     <url>
-        <loc>https://nicodechal.github.io/tags/Blockchain/</loc>
-        <lastmod>2019-03-14T16:21:09.282Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://nicodechal.github.io/tags/Computation/</loc>
         <lastmod>2019-03-15T03:15:21.930Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -144,6 +137,13 @@
     <url>
         <loc>https://nicodechal.github.io/tags/Front-End/</loc>
         <lastmod>2020-09-10T01:35:55.637Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://nicodechal.github.io/tags/Blockchain/</loc>
+        <lastmod>2020-10-18T12:57:46.991Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
