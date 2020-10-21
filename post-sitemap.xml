@@ -7,8 +7,16 @@
     </url>
 
     <url>
+        <loc>https://nicodechal.github.io/2020/10/21/ethereum-yellow-paper-2/</loc>
+        <lastmod>2020-10-21T14:21:32.006Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://nicodechal.github.io/2020/10/18/ethereum-yellow-paper-1/</loc>
-        <lastmod>2020-10-18T12:57:46.991Z</lastmod>
+        <lastmod>2020-10-21T13:57:32.016Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

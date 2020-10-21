@@ -144,14 +144,14 @@
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
@@ -211,6 +211,39 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2018/12/20/ethereum-rlp-encode/">
+        <h2 class="post-title">
+            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 编码
+        </h2>
+        <h3 class="post-subtitle">
+            Ethereum 学习笔记
+        </h3>
+        <div class="post-content-preview">
+             概述
+在 Ethereum 中，RLP 算法被用于编码任意嵌套的字节数组，下面是一个任意嵌套字节数组的例子：
+1["cat",["puppy","cow"],"horse",[[]],"pig",[""],"sheep"]
+RLP 算法用来编码 ( 序列化 ) 其结构，使其变为字节序列 ( 二进制串 ) 。下面是一个简单的转化例子 ( 使用 &lt; 和 &gt; 表示序列和数组区分 ) ......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-12-20
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
+            
+              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -526,37 +559,6 @@ NP 中的每个语言 A 都多项式时间规约到 B，则 B 是 NP 难的。
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/01/11/theory-of-computation-6/">
-        <h2 class="post-title">
-            [计算理论基础] 空间复杂性
-        </h2>
-        <h3 class="post-subtitle">
-            计算理论基础课程总结
-        </h3>
-        <div class="post-content-preview">
-            DTM 的空间复杂性：在长度为 n 的输入上最多扫描 f(n)f(n)f(n) 个不同带方格，则 M 的空间复杂度为 f(h)f(h)f(h)。
-NTM 的空间复杂性：在所有分支停机，在任何计算分支上最多扫描 f(n)f(n)f(n) 个不同带方格，则 M 的空间复杂性是 f(n)f(n)f(n).
-
-可满足性问题：SAT={&lt;ϕ&gt;∣ϕSAT=\{&lt;\phi&gt;|\ph......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-01-11
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Computation" title="Computation">Computation</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -663,7 +665,11 @@ NTM 的空间复杂性：在所有分支停机，在任何计算分支上最多�
     <ul>
       
         <li>
-          <a href="/2020/10/18/ethereum-yellow-paper-1/">以太坊 Yellow Paper 学习笔记（一）</a>
+          <a href="/2020/10/21/ethereum-yellow-paper-2/">以太坊交易执行 ( Transaciton Execution ) 流程</a>
+        </li>
+      
+        <li>
+          <a href="/2020/10/18/ethereum-yellow-paper-1/">以太坊世界状态 ( World State ) 转移概览</a>
         </li>
       
         <li>
@@ -676,10 +682,6 @@ NTM 的空间复杂性：在所有分支停机，在任何计算分支上最多�
       
         <li>
           <a href="/2020/05/22/acorn-tokenize-1/">Acorn 的 Tokenizer 工作流程（ 一 ）</a>
-        </li>
-      
-        <li>
-          <a href="/2020/04/03/vscode-ipc-channel/">[VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 二 )</a>
         </li>
       
     </ul>

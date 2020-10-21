@@ -144,14 +144,14 @@
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
@@ -214,12 +214,49 @@
 
 <div class="post-preview">
 
-    <a href="/2020/10/18/ethereum-yellow-paper-1/">
+    <a href="/2020/10/21/ethereum-yellow-paper-2/">
         <h2 class="post-title">
-            以太坊 Yellow Paper 学习笔记（一）
+            以太坊交易执行 ( Transaciton Execution ) 流程
         </h2>
         <h3 class="post-subtitle">
-            以太坊世界状态转移概览
+            以太坊 Yellow Paper 学习笔记（二）
+        </h3>
+        <div class="post-content-preview">
+             交易验证
+交易执行前，首先需要进行交易验证，这个过程包括：
+
+交易的 RLP 编码正确且尾部没有多余的字节。
+交易签名验证。
+交易的 nonce 个发送方的当前 nonce 相同。
+gaslimit 不小于交易执行的 gas g0g_0g​0​​。
+交易发送方的余额满足预先支付金额要求。
+
+上面的 g0g_0g​0​​ 表示交易执行需要提前支付的 gas 的数量(注意只是提前预支的，最终实......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2020-10-21
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2020/10/18/ethereum-yellow-paper-1/">
+        <h2 class="post-title">
+            以太坊世界状态 ( World State ) 转移概览
+        </h2>
+        <h3 class="post-subtitle">
+            以太坊 Yellow Paper 学习笔记（一）
         </h3>
         <div class="post-content-preview">
             以太坊可以看做基于交易的状态机，任意时刻，使用 σ\sigmaσ 表示以太坊的当前状态，即为任意时刻以太坊中各个账户信息的一个表，包含了以太坊中所有账户的剩余以太币数量等和账户相关的信息，可以使用 σ[a]\sigma[a]σ[a] 的方式取到账户 aaa 的相关信息，每个账户包含下面 4 个字段：
@@ -499,43 +536,6 @@ VSCode 的启动脚本为 src/main.js。其在完成一些必要的设置后 （
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2020/01/14/all-paths-in-webpack/">
-        <h2 class="post-title">
-            对于 Webpack 中的路径的理解
-        </h2>
-        <h3 class="post-subtitle">
-            Webpack 概念理解
-        </h3>
-        <div class="post-content-preview">
-            Webpack 打包工具涉及很多的路径的设置，本文对其中的路径进行分析和总结。
- Webpack 中的路径
-Webpack 中涉及到的路径：
- Webpack 打包相关的全局路径
-
-output.path
-一个绝对路径，指定打包文件的输出文件夹，(默认值：path.join(process.cwd(), 'dist'))。打包文件指的是经过 Webpack 处理得到的文件。
-这里就是指定了文......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2020-01-14
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
-            
-              <a href="/tags/#Webpack" title="Webpack">Webpack</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -638,7 +638,11 @@ output.path
     <ul>
       
         <li>
-          <a href="/2020/10/18/ethereum-yellow-paper-1/">以太坊 Yellow Paper 学习笔记（一）</a>
+          <a href="/2020/10/21/ethereum-yellow-paper-2/">以太坊交易执行 ( Transaciton Execution ) 流程</a>
+        </li>
+      
+        <li>
+          <a href="/2020/10/18/ethereum-yellow-paper-1/">以太坊世界状态 ( World State ) 转移概览</a>
         </li>
       
         <li>
@@ -651,10 +655,6 @@ output.path
       
         <li>
           <a href="/2020/05/22/acorn-tokenize-1/">Acorn 的 Tokenizer 工作流程（ 一 ）</a>
-        </li>
-      
-        <li>
-          <a href="/2020/04/03/vscode-ipc-channel/">[VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 二 )</a>
         </li>
       
     </ul>
