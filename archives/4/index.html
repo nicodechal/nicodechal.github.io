@@ -130,14 +130,14 @@
 
                         
                         <li>
-                            <a href="/about/">About Me</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About Me</a>
                         </li>
                         
                     
@@ -211,6 +211,41 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2018/12/22/ethereum-rlp-decode/">
+        <h2 class="post-title">
+            Ethereum 中的 RLP 算法 (Recursive Length Prefix) 解码
+        </h2>
+        <h3 class="post-subtitle">
+            Ethereum 学习笔记
+        </h3>
+        <div class="post-content-preview">
+             概述
+RLP 算法能够将任意嵌套字节数组编码为字节序列，也能够将其还原为字节数组，这个过程相对于编码过程的逆过程，称为 RLP 算法的解码。下面是一个具体示例。
+1&lt; 0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0 &gt; = [ [], [[]], [ [], [[]] ] ]
+本文对于 RLP 算法解码过程进行说明。
+ 算法流程
+相......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-12-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
+            
+              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -529,36 +564,6 @@ NP 中的每个语言 A 都多项式时间规约到 B，则 B 是 NP 难的。
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/01/11/theory-of-computation-7/">
-        <h2 class="post-title">
-            [计算理论基础] 层次定理
-        </h2>
-        <h3 class="post-subtitle">
-            计算理论基础课程总结
-        </h3>
-        <div class="post-content-preview">
-             空间层次定理
-空间可构造函数：满足 f(n)≥lognf(n)\geq lognf(n)≥logn，且 f(n)f(n)f(n) 在 O(f(n))O(f(n))O(f(n)) 空间内可计算，输入 1n1^n1​n​​，输出二进制 f(n)f(n)f(n).即，存在 TM 以 f(n)f(n)f(n) 作为空间复杂性。
-线性加速定理：TIME(cf(n))=TIME(f(n))TIME(c......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-01-11
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Computation" title="Computation">Computation</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -665,6 +670,10 @@ NP 中的每个语言 A 都多项式时间规约到 B，则 B 是 NP 难的。
     <ul>
       
         <li>
+          <a href="/2020/10/22/ethereum-yellow-paper-3/">以太坊中的合约创建流程</a>
+        </li>
+      
+        <li>
           <a href="/2020/10/21/ethereum-yellow-paper-2/">以太坊交易执行 ( Transaciton Execution ) 流程</a>
         </li>
       
@@ -678,10 +687,6 @@ NP 中的每个语言 A 都多项式时间规约到 B，则 B 是 NP 难的。
       
         <li>
           <a href="/2020/08/10/ot-js-transform-analysis/">OT 算法的 transform 源码走读</a>
-        </li>
-      
-        <li>
-          <a href="/2020/05/22/acorn-tokenize-1/">Acorn 的 Tokenizer 工作流程（ 一 ）</a>
         </li>
       
     </ul>
