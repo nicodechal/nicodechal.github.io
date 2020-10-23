@@ -130,13 +130,6 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/about/">About Me</a>
                         </li>
                         
@@ -144,7 +137,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -152,6 +145,13 @@
                         
                         <li>
                             <a href="/links/">links</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -211,6 +211,35 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2020/10/23/ethereum-yellow-paper-4/">
+        <h2 class="post-title">
+            以太坊中的消息调用流程
+        </h2>
+        <h3 class="post-subtitle">
+            以太坊 Yellow Paper 学习笔记（四）
+        </h3>
+        <div class="post-content-preview">
+            之前已经提到过，交易有两种类型，一种是消息调用，使用 Θ\ThetaΘ 表示，合约创建其实就是创建账户的过程，账户是包含合约代码的账户。
+(σ′,g′,A,z,o)≡Θ(σ,s,o,r,c,g,p,v,v~,d,e,w)(\mathbf{\sigma&#x27;},g&#x27;,A,z,\mathbf{o})\equiv\Theta(\mathbf{\sigma},s,o,r,c,g,p,......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2020-10-23
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -501,39 +530,6 @@ mainIpcServer 在 CodeMain 中的 startup() 中产生：
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2020/03/07/how-vscode-launched/">
-        <h2 class="post-title">
-            [VSCode 源码阅读笔记] VSCode 的启动流程
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-本文总结 VSCode 的大致启动过程，即从启动到打开第一个界面之间的过程。阅读版本为官方当前 最新代码 的 master 分支。
-
- 启动 CodeMain
-下面介绍从启动到运行 CodeMain 的过程。
-VSCode 的启动脚本为 src/main.js。其在完成一些必要的设置后 （包括启用 ASAR、设置一些路径和缓存、注册 Scheme、启动全局监听器以及解析启动的命令行参数和配......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2020-03-07
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -636,6 +632,10 @@ VSCode 的启动脚本为 src/main.js。其在完成一些必要的设置后 （
     <ul>
       
         <li>
+          <a href="/2020/10/23/ethereum-yellow-paper-4/">以太坊中的消息调用流程</a>
+        </li>
+      
+        <li>
           <a href="/2020/10/22/ethereum-yellow-paper-3/">以太坊中的合约创建流程</a>
         </li>
       
@@ -649,10 +649,6 @@ VSCode 的启动脚本为 src/main.js。其在完成一些必要的设置后 （
       
         <li>
           <a href="/2020/09/06/flip-animation-first-step/">FLIP 动画初步</a>
-        </li>
-      
-        <li>
-          <a href="/2020/08/10/ot-js-transform-analysis/">OT 算法的 transform 源码走读</a>
         </li>
       
     </ul>

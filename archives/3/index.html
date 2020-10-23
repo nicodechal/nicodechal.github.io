@@ -130,13 +130,6 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/about/">About Me</a>
                         </li>
                         
@@ -144,7 +137,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -152,6 +145,13 @@
                         
                         <li>
                             <a href="/links/">links</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -211,6 +211,36 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2019/10/02/skiplist-you-must-know/">
+        <h2 class="post-title">
+            跳表 ( Skiplist ) 的数据结构实现
+        </h2>
+        <h3 class="post-subtitle">
+            数据结构的学习与实现
+        </h3>
+        <div class="post-content-preview">
+             序
+最近看 Redis 的相关书籍时，提到 Redis 中的有序集合是使用跳表 ( Skiplist ) 这种数据结构实现的。Skiplist 可以的实现在 O(logn)O(logn)O(logn) 内完成数据的添加，查询和删除。从复杂度上看，跳表和红黑树的性能相当，但跳表相比于红黑树更易实现。
+关于跳表的相关概念这里不再赘述，直接考虑如何使用代码实现。本文使用 C++ 对跳表进行实现。......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2019-10-02
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Data-Structure" title="Data-Structure">Data-Structure</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -527,41 +557,6 @@ P(Y)=∑z∈ZP(Y,z)=∑zP......
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/12/23/ethereum-mpt-1/">
-        <h2 class="post-title">
-            Ethereum 中的 MPT ( Merkle Patricia Tree )（一）
-        </h2>
-        <h3 class="post-subtitle">
-            Ethereum 学习笔记
-        </h3>
-        <div class="post-content-preview">
-             概述
-本系列文章分为两部分，第一部分介绍介绍以太坊中使用到的 MPT ( Merkle Patricia Tree ) 的相关背景知识，基本的前缀树，及其改进基数树，以及哈希树。第二部分介绍以太坊中的 Merkle Patricia Tree。
- 前缀树 (Tire / Prefix Tree)
-先给出一个前缀树的例子：
-
-前缀树一种树结构，可以用于存储 (key, value) 对集合。......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-12-23
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Ethereum" title="Ethereum">Ethereum</a>
-            
-              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -668,6 +663,10 @@ P(Y)=∑z∈ZP(Y,z)=∑zP......
     <ul>
       
         <li>
+          <a href="/2020/10/23/ethereum-yellow-paper-4/">以太坊中的消息调用流程</a>
+        </li>
+      
+        <li>
           <a href="/2020/10/22/ethereum-yellow-paper-3/">以太坊中的合约创建流程</a>
         </li>
       
@@ -681,10 +680,6 @@ P(Y)=∑z∈ZP(Y,z)=∑zP......
       
         <li>
           <a href="/2020/09/06/flip-animation-first-step/">FLIP 动画初步</a>
-        </li>
-      
-        <li>
-          <a href="/2020/08/10/ot-js-transform-analysis/">OT 算法的 transform 源码走读</a>
         </li>
       
     </ul>
