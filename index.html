@@ -214,6 +214,37 @@
 
 <div class="post-preview">
 
+    <a href="/2020/10/26/ethereum-yellow-paper-5/">
+        <h2 class="post-title">
+            以太坊虚拟机执行模型
+        </h2>
+        <h3 class="post-subtitle">
+            以太坊 Yellow Paper 学习笔记（五）
+        </h3>
+        <div class="post-content-preview">
+            执行模型说明了在特定的字节码指令和环境数据下系统状态如何被修改。这部分使用以太坊虚拟机 EVM 描述。该虚拟机是一个准图灵完备的虚拟机，因为其能进行的计算受限于 gas。
+ 执行环境
+执行模型使用 Ξ\XiΞ 函数描述：
+(σ′,g′,A,o)≡Ξ(σ,g,I)(\mathbf{\sigma}&#x27;,g&#x27;,A,\mathbf{o})\equiv\Xi(\mathbf{\sig......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2020-10-26
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2020/10/23/ethereum-yellow-paper-4/">
         <h2 class="post-title">
             以太坊中的消息调用流程
@@ -498,38 +529,6 @@ mainIpcServer 在 CodeMain 中的 startup() 中产生：
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2020/03/10/how-vscode-fire-events/">
-        <h2 class="post-title">
-            [VSCode 源码阅读笔记] VSCode 的事件处理
-        </h2>
-        <h3 class="post-subtitle">
-            以日志服务 BufferLogService 为例
-        </h3>
-        <div class="post-content-preview">
-            
-本文从 VSCode 的日志服务之一了解 VSCode 的事件分发和处理。阅读版本为官方当前最新代码的 master 分支。
-
- AbstractLogService
-我们已经知道，VSCode 启动后，会从 src/main.js 异步加载并运行 CodeMain 实例的 .main() 方法并开始启动第一个页面。但是，在 startup(args) 一开始执行时，会先创建一个 buff......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2020-03-10
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -632,6 +631,10 @@ mainIpcServer 在 CodeMain 中的 startup() 中产生：
     <ul>
       
         <li>
+          <a href="/2020/10/26/ethereum-yellow-paper-5/">以太坊虚拟机执行模型</a>
+        </li>
+      
+        <li>
           <a href="/2020/10/23/ethereum-yellow-paper-4/">以太坊中的消息调用流程</a>
         </li>
       
@@ -645,10 +648,6 @@ mainIpcServer 在 CodeMain 中的 startup() 中产生：
       
         <li>
           <a href="/2020/10/18/ethereum-yellow-paper-1/">以太坊世界状态 ( World State ) 转移概览</a>
-        </li>
-      
-        <li>
-          <a href="/2020/09/06/flip-animation-first-step/">FLIP 动画初步</a>
         </li>
       
     </ul>

@@ -214,6 +214,38 @@
 
 <div class="post-preview">
 
+    <a href="/2020/03/10/how-vscode-fire-events/">
+        <h2 class="post-title">
+            [VSCode 源码阅读笔记] VSCode 的事件处理
+        </h2>
+        <h3 class="post-subtitle">
+            以日志服务 BufferLogService 为例
+        </h3>
+        <div class="post-content-preview">
+            
+本文从 VSCode 的日志服务之一了解 VSCode 的事件分发和处理。阅读版本为官方当前最新代码的 master 分支。
+
+ AbstractLogService
+我们已经知道，VSCode 启动后，会从 src/main.js 异步加载并运行 CodeMain 实例的 .main() 方法并开始启动第一个页面。但是，在 startup(args) 一开始执行时，会先创建一个 buff......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2020-03-10
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2020/03/07/how-vscode-launched/">
         <h2 class="post-title">
             [VSCode 源码阅读笔记] VSCode 的启动流程
@@ -381,17 +413,17 @@ output.path
 
 <div class="post-preview">
 
-    <a href="/2019/10/22/kmp-ituition-understand/">
+    <a href="/2019/10/22/manacher-algorithm-explanation/">
         <h2 class="post-title">
-            KMP 算法 —— 理解与实现
+            马拉车算法 ( Manacher’s Algorithm ) 理解与实现
         </h2>
         <h3 class="post-subtitle">
             算法学习笔记
         </h3>
         <div class="post-content-preview">
-            这里简单介绍 KMP 算法及其实现思路。KMP 算法实现了在线性时间内完成子串的查找，下面首先介绍基本的匹配算法，在考虑如何使用 KMP 的思路加快匹配。
- 基本的匹配算法
-基本的思路，就是使用两个指针分别指向字符串 A 和待查找字符串 B，然后比较两个指针处的字符是否相等，如果相等就同时推进两个指针，否则回退两个指针 ( 具体来说，两个指针都先回退 B 指针移动的距离，此时，B 指针回到索......
+            这里介绍用于计算回文子串的算法 Manacher’s Algorithm。
+ 简单的办法
+容易想到复杂度为 O(n2)O(n^2)O(n​2​​) 的算法，对于每一个字符及他们的间隔进行遍历，每个位置从中心扩展，即每次同时检查关于该点轴对称的两点，如果相等继续扩展直至无法扩展，例如对于串 “abacaba” 需要遍历下面的所有位置 ( 间隔处使用 “#” 标出，实现时，也可以先在字符串间加入......
         </div>
     </a>
     
@@ -411,17 +443,17 @@ output.path
 
 <div class="post-preview">
 
-    <a href="/2019/10/22/manacher-algorithm-explanation/">
+    <a href="/2019/10/22/kmp-ituition-understand/">
         <h2 class="post-title">
-            马拉车算法 ( Manacher’s Algorithm ) 理解与实现
+            KMP 算法 —— 理解与实现
         </h2>
         <h3 class="post-subtitle">
             算法学习笔记
         </h3>
         <div class="post-content-preview">
-            这里介绍用于计算回文子串的算法 Manacher’s Algorithm。
- 简单的办法
-容易想到复杂度为 O(n2)O(n^2)O(n​2​​) 的算法，对于每一个字符及他们的间隔进行遍历，每个位置从中心扩展，即每次同时检查关于该点轴对称的两点，如果相等继续扩展直至无法扩展，例如对于串 “abacaba” 需要遍历下面的所有位置 ( 间隔处使用 “#” 标出，实现时，也可以先在字符串间加入......
+            这里简单介绍 KMP 算法及其实现思路。KMP 算法实现了在线性时间内完成子串的查找，下面首先介绍基本的匹配算法，在考虑如何使用 KMP 的思路加快匹配。
+ 基本的匹配算法
+基本的思路，就是使用两个指针分别指向字符串 A 和待查找字符串 B，然后比较两个指针处的字符是否相等，如果相等就同时推进两个指针，否则回退两个指针 ( 具体来说，两个指针都先回退 B 指针移动的距离，此时，B 指针回到索......
         </div>
     </a>
     
@@ -494,42 +526,6 @@ output.path
         <p class="post-meta" style="margin: 10px 0;">
             Posted by Nicodechal on
             2019-10-14
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/10/09/cycle-finding-DFS/">
-        <h2 class="post-title">
-            环路检测的 DFS 算法
-        </h2>
-        <h3 class="post-subtitle">
-            算法学习笔记
-        </h3>
-        <div class="post-content-preview">
-            传统的 DFS 算法比较简单，这里考虑可以进行环路检测的 DFS 算法, 该算法也称为 “White-Gray-Black” DFS。
- 算法思路
-对于访问的节点，相比于以往使用 visited 数组记录一个点是否访问，这里使用一个 color 数组，将状态分为三种：
-
-WHITE: 节点还未访问
-GRAY: 节点正在被访问
-BLACK: 节点已经访问
-
-可以看到，节点正在访问的情况也被记录......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2019-10-09
         </p>
         <div class="tags">
             
@@ -647,6 +643,10 @@ BLACK: 节点已经访问
     <ul>
       
         <li>
+          <a href="/2020/10/26/ethereum-yellow-paper-5/">以太坊虚拟机执行模型</a>
+        </li>
+      
+        <li>
           <a href="/2020/10/23/ethereum-yellow-paper-4/">以太坊中的消息调用流程</a>
         </li>
       
@@ -660,10 +660,6 @@ BLACK: 节点已经访问
       
         <li>
           <a href="/2020/10/18/ethereum-yellow-paper-1/">以太坊世界状态 ( World State ) 转移概览</a>
-        </li>
-      
-        <li>
-          <a href="/2020/09/06/flip-animation-first-step/">FLIP 动画初步</a>
         </li>
       
     </ul>
