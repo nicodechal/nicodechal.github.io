@@ -144,14 +144,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -211,6 +211,70 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2020/04/03/vscode-ipc-channel/">
+        <h2 class="post-title">
+            [VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 二 )
+        </h2>
+        <h3 class="post-subtitle">
+            ChannelClient 和 ChannelServer
+        </h3>
+        <div class="post-content-preview">
+            
+本文介绍 VSCode 中的 ChannelServer 和 ChannelClient。
+
+前面提到，VSCode 中 Server 对象维护了一个 Channel 的列表，客户端连接 Server 时可以会创建一个连接 Connection，Connection 中的 channelClient 可以发起请求调用方法或监听事件，请求打包成一条消息发送给 channelServer，ch......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2020-04-03
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2020/03/16/vscode-ipc-outline/">
+        <h2 class="post-title">
+            [VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 一 )
+        </h2>
+        <h3 class="post-subtitle">
+            从 mainIpcServer 开始
+        </h3>
+        <div class="post-content-preview">
+            
+本文从 mainIpcServer 相关源码出发了解 VSCode 中的进程间通讯的大致过程
+
+ mainIpcServer 的产生
+mainIpcServer 在 CodeMain 中的 startup() 中产生：
+1234567891011121314class CodeMain &#123;  private async startup(args: ParsedArgs): Pro......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2020-03-16
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -413,36 +477,6 @@ output.path
 
 <div class="post-preview">
 
-    <a href="/2019/10/22/manacher-algorithm-explanation/">
-        <h2 class="post-title">
-            马拉车算法 ( Manacher’s Algorithm ) 理解与实现
-        </h2>
-        <h3 class="post-subtitle">
-            算法学习笔记
-        </h3>
-        <div class="post-content-preview">
-            这里介绍用于计算回文子串的算法 Manacher’s Algorithm。
- 简单的办法
-容易想到复杂度为 O(n2)O(n^2)O(n​2​​) 的算法，对于每一个字符及他们的间隔进行遍历，每个位置从中心扩展，即每次同时检查关于该点轴对称的两点，如果相等继续扩展直至无法扩展，例如对于串 “abacaba” 需要遍历下面的所有位置 ( 间隔处使用 “#” 标出，实现时，也可以先在字符串间加入......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2019-10-22
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
     <a href="/2019/10/22/kmp-ituition-understand/">
         <h2 class="post-title">
             KMP 算法 —— 理解与实现
@@ -473,59 +507,23 @@ output.path
 
 <div class="post-preview">
 
-    <a href="/2019/10/16/css-spec-in-chinese-visual-formatting-model/">
+    <a href="/2019/10/22/manacher-algorithm-explanation/">
         <h2 class="post-title">
-            [CSS 2.2 中文] 可视化格式模型 - Visual Formatting Model
-        </h2>
-        <h3 class="post-subtitle">
-            CSS 标准翻译
-        </h3>
-        <div class="post-content-preview">
-            LINK
- 可视化格式模型 ( Visual Formatting Model ) 序言
-这一章 (第九章) 和下一章将描述可视化格式模型 ( visual formatting model )，即用户代理 ( user agents ) 如何为可视媒体 ( visual media ) 处理文档树 ( document tree )。
-在可视化格式模型中，文档树中的每个元素都会根据盒子模型......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2019-10-16
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#CSS" title="CSS">CSS</a>
-            
-              <a href="/tags/#Translation" title="Translation">Translation</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/10/14/bridge-finding-algorithm/">
-        <h2 class="post-title">
-            寻找连通图中的桥
+            马拉车算法 ( Manacher’s Algorithm ) 理解与实现
         </h2>
         <h3 class="post-subtitle">
             算法学习笔记
         </h3>
         <div class="post-content-preview">
-            从概念上讲，连通图，就是任意两点都连通的无向图，连通，就是指两个点有路径相连。而桥，简单来讲就是图上的一条边，如果去掉这条边，原图就不再是连通图。本文考虑如何找出所有的这样的边。
- 算法思路
-这里使用的方法思路来源于 Tarjan 算法，该算法用于求有向图中的强连通分量，这里借用其思路来寻找无向图中的桥。
-该算法的基本思路是，
-
-首先对图进行一次 DFS 搜索，并对节点按照遍历到的顺序进行编......
+            这里介绍用于计算回文子串的算法 Manacher’s Algorithm。
+ 简单的办法
+容易想到复杂度为 O(n2)O(n^2)O(n​2​​) 的算法，对于每一个字符及他们的间隔进行遍历，每个位置从中心扩展，即每次同时检查关于该点轴对称的两点，如果相等继续扩展直至无法扩展，例如对于串 “abacaba” 需要遍历下面的所有位置 ( 间隔处使用 “#” 标出，实现时，也可以先在字符串间加入......
         </div>
     </a>
     
         <p class="post-meta" style="margin: 10px 0;">
             Posted by Nicodechal on
-            2019-10-14
+            2019-10-22
         </p>
         <div class="tags">
             
@@ -643,6 +641,14 @@ output.path
     <ul>
       
         <li>
+          <a href="/2020/12/26/patch-diff/">patch 和 diff 命令的使用</a>
+        </li>
+      
+        <li>
+          <a href="/2020/11/14/eip-225-clique/">EIP-225: Clique 权威证明 ( proof-of-authority ) 一致性协议</a>
+        </li>
+      
+        <li>
           <a href="/2020/10/26/ethereum-yellow-paper-5/">以太坊虚拟机执行模型</a>
         </li>
       
@@ -652,14 +658,6 @@ output.path
       
         <li>
           <a href="/2020/10/22/ethereum-yellow-paper-3/">以太坊中的合约创建流程</a>
-        </li>
-      
-        <li>
-          <a href="/2020/10/21/ethereum-yellow-paper-2/">以太坊交易执行 ( Transaciton Execution ) 流程</a>
-        </li>
-      
-        <li>
-          <a href="/2020/10/18/ethereum-yellow-paper-1/">以太坊世界状态 ( World State ) 转移概览</a>
         </li>
       
     </ul>
@@ -749,7 +747,7 @@ output.path
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Nicodechal 2020 
+                    Copyright &copy; Nicodechal 2022 
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">

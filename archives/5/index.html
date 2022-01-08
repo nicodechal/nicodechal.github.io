@@ -144,14 +144,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -211,6 +211,71 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2018/04/15/using-of-vuegister-module/">
+        <h2 class="post-title">
+            类似 babel-register 的 Vue 单文件组件编译模块 Vuegister 插件的使用
+        </h2>
+        <h3 class="post-subtitle">
+            Parcel Vue 项目测试实践
+        </h3>
+        <div class="post-content-preview">
+             为什么使用 Vuegister
+最近，Parcel 默认支持了 Vue 单文件组件的打包，于是尝试使用 Parcel 搭建了 Vue.js 单文件组件开发环境。使用时可以开箱即用的开始 Vue.js 项目，非常方便。但是当我想尝试使用 Mocha + Chai 实现组件测试时却发现单文件组件并不能直接被测试：Parcel 直接将编译的结果进行了打包，没有独立的 Vue 组件编译，这也是为什......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-04-15
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
+            
+              <a href="/tags/#Vue.js" title="Vue.js">Vue.js</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/04/01/vue-sfc-compile-without-webpack/">
+        <h2 class="post-title">
+            如何不依赖 Webpack 编译 Vue 单文件组件
+        </h2>
+        <h3 class="post-subtitle">
+            vueify 体验记录
+        </h3>
+        <div class="post-content-preview">
+             起因
+通常编译 Vue 的单文件组件时都会使用 vue-loader ，而要使用 vue-loader 就需要在项目中引入 webpack 。
+也许你不需要或不想使用 webpack ，但遇到了需要将 Vue 的单文件组件 (*.vue 文件) 转换为普通 js 模块 (*.js 文件) 的情况，此时可以尝试使用 vueify。
+ 使用 vueify 编译
+vueify 是一个提供给 Br......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2018-04-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
+            
+              <a href="/tags/#Vue.js" title="Vue.js">Vue.js</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -486,43 +551,6 @@ SSS：起始变元
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/01/06/theory-of-computation-1/">
-        <h2 class="post-title">
-            [计算理论基础] 有穷自动机
-        </h2>
-        <h3 class="post-subtitle">
-            计算理论基础课程总结
-        </h3>
-        <div class="post-content-preview">
-             确定性有穷自动机
-定义2.1：确定性有穷自动机
-M=(Q,Σ,δ,q0,F)M=(Q,\Sigma, \delta, q_0, F)
-M=(Q,Σ,δ,q​0​​,F)
-其中：
-
-QQQ：有穷状态集
-Σ\SigmaΣ: 输入字母表
-δ:Q×Σ→Q\delta: Q \times \Sigma \to Qδ:Q×Σ→Q: 转移函数
-扩展的转移函数：δ:Q×Σ∗→Q\delta: Q \tim......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2018-01-06
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Computation" title="Computation">Computation</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -533,6 +561,10 @@ QQQ：有穷状态集
             <a href="/archives/4/">&larr; Newer Posts</a>
         </li>
     
+    
+        <li class="next">
+            <a href="/archives/6/">Older Posts &rarr;</a>
+        </li>
     
 </ul>
 
@@ -625,6 +657,14 @@ QQQ：有穷状态集
     <ul>
       
         <li>
+          <a href="/2020/12/26/patch-diff/">patch 和 diff 命令的使用</a>
+        </li>
+      
+        <li>
+          <a href="/2020/11/14/eip-225-clique/">EIP-225: Clique 权威证明 ( proof-of-authority ) 一致性协议</a>
+        </li>
+      
+        <li>
           <a href="/2020/10/26/ethereum-yellow-paper-5/">以太坊虚拟机执行模型</a>
         </li>
       
@@ -634,14 +674,6 @@ QQQ：有穷状态集
       
         <li>
           <a href="/2020/10/22/ethereum-yellow-paper-3/">以太坊中的合约创建流程</a>
-        </li>
-      
-        <li>
-          <a href="/2020/10/21/ethereum-yellow-paper-2/">以太坊交易执行 ( Transaciton Execution ) 流程</a>
-        </li>
-      
-        <li>
-          <a href="/2020/10/18/ethereum-yellow-paper-1/">以太坊世界状态 ( World State ) 转移概览</a>
         </li>
       
     </ul>
@@ -731,7 +763,7 @@ QQQ：有穷状态集
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Nicodechal 2020 
+                    Copyright &copy; Nicodechal 2022 
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">

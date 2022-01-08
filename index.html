@@ -144,14 +144,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/links/">links</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/links/">links</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -211,6 +211,97 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2020/12/26/patch-diff/">
+        <h2 class="post-title">
+            patch 和 diff 命令的使用
+        </h2>
+        <h3 class="post-subtitle">
+            Linux 常用命令使用记录
+        </h3>
+        <div class="post-content-preview">
+             diff 命令
+此用于比较两个目录或文件的差异，并输出他们之间的差异，差异可以理解为一系列的操作，对于源文件 A 和目标文件 B，使用 diff 结果描述的操作（对 A 文件增删改操作）后，可以将 A 文件内容修改到和 B 一致。使用下面命令输出 A 和 B 之间的差异：
+123diff A B # 输出 A 文件和 B 文件的差异。diff -r A B # 输出 A *文件夹* 和 B......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2020-12-26
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Linux" title="Linux">Linux</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2020/11/14/eip-225-clique/">
+        <h2 class="post-title">
+            EIP-225: Clique 权威证明 ( proof-of-authority ) 一致性协议
+        </h2>
+        <h3 class="post-subtitle">
+            EIP-225 阅读及翻译
+        </h3>
+        <div class="post-content-preview">
+            
+
+
+作者
+Péter Szilágyi
+
+
+
+
+讨论区
+https://github.com/ethereum/EIPs/issues/225
+
+
+状态
+Final
+
+
+类型
+Standards Track
+
+
+分类
+Core
+
+
+创建时间
+2017-03-06
+
+
+
+ 摘要
+Clique 是一种权威证明一致性协议，它切合以太网主网的设计，所以可以以最小影响添加到客户端中。
+ 动机
+以太坊......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Nicodechal on
+            2020-11-14
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Blockchain" title="Blockchain">Blockchain</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -465,70 +556,6 @@ if an imaginary cursor runs over the entire stri......
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2020/04/03/vscode-ipc-channel/">
-        <h2 class="post-title">
-            [VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 二 )
-        </h2>
-        <h3 class="post-subtitle">
-            ChannelClient 和 ChannelServer
-        </h3>
-        <div class="post-content-preview">
-            
-本文介绍 VSCode 中的 ChannelServer 和 ChannelClient。
-
-前面提到，VSCode 中 Server 对象维护了一个 Channel 的列表，客户端连接 Server 时可以会创建一个连接 Connection，Connection 中的 channelClient 可以发起请求调用方法或监听事件，请求打包成一条消息发送给 channelServer，ch......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2020-04-03
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2020/03/16/vscode-ipc-outline/">
-        <h2 class="post-title">
-            [VSCode 源码阅读笔记] VSCode 的进程间通讯 ( 一 )
-        </h2>
-        <h3 class="post-subtitle">
-            从 mainIpcServer 开始
-        </h3>
-        <div class="post-content-preview">
-            
-本文从 mainIpcServer 相关源码出发了解 VSCode 中的进程间通讯的大致过程
-
- mainIpcServer 的产生
-mainIpcServer 在 CodeMain 中的 startup() 中产生：
-1234567891011121314class CodeMain &#123;  private async startup(args: ParsedArgs): Pro......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Nicodechal on
-            2020-03-16
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Front-End" title="Front-End">Front-End</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -631,6 +658,14 @@ mainIpcServer 在 CodeMain 中的 startup() 中产生：
     <ul>
       
         <li>
+          <a href="/2020/12/26/patch-diff/">patch 和 diff 命令的使用</a>
+        </li>
+      
+        <li>
+          <a href="/2020/11/14/eip-225-clique/">EIP-225: Clique 权威证明 ( proof-of-authority ) 一致性协议</a>
+        </li>
+      
+        <li>
           <a href="/2020/10/26/ethereum-yellow-paper-5/">以太坊虚拟机执行模型</a>
         </li>
       
@@ -640,14 +675,6 @@ mainIpcServer 在 CodeMain 中的 startup() 中产生：
       
         <li>
           <a href="/2020/10/22/ethereum-yellow-paper-3/">以太坊中的合约创建流程</a>
-        </li>
-      
-        <li>
-          <a href="/2020/10/21/ethereum-yellow-paper-2/">以太坊交易执行 ( Transaciton Execution ) 流程</a>
-        </li>
-      
-        <li>
-          <a href="/2020/10/18/ethereum-yellow-paper-1/">以太坊世界状态 ( World State ) 转移概览</a>
         </li>
       
     </ul>
@@ -737,7 +764,7 @@ mainIpcServer 在 CodeMain 中的 startup() 中产生：
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Nicodechal 2020 
+                    Copyright &copy; Nicodechal 2022 
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">
